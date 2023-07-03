@@ -240,10 +240,10 @@ function startGame()
 		$spawnPointsUsed[%i] = 0;
 		%i = %i + 1.0;
 	}
-	%ID_team_bonus_AI = getRandom(1, $nb_teams);
+	%ID_team_bonus_AI = getRandom(1, $nb_teams); //assign a random team to get an AI bonus
 	echo("== ID_team_bonus_AI : " @ %ID_team_bonus_AI);
 	%current_team_ID = 1;
-	while(%current_team_ID <= $nb_teams)
+	while(%current_team_ID <= $nb_teams) //iterate through all teams and spawn their associated players
 	{
 		if (%current_team_ID == 1.0)
 		{
@@ -508,6 +508,7 @@ function onCycleExec()
 	$Game::Schedule = schedule($Game::EndGamePause * 0.0, 0, "onCyclePauseEnd");
 }
 
+//handle map selection logic
 function onCyclePauseEnd()
 {
 	$Game::Cycling = 0;
@@ -520,6 +521,7 @@ function onCyclePauseEnd()
 	{
 		%search = $Server::MissionFileSpec;
 		%file = findFirstFile(%search);
+		// This code is not correct and results in wrong behavior. Refer to issue #1
 		while(%file $= "")
 		{
 			if (%file $= $Server::MissionFile)
@@ -611,7 +613,7 @@ function GameConnection::onClientEnterGame(%this)
 function GameConnection::onClientLeaveGame(%this)
 {
 	%thisTeam_dead = 0;
-	if ($Team[%this.team_id].numPlayers == 0.0)
+	if ($Team[%this.team_id].numPlayers == 0)
 	{
 		%thisTeam_dead = 1;
 	}
@@ -663,7 +665,7 @@ function GameConnection::onDeath(%this, %unused_var_1, %unused_var_2, %unused_va
 	}
 	else
 	{
-		if ($Team[%this.team.teamId].numPlayers != 0.0)
+		if ($Team[%this.team.teamId].numPlayers != 0)
 		{
 			$Team[%this.team.teamId].Player[1] = AIPlayer::spawn($Team[%this.team.teamId].name @ 1, pickSpawnPoint($Team[%this.team.teamId].name, 1), %this.team.teamId, 1, 0);
 		}
@@ -677,7 +679,7 @@ function GameConnection::onDeath(%this, %unused_var_1, %unused_var_2, %unused_va
 		commandToClient(%this, 'death');
 	}
 	%this.schedule(900, spawnPlayer);
-	if ($Team[%this.team_id].numPlayers != 0.0)
+	if ($Team[%this.team_id].numPlayers != 0)
 	{
 		%this.schedule(700, ReincarnationMessage);
 	}
@@ -739,7 +741,8 @@ function GameConnection::chooseAI(%this)
 			}
 			%this.id_in_team = %i;
 			%current_ai.stop();
-			// %current_ai.playReincarnation();
+			// TODO: investiage this, players should play respawn animation when re-incarnated however uncommenting this line causes every AI on that team to play the animation.
+			// %current_ai.playReincarnation(%this);
 			commandToClient(%this, 'MountDecoObjects');
 			%i = %i + 1.0;
 		}
@@ -774,7 +777,7 @@ function GameConnection::endgameNoCamera(%this)
 
 function GameConnection::createObserver(%this, %spawnPoint)
 {
-	if (%this.Player > 0.0)
+	if (%this.Player > 0)
 	{
 		error("Attempting to create an angus ghost!");
 	}
@@ -789,6 +792,7 @@ function GameConnection::createObserver(%this, %spawnPoint)
 	if (!$Game::Sessionfinished)
 	{
 		%playerObserver.setInventory(observ, 1);
+		// DemoPenguin is the name given to those playing the Penguins arena demo
 		if (strstr(%this.getPlayerName(), "DemoPenguin") == 0.0)
 		{
 			%playerObserver.setInventory(observAmmo, 2);
@@ -816,10 +820,10 @@ function pickSpawnPoint(%team, %unused_var_1)
 		if (%count > 0.0)
 		{
 			%spawn_counter = 0;
-			while(%spawnOK != 1.0 && %spawn_counter < 200.0)
+			while(%spawnOK != 1 && %spawn_counter < 200.0)
 			{
 				%current_spawn = getRandom(%count - 1.0);
-				if ($spawnPointsUsed[%current_spawn] == 0.0)
+				if ($spawnPointsUsed[%current_spawn] == 0) //if this spawnpoint isn't used, set it to be used and return its transform
 				{
 					%spawnOK = 1;
 					$spawnPointsUsed[%current_spawn] = 1;
@@ -877,7 +881,7 @@ function pickObserverPoint(%client, %numTeam)
 
 function GameConnection::joinTeam(%this, %teamid)
 {
-	if (%teamid > 4.0 || %teamid < 0.0)
+	if (%teamid > 4 || %teamid < 0)
 	{
 		return 0;
 	}
