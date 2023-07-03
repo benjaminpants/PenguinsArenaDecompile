@@ -16,9 +16,9 @@ To use the modified files:
 
 1. Make sure you have the original game installed.
 2. Replace the game's original TorqueScript files with the decompiled files from this repository.
-3. Start your game as usual. The game engine will automatically recompile the modified files into valid .cs.dso files on launch.
+3. Start your game as usual. The game engine will automatically compile the modified files into valid .cs.dso files on launch.
 
-Please note that this process does not permanently modify the game files. The game engine will compile the original files back to their initial state if you remove the decompiled scripts.
+Please note that these changes are permanent - the modified scripts will replace the original game files. Therefore, if you wish to revert back to the original game version, it is recommended that you keep a backup of the original files. The game will automatically compile the scripts, overwriting the originals.
 
 ## Disclaimer
 
