@@ -4,6 +4,7 @@ import struct
 import argparse
 import os
 import shutil
+import glob
 
 from decompile import decompile
 
@@ -102,13 +103,20 @@ class DSOFile:
 
 def main():
     parser = argparse.ArgumentParser(description="Decompile DSO files.")
-    parser.add_argument("file", metavar='file', nargs="+", help="The DSO file to decompile.")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--file", metavar='file', nargs="+", help="The DSO file to decompile.")
+    group.add_argument("--folder", metavar='folder', nargs="+", help="The folder containing DSO files to decompile.")
     parser.add_argument("--stdout", action="store_true", help="Dump the decompiled script to stdout.")
     args = parser.parse_args()
+
+    if args.folder:
+        args.file = glob.glob(args.folder[0] + "\\**\\*.cs.dso")
+
     for f in args.file:
+        current_file = f
         # Verify that the file exists.
         if not os.path.exists(f):
-            print("{!] Error: could not find %s" % f, file=sys.stderr)
+            print("[!] Error: could not find %s" % f, file=sys.stderr)
             continue
 
         # Set the output filename
@@ -128,7 +136,7 @@ def main():
             f = "%s.bak" % f  # Work on the original DSO instead of possibly decompiling our own file.
 
         # Decompile the file
-        dso = DSOFile(sys.argv[1])
+        dso = DSOFile(current_file)
         try:
             decompile(dso, sink=out)
         except Exception:
