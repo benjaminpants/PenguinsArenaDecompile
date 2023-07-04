@@ -1,1 +1,3 @@
 Decompiler/*.pyc
+*.sh
+*.dso

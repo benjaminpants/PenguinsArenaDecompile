@@ -429,13 +429,13 @@ def decompile(dso, sink=None, in_function=False, offset=0):
         elif opcode == "OP_NOT":
             op1 = str(int_stack.pop())
             if op1.count("==") == 1:
-                int_stack.append(op1.replace("==", "!="))
+                int_stack.append(op1)
             elif op1.count("!=") == 1:
-                int_stack.append(op1.replace("!=", "=="))
+                int_stack.append(op1)
             elif op1.count("$=") == 1:
-                int_stack.append(op1.replace("$=", "!$="))
+                int_stack.append(op1)
             elif op1.count("!$=") == 1:
-                int_stack.append(op1.replace("!$=", "$="))
+                int_stack.append(op1)
             elif not op1.startswith("!"):
                 int_stack.append("!%s" % op1)
             elif " " in op1:
