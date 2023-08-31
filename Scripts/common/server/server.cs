@@ -87,6 +87,7 @@ function addToServerGuidList(%guid)
 		}
 		%i = %i + 1.0;
 	}
+	// TODO: look into this
 	if ($Server::GuidList $= "")
 	{
 	}
