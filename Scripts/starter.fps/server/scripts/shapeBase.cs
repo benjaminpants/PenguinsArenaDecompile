@@ -25,7 +25,7 @@ function ShapeBase::clearDamageDt(%this)
 	}
 }
 
-function ShapeBaseData::Damage(%this, %obj, %position, %unused_var_3, %unused_var_4, %damageType)
+function ShapeBaseData::Damage(%this, %obj, %position, %__unused, %__unused, %damageType)
 {
 }
 

@@ -40,7 +40,7 @@ function onServerCreated()
 	$Team[1] = new ScriptObject()
 	{
 		teamId = 1;
-		name = "Blue";
+		name = Blue;
 		realPlayer = 0;
 		playerName = "";
 		client = "";
@@ -67,7 +67,7 @@ function onServerCreated()
 	$Team[2] = new ScriptObject()
 	{
 		teamId = 2;
-		name = "Red";
+		name = Red;
 		realPlayer = 0;
 		playerName = "";
 		client = "";
@@ -94,7 +94,7 @@ function onServerCreated()
 	$Team[3] = new ScriptObject()
 	{
 		teamId = 3;
-		name = "Yellow";
+		name = Yellow;
 		realPlayer = 0;
 		playerName = "";
 		client = "";
@@ -121,7 +121,7 @@ function onServerCreated()
 	$Team[4] = new ScriptObject()
 	{
 		teamId = 4;
-		name = "Green";
+		name = Green;
 		realPlayer = 0;
 		playerName = "";
 		client = "";
@@ -158,7 +158,7 @@ function onMissionLoaded()
 	$rules = "";
 	%rulesSelection = "MissionGroup/rules";
 	$rules = nameToID(%rulesSelection);
-	if ($rules != -1.0)
+	if ($rules != -1)
 	{
 		startSoloGame();
 	}
@@ -184,13 +184,11 @@ function startGame()
 		error("startGame: End the game first!");
 		return;
 	}
-	%clientIndex = 0;
-	while(%clientIndex < ClientGroup.getCount())
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		%cl.score = 0;
 		%cl.ready = 0;
-		%clientIndex = %clientIndex + 1.0;
 	}
 	$nb_teams = 2;
 	if ($pref::Server::nbTeams2)
@@ -210,65 +208,44 @@ function startGame()
 		$nb_pingouins = 12;
 		$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
 	}
-	else
+	else if ($Server::MissionType $= "Duels")
 	{
-		if ($Server::MissionType $= "Duels")
-		{
-			$nb_pingouins = $nb_teams;
-			$nb_joueurs_par_team = 1;
-		}
-		else
-		{
-			if ($Server::MissionType $= "Unlimited")
-			{
-				$nb_pingouins = $nb_teams;
-				$nb_joueurs_par_team = 1;
-			}
-			else
-			{
-				if ($Server::MissionType $= "Modding")
-				{
-					$nb_pingouins = 12;
-					$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
-				}
-			}
-		}
+		$nb_pingouins = $nb_teams;
+		$nb_joueurs_par_team = 1;
 	}
-	%i = 1;
-	while(%i <= 12.0)
+	else if ($Server::MissionType $= "Unlimited")
+	{
+		$nb_pingouins = $nb_teams;
+		$nb_joueurs_par_team = 1;
+	}
+	else if ($Server::MissionType $= "Modding")
+	{
+		$nb_pingouins = 12;
+		$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
+	}
+	for (%i = 1; %i <= 12; %i++)
 	{
 		$spawnPointsUsed[%i] = 0;
-		%i = %i + 1.0;
 	}
-	%ID_team_bonus_AI = getRandom(1, $nb_teams); //assign a random team to get an AI bonus
+	%ID_team_bonus_AI = getRandom(1, $nb_teams);
 	echo("== ID_team_bonus_AI : " @ %ID_team_bonus_AI);
-	%current_team_ID = 1;
-	while(%current_team_ID <= $nb_teams) //iterate through all teams and spawn their associated players
+	for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
 	{
-		if (%current_team_ID == 1.0)
+		if (%current_team_ID == 1)
 		{
 			%current_team_name = "Blue";
 		}
-		else
+		else if (%current_team_ID == 2)
 		{
-			if (%current_team_ID == 2.0)
-			{
-				%current_team_name = "Red";
-			}
-			else
-			{
-				if (%current_team_ID == 3.0)
-				{
-					%current_team_name = "Yellow";
-				}
-				else
-				{
-					if (%current_team_ID == 4.0)
-					{
-						%current_team_name = "Green";
-					}
-				}
-			}
+			%current_team_name = "Red";
+		}
+		else if (%current_team_ID == 3)
+		{
+			%current_team_name = "Yellow";
+		}
+		else if (%current_team_ID == 4)
+		{
+			%current_team_name = "Green";
 		}
 		if (%ID_team_bonus_AI == %current_team_ID)
 		{
@@ -278,39 +255,27 @@ function startGame()
 		{
 			%bonus_AI_level = 0;
 		}
-		%current_player_ID = 1;
-		while(%current_player_ID <= $nb_joueurs_par_team)
+		for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
 		{
 			$Team[%current_team_ID].Player[%current_player_ID] = AIPlayer::spawn(%current_team_name @ %current_player_ID, pickSpawnPoint(%current_team_name, %current_player_ID), %current_team_ID, %current_player_ID, %bonus_AI_level);
-			%current_player_ID = %current_player_ID + 1.0;
 		}
 		if ($Server::MissionType $= "Classic")
 		{
 			$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
 		}
-		else
+		else if ($Server::MissionType $= "Duels")
 		{
-			if ($Server::MissionType $= "Duels")
-			{
-				$Team[%current_team_ID].numPlayers = 3;
-			}
-			else
-			{
-				if ($Server::MissionType $= "Unlimited")
-				{
-					$Team[%current_team_ID].numPlayers = 3;
-				}
-				else
-				{
-					if ($Server::MissionType $= "Modding")
-					{
-						$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
-					}
-				}
-			}
+			$Team[%current_team_ID].numPlayers = 3;
+		}
+		else if ($Server::MissionType $= "Unlimited")
+		{
+			$Team[%current_team_ID].numPlayers = 3;
+		}
+		else if ($Server::MissionType $= "Modding")
+		{
+			$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
 		}
 		messageAll('MsgMembersTeamChanged', "", 1, $Team[%current_team_ID].numPlayers, 0);
-		%current_team_ID = %current_team_ID + 1.0;
 	}
 	debugTeams();
 	$achivement_temp_duel = 0;
@@ -335,27 +300,22 @@ function initCountDown(%attente)
 {
 	%nb_clients_ready = 0;
 	%nb_clients = 0;
-	%clientIndex = 0;
-	while(%clientIndex < ClientGroup.getCount())
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
-		%nb_clients = %nb_clients + 1.0;
-		if (%cl.ready == 1.0 || %cl.isAIControlled())
+		%nb_clients++;
+		if (%cl.ready == 1 || %cl.isAIControlled())
 		{
-			%nb_clients_ready = %nb_clients_ready + 1.0;
+			%nb_clients_ready++;
 		}
-		else
+		else if (%attente <= 10)
 		{
-			if (%attente <= 10.0)
-			{
-				kick(%cl);
-			}
+			kick(%cl);
 		}
-		%clientIndex = %clientIndex + 1.0;
 	}
-	if (ClientGroup.getCount() == %nb_clients_ready || %attente <= 0.0 && %nb_clients > 0.0)
+	if ((ClientGroup.getCount() == %nb_clients_ready || %attente <= 0) && %nb_clients > 0)
 	{
-		if ($dev_build == 1.0)
+		if ($dev_build == 1)
 		{
 			$Game::Schedule = schedule(400, 0, "countDown", 1);
 		}
@@ -366,64 +326,53 @@ function initCountDown(%attente)
 	}
 	else
 	{
-		%clientIndex = 0;
-		while(%clientIndex < ClientGroup.getCount())
+		for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 		{
 			%cl = ClientGroup.getObject(%clientIndex);
 			commandToClient(%cl, 'WaitingForPlayers');
-			%clientIndex = %clientIndex + 1.0;
 		}
-		if (ClientGroup.getCount() <= 0.0 && $Server::Dedicated)
+		if (ClientGroup.getCount() <= 0 && $Server::Dedicated)
 		{
 			$Game::Schedule = schedule(100, 0, "initCountDown", 1000);
 			resetScores();
 		}
 		else
 		{
-			%attente = %attente - 1.0;
-			$Game::Schedule = schedule(100, 0, "initCountDown", %attente - 1.0);
+			$Game::Schedule = schedule(100, 0, "initCountDown", %attente--);
 		}
 	}
 }
 
 function countDown(%i)
 {
-	%clientIndex = 0;
-	while(%clientIndex < ClientGroup.getCount())
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		commandToClient(%cl, 'SetCounter', %i);
-		%clientIndex = %clientIndex + 1.0;
 	}
-	if (%i == 0.0)
+	if (%i == 0)
 	{
 		$Game::DecompteFini = 1;
 		if ($Game::Duration)
 		{
-			$Game::Schedule = schedule($Game::Duration * 1000.0, 0, "onGameDurationEnd");
+			$Game::Schedule = schedule($Game::Duration * 1000, 0, "onGameDurationEnd");
 		}
-		%current_team_ID = 1;
-		while(%current_team_ID <= $nb_teams)
+		for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
 		{
-			%current_player_ID = 1;
-			while(%current_player_ID <= $nb_joueurs_par_team)
+			for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
 			{
 				$Team[%current_team_ID].Player[%current_player_ID].schedule(getRandom(400, 1000), "doscan", $Team[%current_team_ID].Player[%current_player_ID]);
-				%current_player_ID = %current_player_ID + 1.0;
 			}
-			%current_team_ID = %current_team_ID + 1.0;
 		}
-		%clientIndex = 0;
-		while(%clientIndex < ClientGroup.getCount())
+		for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 		{
 			%cl = ClientGroup.getObject(%clientIndex);
 			commandToClient(%cl, 'GameStart');
-			%clientIndex = %clientIndex + 1.0;
 		}
 	}
 	else
 	{
-		%i = %i - 1.0;
+		%i--;
 		$Game::Schedule = schedule(1000, 0, "countDown", %i);
 	}
 }
@@ -438,21 +387,17 @@ function serverCmdDecompteTermine(%client)
 
 function resetScores()
 {
-	%team = 1;
-	while(%team <= $nb_teams)
+	for (%team = 1; %team <= $nb_teams; %team++)
 	{
 		$Team[%team].score = 0;
-		%i = 1;
-		while(%i <= 10.0)
+		for (%i = 1; %i <= 10; %i++)
 		{
 			$Team[%team].scoreLTG[%i] = 0;
-			%i = %i + 1.0;
 		}
 		$Team[%team].scoreLTGtotal = 0;
 		messageAll('MsgTeamScoreLTGChanged', "", %team, $Team[%team].scoreLTGtotal);
 		messageAll('MsgTeamScoreChanged', "", %team, $Team[%team].score, $Team[%team].playerName);
 		messageAll('MsgResetScores', "");
-		%team = %team + 1.0;
 	}
 }
 
@@ -497,32 +442,27 @@ function cycleGame()
 
 function onCycleExec()
 {
-	%clientIndex = 0;
-	while(%clientIndex < ClientGroup.getCount())
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		commandToClient(%cl, 'GameEndTakeScreenshot');
-		%clientIndex = %clientIndex + 1.0;
 	}
 	endGame();
-	$Game::Schedule = schedule($Game::EndGamePause * 0.0, 0, "onCyclePauseEnd");
+	$Game::Schedule = schedule($Game::EndGamePause * 0, 0, "onCyclePauseEnd");
 }
 
-//handle map selection logic
 function onCyclePauseEnd()
 {
 	$Game::Cycling = 0;
 	if ($Server::MissionType $= "Modding")
 	{
 		%file = "starter.fps/data/missions_modding/" @ $pref::nextCustomMap;
-		$Pref::Server::Name = "[Mod:" @ getSubStr($pref::nextCustomMap, 0, strlen($pref::nextCustomMap) - 4.0) @ "] " @ badWordStrip($pref::Player::Name);
+		$Pref::Server::Name = "[Mod:" @ getSubStr($pref::nextCustomMap, 0, strlen($pref::nextCustomMap) - 4) @ "] " @ badWordStrip($pref::Player::Name);
 	}
 	else
 	{
 		%search = $Server::MissionFileSpec;
-		%file = findFirstFile(%search);
-		// This code is not correct and results in wrong behavior. Refer to issue #1
-		while(%file $= "")
+		for (%file = findFirstFile(%search); %file !$= ""; %file = findNextFile(%search))
 		{
 			if (%file $= $Server::MissionFile)
 			{
@@ -531,10 +471,7 @@ function onCyclePauseEnd()
 				{
 					%file = findFirstFile(%search);
 				}
-			}
-			else
-			{
-				%file = findNextFile(%search);
+				break;
 			}
 		}
 	}
@@ -548,7 +485,7 @@ function GameConnection::onClientEnterGame(%this)
 	%this.score = 0;
 	%this.Camera = new Camera()
 	{
-		dataBlock = "Observer";
+		dataBlock = Observer;
 	};
 	MissionCleanup.add(%this.Camera);
 	%this.Camera.scopeToClient(%this);
@@ -562,26 +499,23 @@ function GameConnection::onClientEnterGame(%this)
 		echo("Pas d'equipe ??");
 		quit();
 	}
-	%team_num = 1;
-	while(%team_num <= $nb_teams)
+	for (%team_num = 1; %team_num <= $nb_teams; %team_num++)
 	{
-		if ($Team[%team_num].scoreLTG[10] >= 1.0)
+		if ($Team[%team_num].scoreLTG[10] >= 1)
 		{
 			%last_winning_team = %team_num;
 		}
-		%team_num = %team_num + 1.0;
 	}
 	messageClient(%this, 'MsgInitTeamGUI', "", %this.team_id, $nb_teams, %last_winning_team);
-	%team_num = 1;
-	while(%team_num <= $nb_teams)
+	for (%team_num = 1; %team_num <= $nb_teams; %team_num++)
 	{
 		%controled_by_player = 0;
 		%dead = 0;
-		if ($Team[%team_num].realPlayer >= 1.0)
+		if ($Team[%team_num].realPlayer >= 1)
 		{
 			%controled_by_player = 1;
 		}
-		if ($Team[%team_num].numPlayers == 0.0)
+		if ($Team[%team_num].numPlayers == 0)
 		{
 			%dead = 1;
 		}
@@ -589,15 +523,13 @@ function GameConnection::onClientEnterGame(%this)
 		messageClient(%this, 'MsgMembersTeamChanged', "", %team_num, $Team[%team_num].numPlayers, 0);
 		messageClient(%this, 'MsgTeamScoreChanged', "", %team_num, $Team[%team_num].score, $Team[%team_num].playerName);
 		messageClient(%this, 'MsgTeamScoreLTGChanged', "", %team_num, $Team[%team_num].scoreLTGtotal);
-		%team_num = %team_num + 1.0;
 	}
 	%thisTeam_dead = 0;
-	if ($Team[%this.team_id].numPlayers == 0.0)
+	if ($Team[%this.team_id].numPlayers == 0)
 	{
 		%thisTeam_dead = 1;
 	}
-	%clientIndex = 0;
-	while(%clientIndex < ClientGroup.getCount())
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %this.team_id, 1, %thisTeam_dead, %this.getPlayerName());
@@ -605,7 +537,6 @@ function GameConnection::onClientEnterGame(%this)
 		{
 			messageClient(%cl, 'MsgJoinMessage', "", %this.team_id, %this.getPlayerName());
 		}
-		%clientIndex = %clientIndex + 1.0;
 	}
 	%this.ready = 1;
 }
@@ -617,8 +548,7 @@ function GameConnection::onClientLeaveGame(%this)
 	{
 		%thisTeam_dead = 1;
 	}
-	%clientIndex = 0;
-	while(%clientIndex < ClientGroup.getCount())
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %this.team_id, 0, %thisTeam_dead, "");
@@ -626,7 +556,6 @@ function GameConnection::onClientLeaveGame(%this)
 		{
 			messageClient(%cl, 'MsgLeaveMessage', "", %this.getPlayerName());
 		}
-		%clientIndex = %clientIndex + 1.0;
 	}
 	%this.ready = 0;
 	%this.leaveTeam();
@@ -639,12 +568,9 @@ function GameConnection::onClientLeaveGame(%this)
 		$Team[%this.team.teamId].Player[%this.id_in_team].schedule(1000, "doscan", $Team[%this.team.teamId].Player[%this.id_in_team]);
 		$Team[%this.team.teamId].Player[%this.id_in_team].unmountImage(7);
 	}
-	else
+	else if (isObject(%this.Player) && %this.Player.isObserver)
 	{
-		if (isObject(%this.Player) && %this.Player.isObserver)
-		{
-			%this.Player.delete();
-		}
+		%this.Player.delete();
 	}
 }
 
@@ -656,23 +582,20 @@ function GameConnection::onEnterMissionArea(%this)
 {
 }
 
-function GameConnection::onDeath(%this, %unused_var_1, %unused_var_2, %unused_var_3, %unused_var_4)
+function GameConnection::onDeath(%this, %__unused, %__unused, %__unused, %__unused)
 {
 	%this.Player = '';
 	if ($Server::MissionType $= "Classic" || $Server::MissionType $= "Modding")
 	{
 		$Team[%this.team.teamId].Player[%this.id_in_team] = 0;
 	}
+	else if ($Team[%this.team.teamId].numPlayers != 0)
+	{
+		$Team[%this.team.teamId].Player[1] = AIPlayer::spawn($Team[%this.team.teamId].name @ "1", pickSpawnPoint($Team[%this.team.teamId].name, 1), %this.team.teamId, 1, 0);
+	}
 	else
 	{
-		if ($Team[%this.team.teamId].numPlayers != 0)
-		{
-			$Team[%this.team.teamId].Player[1] = AIPlayer::spawn($Team[%this.team.teamId].name @ 1, pickSpawnPoint($Team[%this.team.teamId].name, 1), %this.team.teamId, 1, 0);
-		}
-		else
-		{
-			$Team[%this.team.teamId].Player[1] = 0;
-		}
+		$Team[%this.team.teamId].Player[1] = 0;
 	}
 	if (!$Game::Sessionfinished)
 	{
@@ -687,7 +610,7 @@ function GameConnection::onDeath(%this, %unused_var_1, %unused_var_2, %unused_va
 
 function GameConnection::ReincarnationMessage(%this)
 {
-	if ($Team[%this.team_id].numPlayers != 0.0)
+	if ($Team[%this.team_id].numPlayers != 0)
 	{
 		if ($Server::MissionType $= "Classic" || $Server::MissionType $= "Modding")
 		{
@@ -702,7 +625,7 @@ function GameConnection::ReincarnationMessage(%this)
 
 function GameConnection::spawnPlayer(%this)
 {
-	if (%this.Player > 0.0)
+	if (%this.Player > 0)
 	{
 		error("Attempting to create an angus ghost!");
 	}
@@ -716,8 +639,7 @@ function GameConnection::chooseAI(%this)
 {
 	echo("== [" @ %this SPC "ai:" @ %this.isAIControlled() SPC "team:" @ %this.team.teamId SPC %this.getPlayerName() @ "] chooseAI");
 	commandToClient(%this, 'ResetGUIBonus');
-	%i = 1;
-	while(%i <= $nb_joueurs_par_team)
+	for (%i = 1; %i <= $nb_joueurs_par_team; %i++)
 	{
 		%current_ai = $Team[%this.team.teamId].Player[%i];
 		if (%current_ai && %current_ai.getState() $= "Move")
@@ -741,14 +663,9 @@ function GameConnection::chooseAI(%this)
 			}
 			%this.id_in_team = %i;
 			%current_ai.stop();
-			// TODO: investiage this, players should play respawn animation when re-incarnated however uncommenting this line causes every AI on that team to play the animation.
-			// %current_ai.playReincarnation(%this);
+			%current_ai.playReincarnation();
 			commandToClient(%this, 'MountDecoObjects');
-			%i = %i + 1.0;
-		}
-		else
-		{
-			%i = %i + 1.0;
+			break;
 		}
 	}
 	if (!%this.Player)
@@ -783,7 +700,7 @@ function GameConnection::createObserver(%this, %spawnPoint)
 	}
 	%playerObserver = new Player()
 	{
-		dataBlock = "PlayerBodyObserver";
+		dataBlock = PlayerBodyObserver;
 		client = %this;
 	};
 	MissionCleanup.add(%playerObserver);
@@ -792,8 +709,7 @@ function GameConnection::createObserver(%this, %spawnPoint)
 	if (!$Game::Sessionfinished)
 	{
 		%playerObserver.setInventory(observ, 1);
-		// DemoPenguin is the name given to those playing the Penguins arena demo
-		if (strstr(%this.getPlayerName(), "DemoPenguin") == 0.0)
+		if (strstr(%this.getPlayerName(), "DemoPenguin") == 0)
 		{
 			%playerObserver.setInventory(observAmmo, 2);
 		}
@@ -810,26 +726,24 @@ function GameConnection::createObserver(%this, %spawnPoint)
 	%this.setControlObject(%playerObserver);
 }
 
-function pickSpawnPoint(%team, %unused_var_1)
+function pickSpawnPoint(%team, %__unused)
 {
 	%groupName = "MissionGroup/PlayerDropPoints";
 	%group = nameToID(%groupName);
-	if (%group != -1.0)
+	if (%group != -1)
 	{
 		%count = %group.getCount();
-		if (%count > 0.0)
+		if (%count > 0)
 		{
-			%spawn_counter = 0;
-			while(%spawnOK != 1 && %spawn_counter < 200.0)
+			for (%spawn_counter = 0; %spawnOK != 1 && %spawn_counter < 200; %spawn_counter++)
 			{
-				%current_spawn = getRandom(%count - 1.0);
-				if ($spawnPointsUsed[%current_spawn] == 0) //if this spawnpoint isn't used, set it to be used and return its transform
+				%current_spawn = getRandom(%count - 1);
+				if ($spawnPointsUsed[%current_spawn] == 0)
 				{
 					%spawnOK = 1;
 					$spawnPointsUsed[%current_spawn] = 1;
 					%index = %current_spawn;
 				}
-				%spawn_counter = %spawn_counter + 1.0;
 			}
 			%spawn = %group.getObject(%index);
 			return %spawn.getTransform();
@@ -850,15 +764,15 @@ function pickObserverPoint(%client, %numTeam)
 {
 	%groupName = "MissionGroup/ObserverDropPoints";
 	%group = nameToID(%groupName);
-	if (%group != -1.0)
+	if (%group != -1)
 	{
 		%count = %group.getCount();
-		if (%count != 0.0)
+		if (%count != 0)
 		{
 			echo("== [" @ %client SPC "ai:" @ %client.isAIControlled() SPC "team:" @ %client.team.teamId SPC %client.getPlayerName() @ "] pickObserverPoint");
-			if (%numTeam >= 1.0)
+			if (%numTeam >= 1)
 			{
-				%index = %numTeam - 1.0;
+				%index = %numTeam - 1;
 				%spawn = %group.getObject(%index);
 				return %spawn.getTransform();
 			}
@@ -899,6 +813,6 @@ function GameConnection::leaveTeam(%this)
 	$Team[%this.team_id].realPlayer = 0;
 	$Team[%this.team_id].client = "";
 	$Team[%this.team_id].playerName = "";
-	messageAll('MsgClientLeaveTeam', '%1 left the %2 team.', %client.name, %client.team.name, %client);
+	messageAll('MsgClientLeaveTeam', '\c2%1 left the %2 team.', %client.name, %client.team.name, %client);
 }
 

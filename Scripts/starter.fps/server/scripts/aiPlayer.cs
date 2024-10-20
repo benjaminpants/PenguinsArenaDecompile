@@ -1,27 +1,27 @@
-new PlayerData(DemoPlayer)
+datablock PlayerData(DemoPlayer : PlayerBody)
 {
 	shootingDelay = 2000;
-}
-new PlayerData(DemoPlayer2)
+};
+datablock PlayerData(DemoPlayer2 : PlayerBody2)
 {
 	shootingDelay = 2000;
-}
-new PlayerData(DemoPlayer3)
+};
+datablock PlayerData(DemoPlayer3 : PlayerBody3)
 {
 	shootingDelay = 2000;
-}
-new PlayerData(DemoPlayer4)
+};
+datablock PlayerData(DemoPlayer4 : PlayerBody4)
 {
 	shootingDelay = 2000;
-}
+};
 function AIPlayer::onDeath(%this)
 {
 	if ($Server::MissionType $= "Duels" || $Server::MissionType $= "Unlimited")
 	{
 		cancel(%this.ailoop);
-		if ($Team[%this.team_id].numPlayers != 0.0)
+		if ($Team[%this.team_id].numPlayers != 0)
 		{
-			$Team[%this.team_id].Player[1] = AIPlayer::spawn($Team[%this.team_id].name @ 1, pickSpawnPoint($Team[%this.team_id].name, 1), %this.team_id, 1, 0);
+			$Team[%this.team_id].Player[1] = AIPlayer::spawn($Team[%this.team_id].name @ "1", pickSpawnPoint($Team[%this.team_id].name, 1), %this.team_id, 1, 0);
 			$Team[%this.team_id].Player[1].schedule(400, "doscan", $Team[%this.team_id].Player[1]);
 			$Team[%this.team_id].Player[1].playReincarnation();
 		}
@@ -32,15 +32,13 @@ function AIPlayer::onDeath(%this)
 	}
 	else
 	{
-		%i = 1;
-		while(%i <= $nb_joueurs_par_team)
+		for (%i = 1; %i <= $nb_joueurs_par_team; %i++)
 		{
 			if ($Team[%this.team_id].Player[%i] == %this)
 			{
 				$Team[%this.team_id].Player[%i] = 0;
 				echo("== AI death - $Team[" @ %this.team_id @ "].player[" @ %i @ "]");
 			}
-			%i = %i + 1.0;
 		}
 		cancel(%this.ailoop);
 	}
@@ -54,64 +52,55 @@ function AIPlayer::spawn(%name, %spawnPoint, %teamid, %id_in_team, %bonus_AI_lev
 	}
 	else
 	{
-		%AI_level_modifier = -1.0;
+		%AI_level_modifier = -1;
 	}
-	if (%teamid == 1.0)
+	if (%teamid == 1)
 	{
 		%player = new AIPlayer()
 		{
-			dataBlock = "DemoPlayer";
+			dataBlock = DemoPlayer;
 			Path = "";
 			team_id = %teamid;
 			id_in_team = %id_in_team;
-			fov = "$AI_PLAYER_FOV";
+			fov = $AI_PLAYER_FOV;
 			AI_level_modifier = %AI_level_modifier;
 		};
 	}
-	else
+	else if (%teamid == 2)
 	{
-		if (%teamid == 2.0)
+		%player = new AIPlayer()
 		{
-			%player = new AIPlayer()
-			{
-				dataBlock = "DemoPlayer2";
-				Path = "";
-				team_id = %teamid;
-				id_in_team = %id_in_team;
-				fov = "$AI_PLAYER_FOV";
-				AI_level_modifier = %AI_level_modifier;
-			};
-		}
-		else
+			dataBlock = DemoPlayer2;
+			Path = "";
+			team_id = %teamid;
+			id_in_team = %id_in_team;
+			fov = $AI_PLAYER_FOV;
+			AI_level_modifier = %AI_level_modifier;
+		};
+	}
+	else if (%teamid == 3)
+	{
+		%player = new AIPlayer()
 		{
-			if (%teamid == 3.0)
-			{
-				%player = new AIPlayer()
-				{
-					dataBlock = "DemoPlayer3";
-					Path = "";
-					team_id = %teamid;
-					id_in_team = %id_in_team;
-					fov = "$AI_PLAYER_FOV";
-					AI_level_modifier = %AI_level_modifier;
-				};
-			}
-			else
-			{
-				if (%teamid == 4.0)
-				{
-					%player = new AIPlayer()
-					{
-						dataBlock = "DemoPlayer4";
-						Path = "";
-						team_id = %teamid;
-						id_in_team = %id_in_team;
-						fov = "$AI_PLAYER_FOV";
-						AI_level_modifier = %AI_level_modifier;
-					};
-				}
-			}
-		}
+			dataBlock = DemoPlayer3;
+			Path = "";
+			team_id = %teamid;
+			id_in_team = %id_in_team;
+			fov = $AI_PLAYER_FOV;
+			AI_level_modifier = %AI_level_modifier;
+		};
+	}
+	else if (%teamid == 4)
+	{
+		%player = new AIPlayer()
+		{
+			dataBlock = DemoPlayer4;
+			Path = "";
+			team_id = %teamid;
+			id_in_team = %id_in_team;
+			fov = $AI_PLAYER_FOV;
+			AI_level_modifier = %AI_level_modifier;
+		};
 	}
 	MissionCleanup.add(%player);
 	%player.setShapeName(%name);
@@ -119,13 +108,13 @@ function AIPlayer::spawn(%name, %spawnPoint, %teamid, %id_in_team, %bonus_AI_lev
 	%player.mountImage(CrossbowImage, 0);
 	%player.setInventory(CrossbowAmmo, 1000);
 	%player.mountImage(coup_de_poingImage, 1);
-	if ($Team[%teamid].scoreLTG[10] >= 1.0)
+	if ($Team[%teamid].scoreLTG[10] >= 1)
 	{
 		%player.mountImage(CrownImage, 6);
 	}
 	if ($debugVisualDebug)
 	{
-		if (%teamid == 2.0)
+		if (%teamid == 2)
 		{
 			%player.vdtTrackAIdestination();
 		}
@@ -144,7 +133,7 @@ function AIPlayer::movealittle(%this, %obj, %chance1, %chance2)
 	{
 		%eviteDestination = "";
 		%eviteDestination = %obj.evitePointsFroids();
-		if (%eviteDestination != 0.0 && %eviteDestination != 0.0)
+		if (%eviteDestination != 0 && %eviteDestination != 0)
 		{
 			%obj.ancienneDestination = %obj.getMoveDestination();
 			%obj.setMoveDestination(%eviteDestination);
@@ -176,7 +165,7 @@ function AIPlayer::movealittle(%this, %obj, %chance1, %chance2)
 function AIPlayer::getAimPoint(%this, %pos, %vel, %AttackDelay)
 {
 	%AimProjectileSpeed = 25;
-	%AimRotErr = 0.129999995232;
+	%AimRotErr = 0.12999999523162842;
 	%posAim1 = %this.calculerAimPoint(%pos, %vel, %AimProjectileSpeed, %AttackDelay, %AimRotErr);
 	return %posAim1;
 }
@@ -196,7 +185,7 @@ function AIPlayer::openfire(%this, %obj, %playerVise)
 	{
 		return;
 	}
-	if (%obj && %obj.getState() !$= "Move" || (%playerVise && %playerVise.getState() !$= "Move"))
+	if (%obj && %obj.getState() !$= "Move" || %playerVise && %playerVise.getState() !$= "Move")
 	{
 		%firing = 0;
 		%obj.clearAim();
@@ -218,7 +207,7 @@ function AIPlayer::openfire(%this, %obj, %playerVise)
 				}
 				else
 				{
-					%posAim = %obj.getAimPoint(VectorAdd(%playerVise.getPosition(), "0 0 2.0"), %playerVise.getVelocity(), 40.0 - $pref::Server::AI_level);
+					%posAim = %obj.getAimPoint(VectorAdd(%playerVise.getPosition(), "0 0 2.0"), %playerVise.getVelocity(), 40 - $pref::Server::AI_level);
 				}
 				%obj.setAimLocation(%posAim);
 				if (%rtt < $AI_PLAYER_CC_DISTANCE)
@@ -237,30 +226,21 @@ function AIPlayer::openfire(%this, %obj, %playerVise)
 					%firing = 1;
 					if ($debugVisualDebug)
 					{
-						if (%obj.team_id == 1.0)
+						if (%obj.team_id == 1)
 						{
 							vdtPoint(%posAim, 8, 3000, "0.0 0.0 1.0 1.0", 0);
 						}
-						else
+						else if (%obj.team_id == 2)
 						{
-							if (%obj.team_id == 2.0)
-							{
-								vdtPoint(%posAim, 8, 3000, "1.0 0.0 0.0 1.0", 0);
-							}
-							else
-							{
-								if (%obj.team_id == 3.0)
-								{
-									vdtPoint(%posAim, 8, 3000, "1.0 1.0 0.0 1.0", 0);
-								}
-								else
-								{
-									if (%obj.team_id == 4.0)
-									{
-										vdtPoint(%posAim, 8, 3000, "0.0 1.0 0.0 1.0", 0);
-									}
-								}
-							}
+							vdtPoint(%posAim, 8, 3000, "1.0 0.0 0.0 1.0", 0);
+						}
+						else if (%obj.team_id == 3)
+						{
+							vdtPoint(%posAim, 8, 3000, "1.0 1.0 0.0 1.0", 0);
+						}
+						else if (%obj.team_id == 4)
+						{
+							vdtPoint(%posAim, 8, 3000, "0.0 1.0 0.0 1.0", 0);
 						}
 					}
 					if (!$debugPauseAITires)
@@ -268,7 +248,7 @@ function AIPlayer::openfire(%this, %obj, %playerVise)
 						%obj.setImageTrigger(0, 1);
 					}
 				}
-				if (VectorDist(%playerVise.getPosition(), %obj.getPosition()) >= 30.0)
+				if (VectorDist(%playerVise.getPosition(), %obj.getPosition()) >= 30)
 				{
 					%obj.setMoveDestination(%playerVise.getPosition());
 				}
@@ -283,14 +263,14 @@ function AIPlayer::openfire(%this, %obj, %playerVise)
 			}
 		}
 	}
-	%this.Trigger = %this.schedule($AI_PLAYER_TRIGGER_DOWN - ($pref::Server::AI_level + %obj.AI_level_modifier) * 10.0, "ceasefire", %obj);
+	%this.Trigger = %this.schedule($AI_PLAYER_TRIGGER_DOWN - ($pref::Server::AI_level + %obj.AI_level_modifier) * 10, "ceasefire", %obj);
 }
 
 function AIPlayer::ceasefire(%this, %obj)
 {
 	%obj.setImageTrigger(0, 0);
 	%obj.setImageTrigger(1, 0);
-	%this.Trigger = %this.schedule($AI_PLAYER_FIREDELAY - ($pref::Server::AI_level + %obj.AI_level_modifier) * 30.0, "delayfire", %obj);
+	%this.Trigger = %this.schedule($AI_PLAYER_FIREDELAY - ($pref::Server::AI_level + %obj.AI_level_modifier) * 30, "delayfire", %obj);
 }
 
 function AIPlayer::delayfire(%this, %obj)
@@ -301,7 +281,7 @@ function AIPlayer::delayfire(%this, %obj)
 function AIPlayer::DoScan(%this, %obj)
 {
 	cancel(%this.ailoop);
-	if (!%obj || (%this.getControllingClient() && !%this.getControllingClient().isAIControlled()))
+	if (!%obj || %this.getControllingClient() && !%this.getControllingClient().isAIControlled())
 	{
 		return;
 	}
@@ -317,9 +297,9 @@ function AIPlayer::DoScan(%this, %obj)
 		{
 			%this.openfire(%obj, %tgt);
 		}
-		if (%ai_controlled && getRandom(1, 4) == 1.0)
+		if (%ai_controlled && getRandom(1, 4) == 1)
 		{
-			%this.movealittle(%obj, $pref::Server::AI_level + %obj.AI_level_modifier + 4.0, 11);
+			%this.movealittle(%obj, $pref::Server::AI_level + %obj.AI_level_modifier + 4, 11);
 			%is_moving = 1;
 		}
 	}
@@ -329,11 +309,11 @@ function AIPlayer::DoScan(%this, %obj)
 		%obj.setImageTrigger(1, 0);
 		%obj.clearAim();
 		%this.stop();
-		%this.movealittle(%obj, $pref::Server::AI_level + %obj.AI_level_modifier + 4.0, 11);
+		%this.movealittle(%obj, $pref::Server::AI_level + %obj.AI_level_modifier + 4, 11);
 	}
 	if (%ai_controlled)
 	{
-		if (%is_moving && getRandom(1, 3) == 1.0)
+		if (%is_moving && getRandom(1, 3) == 1)
 		{
 			%next_doscan_timer = getRandom(150, 1300);
 		}
@@ -345,7 +325,7 @@ function AIPlayer::DoScan(%this, %obj)
 	else
 	{
 		%rand_factor = getRandom(100, 200);
-		%next_doscan_timer = $AI_PLAYER_SCANTIME * %rand_factor / 100.0 - ($pref::Server::AI_level + %obj.AI_level_modifier) * 35.0;
+		%next_doscan_timer = $AI_PLAYER_SCANTIME * (%rand_factor / 100) - ($pref::Server::AI_level + %obj.AI_level_modifier) * 35;
 	}
 	if (!$debugPauseAI)
 	{
@@ -357,9 +337,9 @@ function AIPlayer::CheckLOS(%this, %obj, %playerVise)
 {
 	%eyeTrans = %obj.getEyeTransform();
 	%eyeEnd = %playerVise.getEyeTransform();
-	%searchResult = containerRayCast(%eyeTrans, %eyeEnd, $TypeMasks::InteriorObjectType | $TypeMasks::TerrainObjectType | $TypeMasks::PlayerObjectType, %obj);
+	%searchResult = containerRayCast(%eyeTrans, %eyeEnd, $TypeMasks::PlayerObjectType | $TypeMasks::TerrainObjectType | $TypeMasks::InteriorObjectType, %obj);
 	%foundObject = getWord(%searchResult, 0);
-	if ($TypeMasks::PlayerObjectType & %foundObject.getType())
+	if (%foundObject.getType() & $TypeMasks::PlayerObjectType)
 	{
 		return 1;
 	}
@@ -371,17 +351,15 @@ function AIPlayer::CheckLOS(%this, %obj, %playerVise)
 
 function AIPlayer::GetClosestHumanInSightandRange(%this, %obj)
 {
-	%found_id_player = -1.0;
+	%found_id_player = -1;
 	%found_dist = $AI_PLAYER_DETECT_DISTANCE;
 	%botpos = %this.getPosition();
-	%j = 1;
-	while(%j <= $nb_teams)
+	for (%j = 1; %j <= $nb_teams; %j++)
 	{
-		while(%this.team_id != %j)
+		if (%this.team_id != %j)
 		{
 			%current_team = $Team[%j];
-			%i = 1;
-			if (%i <= $nb_joueurs_par_team)
+			for (%i = 1; %i <= $nb_joueurs_par_team; %i++)
 			{
 				%current_ai = %current_team.Player[%i];
 				if (%current_ai && %current_ai != %this && %current_ai.getState() $= "Move")
@@ -398,12 +376,10 @@ function AIPlayer::GetClosestHumanInSightandRange(%this, %obj)
 						}
 					}
 				}
-				%i = %i + 1.0;
 			}
 		}
-		%j = %j + 1.0;
 	}
-	if (%found_id_player > 0.0)
+	if (%found_id_player > 0)
 	{
 		%id_player = $Team[%found_id_team].Player[%found_id_player];
 	}

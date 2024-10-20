@@ -1,10 +1,10 @@
-new AudioProfile(OrqueSound)
+datablock AudioProfile(OrqueSound)
 {
 	fileName = "~/data/sound/Son_orque.wav";
-	description = "AudioDefault3d";
+	description = AudioDefault3d;
 	preload = 1;
-}
-new StaticShapeData(orque)
+};
+datablock StaticShapeData(orque)
 {
 	category = "decors";
 	shapeFile = "~/data/shapes/orque/orque.dts";
@@ -14,8 +14,8 @@ new StaticShapeData(orque)
 	emap = 1;
 	computeCRC = 0;
 	shadowEnable = 0;
-}
-function orque::onAdd(%unused_var_0, %obj)
+};
+function orque::onAdd(%__unused, %obj)
 {
 	%obj.playThread(0, "attaque");
 	%obj.playAudio(2, OrqueSound);
@@ -23,10 +23,10 @@ function orque::onAdd(%unused_var_0, %obj)
 
 function orqueEclaboussures(%loc)
 {
-	spawnExplosion(%loc, "0 0 1", 0, OrqueExplosion);
+	spawnExplosion(%loc, "0 0 1", 0, "OrqueExplosion");
 }
 
-new StaticShapeData(aileron)
+datablock StaticShapeData(aileron)
 {
 	category = "decors";
 	shapeFile = "~/data/shapes/orque/aileron.dts";
@@ -36,14 +36,14 @@ new StaticShapeData(aileron)
 	emap = 1;
 	computeCRC = 0;
 	shadowEnable = 0;
-}
-function aileron::onAdd(%unused_var_0, %obj)
+};
+function aileron::onAdd(%__unused, %obj)
 {
 	%aleat = getRandom(1000);
 	%obj.schedule(%aleat, playThread, 0, "idle");
 }
 
-new ParticleData(Orqueparticles)
+datablock ParticleData(Orqueparticles)
 {
 	textureName = "~/data/shapes/particles/smoke";
 	dragCoeffiecient = 1;
@@ -61,8 +61,8 @@ new ParticleData(Orqueparticles)
 	sizes[1] = 0.5;
 	times[0] = 0;
 	times[1] = 1;
-}
-new ParticleEmitterData(Orqueemitter)
+};
+datablock ParticleEmitterData(Orqueemitter)
 {
 	ejectionPeriodMS = 5;
 	periodVarianceMS = 0;
@@ -71,9 +71,9 @@ new ParticleEmitterData(Orqueemitter)
 	thetaMin = 20;
 	thetaMax = 60;
 	lifetimeMS = 300;
-	particles = "Orqueparticles";
-}
-new ExplosionData(OrqueExplosion)
+	particles = Orqueparticles;
+};
+datablock ExplosionData(OrqueExplosion)
 {
 	lifetimeMS = 2000;
 	particleDensity = 1000;
@@ -81,8 +81,8 @@ new ExplosionData(OrqueExplosion)
 	emitter[0] = PlayerSplashEmitter;
 	emitter[1] = PlayerSplashMistEmitter;
 	emitter[2] = Orqueemitter;
-}
-new StaticShapeData(DeadPenguin)
+};
+datablock StaticShapeData(DeadPenguin)
 {
 	category = "decors";
 	shapeFile = "~/data/shapes/deadPlayer/deadpenguin.dts";
@@ -92,13 +92,13 @@ new StaticShapeData(DeadPenguin)
 	emap = 1;
 	computeCRC = 0;
 	shadowEnable = 0;
-}
-function DeadPenguin::onAdd(%unused_var_0, %obj)
+};
+function DeadPenguin::onAdd(%__unused, %obj)
 {
 	%obj.playThread(0, "idle");
 }
 
-new StaticShapeData(SacPoubelle)
+datablock StaticShapeData(SacPoubelle)
 {
 	category = "decors";
 	shapeFile = "~/data/shapes/decors/decharge_sacanime.dts";
@@ -108,13 +108,13 @@ new StaticShapeData(SacPoubelle)
 	emap = 1;
 	computeCRC = 0;
 	shadowEnable = 0;
-}
-function SacPoubelle::onAdd(%unused_var_0, %obj)
+};
+function SacPoubelle::onAdd(%__unused, %obj)
 {
 	%obj.playThread(0, "idle");
 }
 
-new StaticShapeData(auroreA)
+datablock StaticShapeData(auroreA)
 {
 	category = "decors";
 	shapeFile = "~/data/shapes/decors/aurore1.dts";
@@ -124,13 +124,13 @@ new StaticShapeData(auroreA)
 	emap = 1;
 	computeCRC = 0;
 	shadowEnable = 0;
-}
-function auroreA::onAdd(%unused_var_0, %obj)
+};
+function auroreA::onAdd(%__unused, %obj)
 {
 	%obj.playThread(0, "idle");
 }
 
-new StaticShapeData(auroreB)
+datablock StaticShapeData(auroreB)
 {
 	category = "decors";
 	shapeFile = "~/data/shapes/decors/aurore2.dts";
@@ -140,8 +140,8 @@ new StaticShapeData(auroreB)
 	emap = 1;
 	computeCRC = 0;
 	shadowEnable = 0;
-}
-function auroreB::onAdd(%unused_var_0, %obj)
+};
+function auroreB::onAdd(%__unused, %obj)
 {
 	%obj.playThread(0, "idle");
 }

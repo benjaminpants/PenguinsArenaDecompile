@@ -1,7 +1,7 @@
-new TriggerData(DefaultTrigger)
+datablock TriggerData(DefaultTrigger)
 {
 	tickPeriodMS = 100;
-}
+};
 function DefaultTrigger::onEnterTrigger(%this, %trigger, %obj)
 {
 	Parent::onEnterTrigger(%this, %trigger, %obj);
@@ -17,40 +17,38 @@ function DefaultTrigger::onTickTrigger(%this, %trigger)
 	Parent::onTickTrigger(%this, %trigger);
 }
 
-new TriggerData(DeathTrigger)
+datablock TriggerData(DeathTrigger)
 {
 	tickPeriodMS = 100;
-}
+};
 function DeathTrigger::onEnterTrigger(%this, %trigger, %obj)
 {
 	Parent::onEnterTrigger(%this, %trigger, %obj);
-	if ($TypeMasks::PlayerObjectType & %obj.getType())
+	if (%obj.getType() & $TypeMasks::PlayerObjectType)
 	{
 		%orque = new StaticShape()
 		{
-			dataBlock = "orque";
+			dataBlock = orque;
 		};
 		MissionCleanup.add(%orque);
 		OrienteOrque(%orque, %obj);
 		%orque.schedule(3000, "delete");
 		%current_team = $Team[%obj.team_id];
-		%current_team.numPlayers = %current_team.numPlayers - 1.0;
+		%current_team.numPlayers--;
 		messageAll('MsgMembersTeamChanged', "", %obj.team_id, %current_team.numPlayers, 1);
-		while(%current_team.numPlayers == 0.0)
+		if (%current_team.numPlayers == 0)
 		{
 			%controled_by_player = 0;
 			%nomJoueur = "";
-			if (%current_team.realPlayer >= 1.0)
+			if (%current_team.realPlayer >= 1)
 			{
 				%controled_by_player = 1;
 				%nomJoueur = %current_team.client.getPlayerName();
 			}
-			%clientIndex = 0;
-			if (%clientIndex < ClientGroup.getCount())
+			for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 			{
 				%cl = ClientGroup.getObject(%clientIndex);
 				messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %obj.team_id, %controled_by_player, 1, %nomJoueur);
-				%clientIndex = %clientIndex + 1.0;
 			}
 		}
 		%obj.kill();
@@ -89,7 +87,7 @@ function OrienteOrque(%orque, %obj)
 	%orquePosition = getWord(%obj.getPosition(), 0) SPC getWord(%obj.getPosition(), 1) SPC %h;
 	%orqueRotation = "0 0 1" SPC %angleZ;
 	%orque.setTransform(%orquePosition SPC %orqueRotation);
-	%ajustVec = -5.0 * %vecX SPC -5.0 * %vecY SPC 0;
+	%ajustVec = -5 * %vecX SPC -5 * %vecY SPC "0";
 	%ECLposition = VectorAdd(%orquePosition, %ajustVec);
 	schedule(1500, 0, orqueEclaboussures, %ECLposition);
 	schedule(2000, 0, DeadPenguin, %orquePosition, %orqueRotation);
@@ -99,7 +97,7 @@ function DeadPenguin(%pos, %rot)
 {
 	%deadPenguin = new StaticShape()
 	{
-		dataBlock = "DeadPenguin";
+		dataBlock = DeadPenguin;
 	};
 	MissionCleanup.add(%deadPenguin);
 	%deadPenguin.setTransform(%pos SPC %rot);

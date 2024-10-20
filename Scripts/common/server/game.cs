@@ -24,11 +24,11 @@ function onMissionReset()
 {
 }
 
-function GameConnection::onClientEnterGame(%unused_var_0)
+function GameConnection::onClientEnterGame(%__unused)
 {
 }
 
-function GameConnection::onClientLeaveGame(%unused_var_0)
+function GameConnection::onClientLeaveGame(%__unused)
 {
 }
 

@@ -7,7 +7,7 @@ function Weapon::onUse(%data, %obj)
 		%obj.mountImage(%data.image, $WeaponSlot);
 		if (%obj.client)
 		{
-			messageClient(%obj.client, 'MsgWeaponUsed', 'Weapon selected');
+			messageClient(%obj.client, 'MsgWeaponUsed', '\c0Weapon selected');
 		}
 	}
 }
@@ -18,7 +18,7 @@ function Weapon::onPickup(%this, %obj, %shape, %amount)
 	if (Parent::onPickup(%this, %obj, %shape, %amount))
 	{
 		ServerPlay3D(WeaponPickupSound, %obj.getTransform());
-		if (%shape.getClassName() $= "Player" && %shape.getMountedImage($WeaponSlot) == 0.0)
+		if (%shape.getClassName() $= "Player" && %shape.getMountedImage($WeaponSlot) == 0)
 		{
 			%shape.use(%this);
 		}
@@ -27,8 +27,7 @@ function Weapon::onPickup(%this, %obj, %shape, %amount)
 
 function Weapon::onInventory(%this, %obj, %amount)
 {
-	%slot = %obj.getMountSlot(%this.image);
-	if (!%amount && %obj.getMountSlot(%this.image) != -1.0)
+	if (!%amount && (%slot = %obj.getMountSlot(%this.image)) != -1)
 	{
 		%obj.unmountImage(%slot);
 	}
@@ -53,18 +52,15 @@ function ammo::onPickup(%this, %obj, %shape, %amount)
 
 function ammo::onInventory(%this, %obj, %amount)
 {
-	%i = 0;
-	while(%i < 8.0)
+	for (%i = 0; %i < 8; %i++)
 	{
-		%image = %obj.getMountedImage(%i);
-		if (%obj.getMountedImage(%i) > 0.0)
+		if ((%image = %obj.getMountedImage(%i)) > 0)
 		{
 			if (isObject(%image.ammo) && %image.ammo.getId() == %this.getId())
 			{
-				%obj.setImageAmmo(%i, %amount != 0.0);
+				%obj.setImageAmmo(%i, %amount != 0);
 			}
 		}
-		%i = %i + 1.0;
 	}
 }
 
