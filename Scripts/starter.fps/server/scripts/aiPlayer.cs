@@ -32,7 +32,7 @@ function AIPlayer::onDeath(%this)
 	}
 	else
 	{
-		for (%i = 1; %i <= $nb_joueurs_par_team; %i++)
+		for (%i = 1; %i <= $players_per_team; %i++)
 		{
 			if ($Team[%this.team_id].Player[%i] == %this)
 			{
@@ -354,12 +354,12 @@ function AIPlayer::GetClosestHumanInSightandRange(%this, %obj)
 	%found_id_player = -1;
 	%found_dist = $AI_PLAYER_DETECT_DISTANCE;
 	%botpos = %this.getPosition();
-	for (%j = 1; %j <= $nb_teams; %j++)
+	for (%j = 1; %j <= $team_count; %j++)
 	{
 		if (%this.team_id != %j)
 		{
 			%current_team = $Team[%j];
-			for (%i = 1; %i <= $nb_joueurs_par_team; %i++)
+			for (%i = 1; %i <= $players_per_team; %i++)
 			{
 				%current_ai = %current_team.Player[%i];
 				if (%current_ai && %current_ai != %this && %current_ai.getState() $= "Move")
