@@ -55,7 +55,7 @@ function startSoloGame()
 
 function waitingBeforeSoloRules()
 {
-	$Game::DecompteFini = 0;
+	$Game::CountdownFinished = 0;
 	if (!LocalClientConnection.ready)
 	{
 		$Game::Schedule = schedule(500, 0, "waitingBeforeCountDown");

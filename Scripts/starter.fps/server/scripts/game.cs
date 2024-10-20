@@ -282,7 +282,7 @@ function startGame()
 
 function waitingBeforeCountDown()
 {
-	$Game::DecompteFini = 0;
+	$Game::CountdownFinished = 0;
 	if (!LocalClientConnection.ready && !$Server::Dedicated)
 	{
 		$Game::Schedule = schedule(500, 0, "waitingBeforeCountDown");
@@ -349,7 +349,7 @@ function countDown(%i)
 	}
 	if (%i == 0)
 	{
-		$Game::DecompteFini = 1;
+		$Game::CountdownFinished = 1;
 		if ($Game::Duration)
 		{
 			$Game::Schedule = schedule($Game::Duration * 1000, 0, "onGameDurationEnd");
@@ -376,7 +376,7 @@ function countDown(%i)
 
 function serverCmdDecompteTermine(%client)
 {
-	if (!$Game::DecompteFini)
+	if (!$Game::CountdownFinished)
 	{
 		commandToClient(%client, 'GameWillStart');
 	}
@@ -530,7 +530,7 @@ function GameConnection::onClientEnterGame(%this)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $team_count, %this.team_id, 1, %thisTeam_dead, %this.getPlayerName());
-		if (%cl != %this && $Game::Running && $Game::DecompteFini)
+		if (%cl != %this && $Game::Running && $Game::CountdownFinished)
 		{
 			messageClient(%cl, 'MsgJoinMessage', "", %this.team_id, %this.getPlayerName());
 		}
@@ -648,7 +648,7 @@ function GameConnection::chooseAI(%this)
 			%this.Player = %current_ai;
 			if (%this.isAIControlled())
 			{
-				if ($Game::DecompteFini)
+				if ($Game::CountdownFinished)
 				{
 					%current_ai.schedule(getRandom(50, 200), "doscan", %current_ai);
 				}
