@@ -18,7 +18,7 @@ function startSoloGame()
 	echo("bots_level : " @ $rules.bots_level);
 	echo("-----------------------");
 	$spawnPointsUsed = 0;
-	$players_per_team = 6;
+	$nb_players_per_team = 6;
 	$Team[1].Player[1] = AIPlayer::spawn("Blue1", pickSpawnPointSolo(), 1, 1, 0);
 	$Team[1].numPlayers = 1;
 	for (%current_player_ID = 1; %current_player_ID <= $rules.bots_redteam; %current_player_ID++)
@@ -38,15 +38,15 @@ function startSoloGame()
 	$Team[4].numPlayers = $rules.bots_greenteam;
 	if ($rules.bots_redteam)
 	{
-		$team_count = 2;
+		$nb_teams = 2;
 	}
 	if ($rules.bots_yellowteam)
 	{
-		$team_count = 3;
+		$nb_teams = 3;
 	}
 	if ($rules.bots_greenteam)
 	{
-		$team_count = 4;
+		$nb_teams = 4;
 	}
 	debugTeams();
 	$Game::Running = 1;
@@ -55,7 +55,7 @@ function startSoloGame()
 
 function waitingBeforeSoloRules()
 {
-	$Game::DecompteFini = 0;
+	$Game::CountdownFinished = 0;
 	if (!LocalClientConnection.ready)
 	{
 		$Game::Schedule = schedule(500, 0, "waitingBeforeCountDown");

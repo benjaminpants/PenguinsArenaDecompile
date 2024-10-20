@@ -1,5 +1,3 @@
-// claws
-
 datablock ShapeBaseImageData(griffesimage1)
 {
 	shapeFile = "~/data/shapes/bonus/griffes/griffes.dts";

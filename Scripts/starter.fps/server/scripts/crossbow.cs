@@ -1,5 +1,3 @@
-// snowball
-
 datablock AudioProfile(CrossbowFireSound)
 {
 	fileName = "~/data/sound/fire_bdn.wav";

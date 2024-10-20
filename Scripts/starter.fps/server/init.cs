@@ -53,34 +53,11 @@ function initDedicated()
 		$pref::Server::AI_level = getRandom(5, 8);
 	}
 	$Pref::Server::Info = $pref::Server::AI_level;
-	if ($Pref::Server::PlayersSlots == 2)
-	{
-		$pref::Server::nbTeams2 = 1;
-		$pref::Server::nbTeams3 = 0;
-		$pref::Server::nbTeams4 = 0;
-		$Pref::Server::MaxPlayers = 2;
-	}
-	else if ($Pref::Server::PlayersSlots == 3)
-	{
-		$pref::Server::nbTeams2 = 0;
-		$pref::Server::nbTeams3 = 1;
-		$pref::Server::nbTeams4 = 0;
-		$Pref::Server::MaxPlayers = 3;
-	}
-	else if ($Pref::Server::PlayersSlots == 4)
-	{
-		$pref::Server::nbTeams2 = 0;
-		$pref::Server::nbTeams3 = 0;
-		$pref::Server::nbTeams4 = 1;
-		$Pref::Server::MaxPlayers = 4;
-	}
-	else
-	{
-		$pref::Server::nbTeams2 = 0;
-		$pref::Server::nbTeams3 = 0;
-		$pref::Server::nbTeams4 = 1;
-		$Pref::Server::MaxPlayers = 4;
-	}
+	$pref::Server::nbTeams2 = 0;
+	$pref::Server::nbTeams3 = 0;
+	$pref::Server::nbTeams4 = 1;
+	$Pref::Server::MaxPlayers = 12;
+
 	echo("CREATING SERVER:" SPC $Pref::Server::Name SPC "- type:" SPC $Server::MissionType SPC "slots:" SPC $Pref::Server::PlayersSlots SPC "ailevel:" SPC $Pref::Server::Info);
 	$Server::Dedicated = 1;
 	if ($missionArg !$= "")
@@ -103,8 +80,12 @@ function initDedicated()
 		%mission = %map_list[%aleat];
 		createServer("MultiPlayer", %mission);
 	}
-	schedule(30 * 1000, 0, "dedicatedAIconnect");
-	checkAI();
+
+	for (%botCount = 0; %botCount < 0; %botCount++)
+	{
+		schedule(10000 + (%botCount + 1) * 100, 0, "dedicatedAIconnect");
+	}
+	// checkAI();
 }
 
 function dedicatedAIconnect()
@@ -122,19 +103,21 @@ function dedicatedAIconnect()
 	%ai_names[10] = "SUPERBOT Noam";
 	%aleat = getRandom(0, 10);
 	%name = %ai_names[%aleat];
-	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
+
+	/*for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
 		if (%cl.isAIControlled())
 		{
 			return;
 		}
-	}
+	} */
+
 	if ($Server::PlayerCount < $Pref::Server::MaxPlayers - 1)
 	{
 		echo("=[SUPERAI] Nouveau bot : " SPC %name);
 		%botConnection = aiConnect(%name);
-		schedule(25 * 60 * 1000, 0, "dedicatedAIdisconnect", %botConnection);
+		// schedule(25 * 60 * 1000, 0, "dedicatedAIdisconnect", %botConnection);
 	}
 	else
 	{

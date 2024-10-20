@@ -12,6 +12,6 @@ $pref::Server::nbTeams2 = 0;
 $pref::Server::nbTeams3 = 0;
 $pref::Server::nbTeams4 = 1;
 $Pref::Server::Password = "";
-$Pref::Server::Port = 28000;
+$Pref::Server::Port = 25565;
 $Pref::Server::RegionMask = 2;
 $Pref::Server::TimeLimit = 160;

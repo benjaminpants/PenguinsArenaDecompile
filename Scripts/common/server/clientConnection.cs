@@ -14,7 +14,7 @@ function GameConnection::onConnect(%client, %name, %DemoBonusAvailable)
 	sendLoadInfoToClient(%client);
 	%client.guid = 0;
 	addToServerGuidList(%client.guid);
-	if (%client.getAddress() $= "local" || %client.getAddress() $= "82.127.145.189")
+	if (%client.getAddress() $= "local")
 	{
 		%client.isAdmin = 1;
 		%client.isSuperAdmin = 1;
@@ -25,16 +25,28 @@ function GameConnection::onConnect(%client, %name, %DemoBonusAvailable)
 		%client.isSuperAdmin = 0;
 	}
 	%client.team_id = 0;
-	%equipe_trouvee = 0;
-	for (%current_team_ID = 1; %current_team_ID <= $team_count; %current_team_ID++)
+	%team_found = 0;
+	%lowest_player_count = 4; // Max 3 4 is always bigger
+	%lowest_id = 0;
+	for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
 	{
-		if ($Team[%current_team_ID].realPlayer == 0 && %equipe_trouvee == 0)
+		if ($Team[%current_team_ID].hasRealPlayers == 0 && %team_found == 0)
 		{
-			%client.team_id = %current_team_ID;
-			%equipe_trouvee = 1;
-			$Team[%current_team_ID].realPlayer = 1;
+			%lowest_id = %current_team_ID;
+			%team_found = 1;
+			break;
+		}
+		else if ($Team[%current_team_ID].realPlayers < %lowest_player_count)
+		{
+			%lowest_id = %current_team_ID;
+			%lowest_player_count = $Team[%current_team_ID].realPlayers;
 		}
 	}
+
+	%client.team_id = %lowest_id;
+	$Team[%lowest_id].hasRealPlayers = 1;
+	$Team[%lowest_id].realPlayers++;
+
 	echo("== [" @ %client SPC "ai:" @ %client.isAIControlled() SPC "team:" @ %client.team_id SPC %client.getPlayerName() @ "] PLAYER JOIN " @ %client.getAddress());
 	%client.gender = "Male";
 	%client.armor = "Light";
