@@ -1,0 +1,29 @@
+new GuiControl(FrameOverlayGui)
+{
+	Profile = "GuiModelessDialogProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = "True";
+	setFirstResponder = "True";
+	Modal = "false";
+	helpTag = 0;
+	noCursor = 1;
+
+	new GuiConsoleTextCtrl(TextOverlayControl)
+	{
+		Profile = "GuiTextProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "5 5";
+		Extent = "15 18";
+		MinExtent = "8 8";
+		Visible = "True";
+		setFirstResponder = "True";
+		Modal = "True";
+		helpTag = 0;
+		expression = 10;
+	};
+};

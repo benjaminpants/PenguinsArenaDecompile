@@ -1,0 +1,117 @@
+new GuiFadeinBitmapCtrl(StartupGui)
+{
+	Profile = "GuiInputCtrlProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	bitmap = "./logoentre";
+	wrap = 0;
+	fadeinTime = 125;
+	waitTime = 3000;
+	fadeoutTime = 125;
+	noCursor = 1;
+
+	new GuiChunkedBitmapCtrl(StartupGuiLogo)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "6 10";
+		Extent = "450 450";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./LogoFirst.jpg";
+		useVariable = 0;
+		tile = 0;
+	};
+};
+function loadStartup()
+{
+	if (!isFile("./LogoFirst.jpg"))
+	{
+		echo("no LogoFirst");
+		loadStartupGui1();
+	}
+	else
+	{
+		StartupGui.done = 0;
+		if ($BuildType == 25)
+		{
+			StartupGuiLogo.setBitmap("./LogoFirst.jpg");
+		}
+		else
+		{
+			StartupGuiLogo.setBitmap("./LogoFrogames512.jpg");
+		}
+		Canvas.setContent(StartupGui);
+		schedule(100, 0, checkStartupDone);
+	}
+	if ($pref::Frogames::license_key !$= "" && $BuildType != 25 && $BuildType != 22)
+	{
+		checkLicense($pref::Frogames::license_key);
+	}
+}
+
+function StartupGui::click()
+{
+	StartupGui.done = 1;
+}
+
+function checkStartupDone()
+{
+	if (StartupGui.done)
+	{
+		loadIntro();
+	}
+	else
+	{
+		schedule(100, 0, checkStartupDone);
+	}
+}
+
+package GameTypeDebug
+{
+	function checkStartupDone()
+	{
+		echo("*** Load Main Menu");
+		loadMainMenu();
+	}
+
+};
+function loadIntro()
+{
+	exec("./StartupGui2.gui");
+	exec("./StartupGui3.gui");
+	exec("./StartupGui4.gui");
+	echo("*** Load Intro (StartupGui2)");
+	alxStopAll();
+	if ($dev_build == 1)
+	{
+		exitIntro();
+	}
+	else
+	{
+		Canvas.setContent(StartupGui2);
+	}
+}
+
+function exitIntro()
+{
+	echo("*** Exit Intro");
+	cancel($IntroGuiSchedule);
+	StartupGui2.delete();
+	StartupGui3.delete();
+	StartupGui4.delete();
+	flushTextureCache();
+	alxStopAll();
+	echo("*** Load loadMainMenu");
+	loadMainMenu();
+}
+

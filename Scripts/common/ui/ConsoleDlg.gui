@@ -1,0 +1,211 @@
+new GuiControl(ConsoleDlg)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 2";
+	Visible = 1;
+
+	new GuiWindowCtrl(ConsoleDlgWindow)
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "0 0";
+		Extent = "500 300";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Console";
+		maxLength = 255;
+		resizeWidth = 1;
+		resizeHeight = 1;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 0;
+		canMaximize = 1;
+		minSize = "500 300";
+		closeCommand = "ToggleConsole(1);";
+
+		new GuiScrollCtrl()
+		{
+			Profile = "GuiScrollProfile";
+			HorizSizing = "width";
+			VertSizing = "height";
+			position = "3 36";
+			Extent = "494 246";
+			MinExtent = "8 2";
+			Visible = 1;
+			willFirstRespond = 1;
+			hScrollBar = "alwaysOn";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = 0;
+			childMargin = "0 0";
+			resizeWidth = 1;
+			resizeHeight = 1;
+
+			new GuiConsole()
+			{
+				Profile = "GuiConsoleProfile";
+				position = "0 0";
+			};
+		};
+		new GuiConsoleEditCtrl(ConsoleEntry)
+		{
+			Profile = "GuiTextEditProfile";
+			HorizSizing = "width";
+			VertSizing = "top";
+			position = "3 278";
+			Extent = "494 18";
+			MinExtent = "8 2";
+			Visible = 1;
+			AltCommand = "ConsoleEntry::eval();";
+			maxLength = 255;
+			historySize = 20;
+			password = 0;
+			tabComplete = 0;
+			sinkAllKeyEvents = 1;
+			useSiblingScroller = 1;
+		};
+		new GuiPaneControl(ConsoleErrorPane)
+		{
+			Profile = "GuiPaneProfile";
+			HorizSizing = "width";
+			VertSizing = "bottom";
+			position = "3 22";
+			Extent = "474 85";
+			MinExtent = "474 10";
+			Visible = 1;
+			Caption = "No script compilation errors occured.";
+			collapsable = 1;
+			barBehindText = 1;
+
+			new GuiScrollCtrl(ConsoleErrorScroller)
+			{
+				Profile = "GuiScrollProfile";
+				HorizSizing = "width";
+				VertSizing = "bottom";
+				position = "0 14";
+				Extent = "474 71";
+				MinExtent = "8 2";
+				Visible = 0;
+				willFirstRespond = 0;
+				hScrollBar = "alwaysOff";
+				vScrollBar = "alwaysOn";
+				constantThumbHeight = 1;
+				childMargin = "0 0";
+
+				new GuiMLTextCtrl(ConsoleErrorDisplay)
+				{
+					Profile = "GuiMLTextProfile";
+					HorizSizing = "width";
+					VertSizing = "bottom";
+					position = "2 2";
+					Extent = "474 14";
+					MinExtent = "8 2";
+					Visible = 1;
+					lineSpacing = 2;
+					allowColorChars = 0;
+					maxChars = -1;
+				};
+			};
+		};
+	};
+};
+function ConsoleDlg::onWake()
+{
+	%position = $pref::Console::position;
+	if (%position $= "")
+	{
+		%position = ConsoleDlgWindow.position;
+	}
+	%extent = $pref::Console::extent;
+	if (getWord(%extent, 0) < getWord(ConsoleDlgWindow.MinExtent, 0) || getWord(%extent, 1) < getWord(ConsoleDlgWindow.MinExtent, 1))
+	{
+		%extent = ConsoleDlgWindow.Extent;
+	}
+	ConsoleDlgWindow.resize(getWord(%position, 0), getWord(%position, 1), getWord(%extent, 0), getWord(%extent, 1));
+}
+
+function ConsoleDlg::onSleep()
+{
+	$pref::Console::position = ConsoleDlgWindow.position;
+	$pref::Console::extent = ConsoleDlgWindow.Extent;
+}
+
+function ConsoleEntry::eval()
+{
+	%text = trim(ConsoleEntry.getValue());
+	if (strpos(%text, "(") == -1)
+	{
+		if (strpos(%text, "=") == -1 && strpos(%text, " ") == -1)
+		{
+			if (strpos(%text, "{") == -1 && strpos(%text, "}") == -1)
+			{
+				%text = %text @ "()";
+			}
+		}
+	}
+	%pos = strlen(%text) - 1;
+	if (strpos(%text, ";", %pos) == -1 && strpos(%text, "}") == -1)
+	{
+		%text = %text @ ";";
+	}
+	echo("==>" @ %text);
+	eval(%text);
+	ConsoleEntry.setValue("");
+	updateConsoleErrorWindow();
+}
+
+function ToggleConsole(%make)
+{
+	if (%make)
+	{
+		if (ConsoleDlg.isAwake())
+		{
+			if ($enableDirectInput)
+			{
+				activateKeyboard();
+			}
+			Canvas.popDialog(ConsoleDlg);
+		}
+		else
+		{
+			if ($enableDirectInput)
+			{
+				deactivateKeyboard();
+			}
+			Canvas.pushDialog(ConsoleDlg, 99);
+			updateConsoleErrorWindow();
+			if (ConsoleErrorPane._initialized == 0)
+			{
+				ConsoleErrorPane.setCollapsed(1);
+			}
+		}
+	}
+}
+
+$ScriptErrorHashDisplayed = 999;
+function updateConsoleErrorWindow()
+{
+	if ($ScriptErrorHash != $ScriptErrorHashDisplayed && $ScriptErrorHash != 0)
+	{
+		%oldText = ConsoleErrorDisplay.getText();
+		if (%oldText !$= "")
+		{
+			ConsoleErrorDisplay.setText(%oldText @ "\n" @ $ScriptError);
+		}
+		else
+		{
+			ConsoleErrorDisplay.setText($ScriptError);
+		}
+		ConsoleErrorDisplay.setCursorPosition(100000);
+		ConsoleErrorDisplay.scrollToBottom();
+		$ConsoleErrorCount += $ScriptErrorHash - $ScriptErrorHashDisplayed;
+		ConsoleErrorPane.Caption = $ConsoleErrorCount @ " script compilation error(s) have occured!";
+		$ScriptErrorHashDisplayed = $ScriptErrorHash;
+		$ScriptError = "";
+	}
+}
+

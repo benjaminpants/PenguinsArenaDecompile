@@ -1,0 +1,80 @@
+new GuiControl(MessageBoxOKDlg)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "width";
+	VertSizing = "height";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+
+	new GuiWindowCtrl(MBOKFrame)
+	{
+		Profile = "GuiWindowProfile2";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "170 175";
+		Extent = "300 129";
+		MinExtent = "48 92";
+		Visible = 1;
+		helpTag = 0;
+		maxLength = 255;
+		resizeWidth = 1;
+		resizeHeight = 1;
+		canMove = 1;
+		canClose = 0;
+		canMinimize = 0;
+		canMaximize = 0;
+		minSize = "50 50";
+
+		new GuiMLTextCtrl(MBOKText)
+		{
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "32 39";
+			Extent = "236 24";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "95 88";
+			Extent = "110 23";
+			MinExtent = "8 8";
+			Visible = 0;
+			Command = "MessageCallback(MessageBoxOKDlg,MessageBoxOKDlg.callback);";
+			Accelerator = "return";
+			helpTag = 0;
+			text = "OK";
+			simpleStyle = 0;
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "85 88";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "MessageCallback(MessageBoxOKDlg,MessageBoxOKDlg.callback);";
+			hovertime = 1000;
+			text = "Ok";
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+			Accelerator = "return";
+		};
+	};
+};

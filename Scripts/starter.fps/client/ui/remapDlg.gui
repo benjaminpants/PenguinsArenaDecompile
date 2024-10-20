@@ -1,0 +1,48 @@
+new GuiControl(RemapDlg)
+{
+	Profile = "GuiDialogProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+
+	new GuiControl(OptRemapDlg)
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "213 213";
+		Extent = "243 64";
+		MinExtent = "8 8";
+		Visible = 1;
+		helpTag = 0;
+
+		new GuiTextCtrl(OptRemapText)
+		{
+			Profile = "GuiCenterTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "2 21";
+			Extent = "99 20";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			text = "Re-bind control...";
+			maxLength = 255;
+		};
+		new GuiInputCtrl(OptRemapInputCtrl)
+		{
+			Profile = "GuiInputCtrlProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "0 0";
+			Extent = "64 64";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+		};
+	};
+};

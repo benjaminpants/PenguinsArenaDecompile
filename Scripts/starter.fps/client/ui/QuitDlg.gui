@@ -1,0 +1,256 @@
+new GameTSCtrl(QuitDialog)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	applyFilterToChildren = 1;
+	cameraZRot = 0;
+	forceFOV = 0;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "378 360";
+		Extent = "268 156";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./fond_fenetre.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiBitmapButtonTextCtrl(reset_scores_button)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiBTTextProfilePetit";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "446 372";
+		Extent = "131 25";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "Canvas.popDialog(QuitDialog);";
+		Accelerator = "escape";
+		hovertime = 1000;
+		text = "Resume";
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./fond_button_7";
+	};
+	new GuiBitmapButtonTextCtrl(reset_scores_button)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiBTTextProfilePetit";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "446 399";
+		Extent = "131 25";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "Canvas.pushDialog(optionsDlg);";
+		Accelerator = "r";
+		hovertime = 1000;
+		text = "Options";
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./fond_button_7";
+	};
+	new GuiTextCtrl(AI_level_text)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfile2";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "486 422";
+		Extent = "82 22";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		text = "Difficulty";
+		maxLength = 255;
+	};
+	new GuiSliderCtrl(AI_level)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiSliderProfile";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "423 439";
+		Extent = "177 19";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		Variable = "value";
+		AltCommand = "Set_AI_level(AI_level.value);";
+		hovertime = 1000;
+		range = "1 10";
+		ticks = 8;
+		value = 6;
+		snap = 1;
+	};
+	new GuiBitmapButtonTextCtrl(reset_scores_button)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiBTTextProfilePetit";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "446 457";
+		Extent = "131 25";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "askResetScores();";
+		hovertime = 1000;
+		text = "Reset Scores";
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./fond_button_7";
+	};
+	new GuiTextCtrl(reset_scores_no)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiTextProfile";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "381 457";
+		Extent = "262 22";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		text = "Scores already reseted in the last 20 minutes.";
+		maxLength = 255;
+	};
+	new GuiBitmapButtonTextCtrl(disconnect_admin_scheduled)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiBTTextProfilePetit";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "360 522";
+		Extent = "310 23";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		Command = "disconnect_scheduled();";
+		hovertime = 1000;
+		text = "Stop the server, in 2 minutes...";
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./fond_button_7";
+	};
+	new GuiBitmapButtonTextCtrl(disconnect_client)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiBTTextProfilePetit";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "446 484";
+		Extent = "131 25";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		Command = "disconnect();";
+		hovertime = 1000;
+		text = "Quit";
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./fond_button_7";
+	};
+	new GuiBitmapButtonTextCtrl(disconnect_admin)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiBTTextProfilePetit";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "446 484";
+		Extent = "131 25";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "disconnect();";
+		hovertime = 1000;
+		text = "Quit";
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./fond_button_7";
+	};
+};
+function QuitDialog::onWake()
+{
+	if (ServerConnection.getAddress() $= "local")
+	{
+		AI_level.setValue($pref::Server::AI_level);
+		AI_level.setVisible(1);
+		AI_level_text.setVisible(1);
+		disconnect_client.setVisible(0);
+		disconnect_admin.setVisible(1);
+		disconnect_admin_scheduled.setVisible(1);
+		if ($scores_already_reseted)
+		{
+			reset_scores_button.setVisible(0);
+			reset_scores_no.setVisible(1);
+		}
+		else
+		{
+			reset_scores_no.setVisible(0);
+			reset_scores_button.setVisible(1);
+		}
+	}
+	else
+	{
+		AI_level.setVisible(0);
+		AI_level_text.setVisible(0);
+		disconnect_client.setVisible(1);
+		disconnect_admin.setVisible(0);
+		disconnect_admin_scheduled.setVisible(0);
+		reset_scores_button.setVisible(0);
+		reset_scores_no.setVisible(0);
+	}
+}
+
+function Set_AI_level(%level)
+{
+	if (%level == $pref::Server::AI_level)
+	{
+		return;
+	}
+	$pref::Server::AI_level = %level;
+}
+
+function disconnect_scheduled()
+{
+	$Server::Schedule = schedule(2 * 60 * 1000, 0, "disconnect");
+	Canvas.popDialog(QuitDialog);
+	$escapefromgameDLG = 0;
+	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
+	{
+		%cl = ClientGroup.getObject(%clientIndex);
+		commandToClient(%cl, 'DisconnectIn2minutes');
+	}
+}
+
+function askResetScores()
+{
+	echo("Reseting scores !");
+	commandToServer('ResetScores');
+	reset_scores_button.setVisible(0);
+	reset_scores_no.setVisible(1);
+	$scores_already_reseted = 1;
+	$Server::Schedule = schedule(20 * 60000, 0, "cancelResetScoresSchedule");
+}
+

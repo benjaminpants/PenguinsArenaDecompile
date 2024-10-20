@@ -1,0 +1,1673 @@
+new GameTSCtrl(PlayGui)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiContentProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	applyFilterToChildren = 1;
+	cameraZRot = 0;
+	forceFOV = 0;
+	noCursor = 1;
+
+	new GuiBitmapCtrl(LagIcon)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "572 3";
+		Extent = "32 32";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		bitmap = "./lagIcon.png";
+		wrap = 0;
+	};
+	new GuiChunkedBitmapCtrl(fond_invincibilite)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		bitmap = "./fondinvincibilite.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl(fond_cactouche)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		bitmap = "./CaC_hit.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl(crosshair)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "496 368";
+		Extent = "32 32";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./crossHair";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiBitmapCtrl(counter)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "420 257";
+		Extent = "184 254";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		bitmap = "./countdown_5.png";
+		wrap = 0;
+	};
+	new GuiControl(intel_GUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "150 632";
+		Extent = "370 158";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+
+		new GuiChunkedBitmapCtrl(intelConnectivity)
+		{
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "0 0";
+			Extent = "89 68";
+			MinExtent = "8 8";
+			Visible = 0;
+			helpTag = 0;
+			bitmap = "./WiFi_no.png";
+		};
+		new GuiChunkedBitmapCtrl(intelPower)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "0 88";
+			Extent = "89 40";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./Battery_3.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(IntelBackground)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "100 50";
+			Extent = "268 156";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./fond_fenetre.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl(IntelBatteryWarning)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfileWarning";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "270 60";
+			Extent = "285 175";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 0;
+			text = "<just:left><font:" @ $font1 @ ":40>" @ $Txt_InGame12 @ "\n<font:" @ $font1 @ ":30>" @ $Txt_InGame13;
+			maxLength = 255;
+		};
+		new GuiMLTextCtrl(IntelWifiWarning)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfileWarning";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "270 60";
+			Extent = "285 175";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 0;
+			text = "<just:left><font:" @ $font1 @ ":40>" @ $Txt_InGame12 @ "\n<font:" @ $font1 @ ":30>" @ $Txt_InGame14;
+			maxLength = 255;
+		};
+	};
+	new GuiChunkedBitmapCtrl(bonus_invincibilite)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "896 640";
+		Extent = "107 107";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		bitmap = "./objet_inv.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl(bonus_griffes)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "768 640";
+		Extent = "107 107";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+		bitmap = "./objet_griffes.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl(Scores1GUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "width";
+		VertSizing = "height";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+
+		new GuiControl(container_interfacescores)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "center";
+			position = "337 234";
+			Extent = "393 241";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			useVariable = 0;
+			tile = 0;
+
+			new GuiChunkedBitmapCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiDefaultProfile";
+				HorizSizing = "center";
+				VertSizing = "bottom";
+				position = "61 63";
+				Extent = "268 156";
+				MinExtent = "8 2";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				bitmap = "./fond_fenetre.png";
+				useVariable = 0;
+				tile = 0;
+			};
+			new GuiTextCtrl(scorespartie_equipenom)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextBlancProfile";
+				HorizSizing = "center";
+				VertSizing = "bottom";
+				position = "97 75";
+				Extent = "164 33";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = $Txt_InGame15;
+				maxLength = 255;
+			};
+			new GuiTextCtrl(scorespartie_points)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextBlancGrosProfile";
+				HorizSizing = "center";
+				VertSizing = "bottom";
+				position = "151 158";
+				Extent = "82 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "4pts";
+				maxLength = 255;
+			};
+		};
+		new GuiControl(container_ligne_calculscore)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "center";
+			position = "354 260";
+			Extent = "350 200";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			useVariable = 0;
+			tile = 0;
+
+			new GuiControl(ligne_calculscore)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiDefaultProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "0 0";
+				Extent = "246 100";
+				MinExtent = "8 2";
+				canSave = 1;
+				Visible = 1;
+				useVariable = 0;
+				tile = 0;
+
+				new GuiTextCtrl(scorespartie_nbgagnants)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiScoresTextBlancProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "2 54";
+					Extent = "42 33";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 1;
+					hovertime = 1000;
+					text = $Txt_InGame02;
+					maxLength = 255;
+				};
+				new GuiChunkedBitmapCtrl(EndGameGuiScores1Pingouin1)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiContentProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "44 39";
+					Extent = "50 53";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 1;
+					hovertime = 1000;
+					bitmap = "./pingouinScoresBleu.png";
+					useVariable = 0;
+					tile = 0;
+				};
+				new GuiChunkedBitmapCtrl(EndGameGuiScores1Pingouin2)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiContentProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "74 39";
+					Extent = "50 53";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 1;
+					hovertime = 1000;
+					bitmap = "./pingouinScoresBleu.png";
+					useVariable = 0;
+					tile = 0;
+				};
+				new GuiChunkedBitmapCtrl(EndGameGuiScores1Pingouin3)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiContentProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "104 39";
+					Extent = "50 53";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 0;
+					hovertime = 1000;
+					bitmap = "./pingouinScoresBleu.png";
+					useVariable = 0;
+					tile = 0;
+				};
+				new GuiChunkedBitmapCtrl(EndGameGuiScores1Pingouin4)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiContentProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "134 39";
+					Extent = "50 53";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 0;
+					hovertime = 1000;
+					bitmap = "./pingouinScoresBleu.png";
+					useVariable = 0;
+					tile = 0;
+				};
+				new GuiChunkedBitmapCtrl(EndGameGuiScores1Pingouin5)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiContentProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "164 39";
+					Extent = "50 53";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 0;
+					hovertime = 1000;
+					bitmap = "./pingouinScoresBleu.png";
+					useVariable = 0;
+					tile = 0;
+				};
+				new GuiChunkedBitmapCtrl(EndGameGuiScores1Pingouin6)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiContentProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "194 39";
+					Extent = "50 53";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 0;
+					hovertime = 1000;
+					bitmap = "./pingouinScoresBleu.png";
+					useVariable = 0;
+					tile = 0;
+				};
+			};
+		};
+	};
+	new GuiControl(Scores2GUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "width";
+		VertSizing = "height";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "center";
+			position = "267 220";
+			Extent = "489 282";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./fond_fenetre2.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiControl(container_scores)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "center";
+			position = "300 220";
+			Extent = "450 300";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			useVariable = 0;
+			tile = 0;
+
+			new GuiChunkedBitmapCtrl(EndGameGuiScores2Pingouin1)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiContentProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 9";
+				Extent = "70 74";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				bitmap = "./pingouinScoresBleuC.png";
+				useVariable = 0;
+				tile = 0;
+			};
+			new GuiChunkedBitmapCtrl(EndGameGuiScores2Pingouin2)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiContentProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 73";
+				Extent = "70 74";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				bitmap = "./pingouinScoresBleuC.png";
+				useVariable = 0;
+				tile = 0;
+			};
+			new GuiChunkedBitmapCtrl(EndGameGuiScores2Pingouin3)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiContentProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 137";
+				Extent = "70 74";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				bitmap = "./pingouinScoresBleuC.png";
+				useVariable = 0;
+				tile = 0;
+			};
+			new GuiChunkedBitmapCtrl(EndGameGuiScores2Pingouin4)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiContentProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 201";
+				Extent = "70 74";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				bitmap = "./pingouinScoresBleuC.png";
+				useVariable = 0;
+				tile = 0;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Name1)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextNameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 19";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Surname1)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextSurnameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 54";
+				Extent = "192 16";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Name2)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextNameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 83";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Surname2)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextSurnameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 118";
+				Extent = "192 16";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Name3)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextNameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 148";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Surname3)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextSurnameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 183";
+				Extent = "192 16";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Name4)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextNameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 212";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Surname4)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextSurnameProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "100 247";
+				Extent = "192 16";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "Roger";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Scores1)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextBlancGrosProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "300 19";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "12pts";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Scores2)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextBlancGrosProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "300 83";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "12pts";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Scores3)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextBlancGrosProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "300 148";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "12pts";
+				maxLength = 255;
+			};
+			new GuiTextCtrl(EndGameGuiScores2Scores4)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScoresTextBlancGrosProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "300 212";
+				Extent = "292 54";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "12pts";
+				maxLength = 255;
+			};
+		};
+	};
+	new GuiChunkedBitmapCtrl(CinemaGUI)
+	{
+		Profile = "GuiContentProfile";
+		HorizSizing = "width";
+		VertSizing = "height";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 8";
+		Visible = 0;
+		helpTag = 0;
+		bitmap = "./starter.fps/client/ui/cinema";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiMLTextCtrl(msgContainer)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfileDEMO2";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "100 600";
+		Extent = "460 220";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 0;
+		text = "";
+		maxLength = 255;
+	};
+	new GuiMLTextCtrl(DEMOmsgContainer)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfileDEMO2";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "100 600";
+		Extent = "460 220";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 0;
+		text = "";
+		maxLength = 255;
+	};
+	new GuiBitmapCtrl(msgBulle)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "94 659";
+		Extent = "50 50";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 0;
+		bitmap = "./bulle_pointe";
+	};
+	new GuiMLTextCtrl(DEMOmsgContainerFantome)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfileDEMO2";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "100 619";
+		Extent = "880 220";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 0;
+		text = "<just:center><font:" @ $font1 @ ":40>" @ $Txt_InGame11;
+		maxLength = 255;
+	};
+	new GuiChunkedBitmapCtrl(Penguin_Image_GUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "-25 610";
+		Extent = "150 186";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./objects/penguinRouge.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl(TopObject_Image_GUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "-25 610";
+		Extent = "150 186";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./objects/objectT3.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl(BottomObject_Image_GUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "-25 610";
+		Extent = "150 186";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./objects/objectB3.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl(container_playgui)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		useVariable = 0;
+		tile = 0;
+
+		new GuiChunkedBitmapCtrl(div_myteam)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "10 1";
+			Extent = "144 153";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./pingouinBleu.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(div_team2)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "171 4";
+			Extent = "96 100";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./pingouinRouge.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(etoile_team2)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "191 67";
+			Extent = "32 32";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./star.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(div_team3)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "294 4";
+			Extent = "96 100";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./pingouinJaune.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(etoile_team3)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "312 66";
+			Extent = "32 32";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./star.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(div_team4)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "417 4";
+			Extent = "96 100";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./pingouinVert.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(etoile_team4)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "437 66";
+			Extent = "32 32";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./star.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(guiblueteam)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "78 32";
+			Extent = "179 192";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./pingouinBleu.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(guiredteam)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "78 32";
+			Extent = "179 192";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./pingouinRouge.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(guiyellowteam)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "78 32";
+			Extent = "179 192";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./pingouinJaune.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(guigreenteam)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "78 32";
+			Extent = "179 192";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./pingouinVert.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiTextCtrl(bluescore)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "12 737";
+			Extent = "16 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(redscore)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "75 737";
+			Extent = "12 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(yellowscore)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "139 737";
+			Extent = "12 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(greenscore)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "203 737";
+			Extent = "12 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(bluescoreLTG)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "12 724";
+			Extent = "16 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(redscoreLTG)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "75 724";
+			Extent = "12 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(yellowscoreLTG)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "139 724";
+			Extent = "12 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(greenscoreLTG)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "203 724";
+			Extent = "12 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = 0;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(bluen)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiScoresTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "108 101";
+			Extent = "13 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = 3;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(redn)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiScoresTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "235 63";
+			Extent = "13 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = 3;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(yellown)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiScoresTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "358 63";
+			Extent = "13 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = 3;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(greenn)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiScoresTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "481 63";
+			Extent = "13 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = 3;
+			maxLength = 255;
+		};
+		new GuiTextCtrl(bluename)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiNamesTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "108 131";
+			Extent = "130 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "";
+			maxLength = 255;
+		};
+		new GuiTextCtrl(redname)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiNamesTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "235 93";
+			Extent = "130 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "";
+			maxLength = 255;
+		};
+		new GuiTextCtrl(yellowname)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiNamesTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "358 93";
+			Extent = "130 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "";
+			maxLength = 255;
+		};
+		new GuiTextCtrl(greenname)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiNamesTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "481 93";
+			Extent = "130 33";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "";
+			maxLength = 255;
+		};
+	};
+	new GuiControl(achievementGUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "top";
+		position = "950 694";
+		Extent = "64 64";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 0;
+		hovertime = 1000;
+
+		new GuiChunkedBitmapCtrl(achievementGUIPicture)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiContentProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "0 0";
+			Extent = "64 64";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "starter.fps/client/ui/achievements/ACH_NO_TEAM_LOSS_on.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+	};
+};
+function PlayGui::init_TeamGUI(%__unused, %myTeam, %nbTeams, %teamCouronne)
+{
+	counter.setVisible(0);
+	msgBulle.setVisible(0);
+	msgContainer.setVisible(0);
+	DEMOmsgContainer.setVisible(0);
+	DEMOmsgContainerFantome.setVisible(0);
+	CinemaGUI.setVisible(0);
+	fond_invincibilite.setVisible(0);
+	bonus_invincibilite.setVisible(0);
+	bonus_griffes.setVisible(0);
+	fond_cactouche.setVisible(0);
+	Scores1GUI.setVisible(0);
+	Scores2GUI.setVisible(0);
+	crosshair.setVisible(1);
+	div_team2.setVisible(1);
+	div_team3.setVisible(1);
+	div_team4.setVisible(1);
+	bluen.setVisible(1);
+	redn.setVisible(1);
+	yellown.setVisible(1);
+	greenn.setVisible(1);
+	if (%teamCouronne == 1)
+	{
+		%couronne_bleu = "C";
+	}
+	else if (%teamCouronne == 2)
+	{
+		%couronne_rouge = "C";
+	}
+	else if (%teamCouronne == 3)
+	{
+		%couronne_jaune = "C";
+	}
+	else if (%teamCouronne == 4)
+	{
+		%couronne_vert = "C";
+	}
+	%div_myteam_x = getWord(div_myteam.getPosition(), 0);
+	%div_myteam_y = getWord(div_myteam.getPosition(), 1);
+	if (%myTeam == 1)
+	{
+		div_myteam.setBitmap("starter.fps/client/ui/pingouinBleu" @ %couronne_bleu @ ".png");
+		Penguin_Image_GUI.setBitmap("starter.fps/client/ui/objects/penguinBleu.png");
+		bluen.setPosition(%div_myteam_x + 98, %div_myteam_y + 100);
+		bluename.setPosition(%div_myteam_x + 10, %div_myteam_y + 140);
+		bluename.setExtent(130, 33);
+	}
+	else if (%myTeam == 2)
+	{
+		div_myteam.setBitmap("starter.fps/client/ui/pingouinRouge" @ %couronne_rouge @ ".png");
+		Penguin_Image_GUI.setBitmap("starter.fps/client/ui/objects/penguinRouge.png");
+		redn.setPosition(%div_myteam_x + 98, %div_myteam_y + 100);
+		redname.setPosition(%div_myteam_x + 10, %div_myteam_y + 140);
+		redname.setExtent(130, 33);
+	}
+	else if (%myTeam == 3)
+	{
+		div_myteam.setBitmap("starter.fps/client/ui/pingouinJaune" @ %couronne_jaune @ ".png");
+		Penguin_Image_GUI.setBitmap("starter.fps/client/ui/objects/penguinJaune.png");
+		yellown.setPosition(%div_myteam_x + 98, %div_myteam_y + 100);
+		yellowname.setPosition(%div_myteam_x + 10, %div_myteam_y + 140);
+		yellowname.setExtent(130, 33);
+	}
+	else if (%myTeam == 4)
+	{
+		div_myteam.setBitmap("starter.fps/client/ui/pingouinVert" @ %couronne_vert @ ".png");
+		Penguin_Image_GUI.setBitmap("starter.fps/client/ui/objects/penguinVert.png");
+		greenn.setPosition(%div_myteam_x + 98, %div_myteam_y + 100);
+		greenname.setPosition(%div_myteam_x + 10, %div_myteam_y + 140);
+		greenname.setExtent(130, 33);
+	}
+	%current_div_i = 2;
+	for (%team_num = 1; %team_num <= %nbTeams; %team_num++)
+	{
+		if (%team_num != %myTeam)
+		{
+			%current_div = "div_team" @ %current_div_i;
+			%current_div_position = eval(%current_div @ ".getPosition();");
+			%current_div_x = getWord(%current_div_position, 0);
+			%current_div_y = getWord(%current_div_position, 1);
+			if (%team_num == 1)
+			{
+				eval(%current_div @ ".setBitmap(\"starter.fps/client/ui/pingouinBleu" @ %couronne_bleu @ ".png\");");
+				bluen.setPosition(%current_div_x + 64, %current_div_y + 59);
+				bluename.setPosition(%current_div_x + 0, %current_div_y + 90);
+				bluename.setExtent(100, 33);
+			}
+			else if (%team_num == 2)
+			{
+				eval(%current_div @ ".setBitmap(\"starter.fps/client/ui/pingouinRouge" @ %couronne_rouge @ ".png\");");
+				redn.setPosition(%current_div_x + 64, %current_div_y + 59);
+				redname.setPosition(%current_div_x + 0, %current_div_y + 90);
+				redname.setExtent(100, 33);
+			}
+			else if (%team_num == 3)
+			{
+				eval(%current_div @ ".setBitmap(\"starter.fps/client/ui/pingouinJaune" @ %couronne_jaune @ ".png\");");
+				yellown.setPosition(%current_div_x + 64, %current_div_y + 59);
+				yellowname.setPosition(%current_div_x + 0, %current_div_y + 90);
+				yellowname.setExtent(100, 33);
+			}
+			else if (%team_num == 4)
+			{
+				eval(%current_div @ ".setBitmap(\"starter.fps/client/ui/pingouinVert" @ %couronne_vert @ ".png\");");
+				greenn.setPosition(%current_div_x + 64, %current_div_y + 59);
+				greenname.setPosition(%current_div_x + 0, %current_div_y + 90);
+				greenname.setExtent(100, 33);
+			}
+			%current_div_i = %current_div_i + 1;
+		}
+	}
+	for (%team_num = %nbTeams + 1; %team_num <= 4; %team_num++)
+	{
+		%current_div = "div_team" @ %team_num;
+		eval(%current_div @ ".setVisible(0);");
+		if (%team_num == 3)
+		{
+			yellown.setVisible(0);
+			yellowscore.setVisible(0);
+			etoile_team3.setVisible(0);
+		}
+		else if (%team_num == 4)
+		{
+			greenn.setVisible(0);
+			greenscore.setVisible(0);
+			etoile_team4.setVisible(0);
+		}
+	}
+}
+
+function PlayGui::update_TeamGUI(%__unused, %myTeam, %nbTeams, %current_team, %controled_by_player, %dead, %player_name)
+{
+	if (%myTeam == %current_team && %dead)
+	{
+		div_myteam.setBitmap("starter.fps/client/ui/pingouinMort.png");
+	}
+	if (%myTeam == %current_team)
+	{
+		echo("----------------" SPC %player_name);
+		if (%myTeam == 1)
+		{
+			bluename.setText(%player_name);
+		}
+		else if (%myTeam == 2)
+		{
+			redname.setText(%player_name);
+		}
+		else if (%myTeam == 3)
+		{
+			yellowname.setText(%player_name);
+		}
+		else if (%myTeam == 4)
+		{
+			greenname.setText(%player_name);
+		}
+	}
+	%current_i = 2;
+	for (%team_num = 1; %team_num <= %nbTeams; %team_num++)
+	{
+		%current_etoile = "etoile_team" @ %current_i;
+		%current_div = "div_team" @ %current_i;
+		if (%team_num != %myTeam)
+		{
+			if (%team_num == %current_team)
+			{
+				if (%controled_by_player)
+				{
+					eval(%current_etoile @ ".setVisible(1);");
+					if (%team_num == 1)
+					{
+						bluename.setText(%player_name);
+					}
+					else if (%team_num == 2)
+					{
+						redname.setText(%player_name);
+					}
+					else if (%team_num == 3)
+					{
+						yellowname.setText(%player_name);
+					}
+					else if (%team_num == 4)
+					{
+						greenname.setText(%player_name);
+					}
+				}
+				else
+				{
+					eval(%current_etoile @ ".setVisible(0);");
+					if (%team_num == 1)
+					{
+						bluename.setText("");
+					}
+					else if (%team_num == 2)
+					{
+						redname.setText("");
+					}
+					else if (%team_num == 3)
+					{
+						yellowname.setText("");
+					}
+					else if (%team_num == 4)
+					{
+						greenname.setText("");
+					}
+				}
+				if (%dead)
+				{
+					eval(%current_div @ ".setBitmap(\"starter.fps/client/ui/pingouinMort.png\");");
+				}
+			}
+			%current_i = %current_i + 1;
+		}
+	}
+}
+
+function PlayGui::updateScore(%__unused, %team, %score)
+{
+	if (%team == 1)
+	{
+		bluescore.setText(%score);
+	}
+	else if (%team == 2)
+	{
+		redscore.setText(%score);
+	}
+	else if (%team == 3)
+	{
+		yellowscore.setText(%score);
+	}
+	else if (%team == 4)
+	{
+		greenscore.setText(%score);
+	}
+}
+
+function PlayGui::updateScoreLTG(%__unused, %team, %score)
+{
+	if (%team == 1)
+	{
+		bluescoreLTG.setText(%score);
+	}
+	else if (%team == 2)
+	{
+		redscoreLTG.setText(%score);
+	}
+	else if (%team == 3)
+	{
+		yellowscoreLTG.setText(%score);
+	}
+	else if (%team == 4)
+	{
+		greenscoreLTG.setText(%score);
+	}
+}
+
+function PlayGui::updateTeamMembers(%__unused, %team, %members, %son)
+{
+	if (%son)
+	{
+		alxPlay("son_PenguinDeath");
+	}
+	if (%members == 0)
+	{
+		%members = "";
+	}
+	if (%team == 1)
+	{
+		bluen.setText(%members);
+	}
+	else if (%team == 2)
+	{
+		redn.setText(%members);
+	}
+	else if (%team == 3)
+	{
+		yellown.setText(%members);
+	}
+	else if (%team == 4)
+	{
+		greenn.setText(%members);
+	}
+}
+
+function PlayGui::Duel(%__unused)
+{
+	alxPlay("son_duel");
+}
+
+function PlayGui::JoinMessage(%__unused, %__unused, %name)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	alxPlay("son_clientjoin");
+	msgContainer.setText("<just:center><color:8935C4><font:" @ $font1 @ ":60>" @ %name @ "\n<font:" @ $font1 @ ":40>" @ $Txt_InGame16);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(2000, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(2000, setVisible, 0);
+}
+
+function PlayGui::LeaveMessage(%__unused, %name)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	alxPlay("son_clientleave");
+	msgContainer.setText("<just:center><color:35C446><font:" @ $font1 @ ":60>" @ %name @ "\n<font:" @ $font1 @ ":40>" @ $Txt_InGame17);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(2000, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(2000, setVisible, 0);
+}
+
+function PlayGui::ReincarnationMessage(%__unused)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	msgContainer.setText("<just:center><color:4135C4><font:" @ $font1 @ ":60>" @ $Txt_InGame18);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(2200, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(2200, setVisible, 0);
+}
+
+function PlayGui::RespawnMessage(%__unused)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	msgContainer.setText("<just:center><color:4135C4><font:" @ $font1 @ ":60>" @ $Txt_InGame19);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(2200, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(2200, setVisible, 0);
+}
+
+function PlayGui::ResetScoresMessage(%__unused)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	msgContainer.setText("<just:center><color:C43535><font:" @ $font1 @ ":60>" @ $Txt_InGame20 @ "\n<font:" @ $font1 @ ":40>" @ $Txt_InGame21);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(2500, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(2500, setVisible, 0);
+	echo("Scores reseted by the creator of the server");
+}
+
+function PlayGui::DisconnectIn2minutes(%__unused)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	alxPlay("son_fullgameonly");
+	msgContainer.setText("<just:center><color:8935C4><font:" @ $font1 @ ":60>" @ $Txt_InGame22);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(5000, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(5000, setVisible, 0);
+}
+
+function PlayGui::WaitingMessage(%__unused)
+{
+	cancel($msgContainerSchedule);
+	cancel($msgBulleSchedule);
+	msgContainer.setText("<just:center><color:E3902B><font:" @ $font3 @ ":60>" @ $Txt_InGame23);
+	msgContainer.setVisible(1);
+	msgBulle.setVisible(1);
+	$msgContainerSchedule = msgContainer.schedule(2500, setVisible, 0);
+	$msgBulleSchedule = msgBulle.schedule(2500, setVisible, 0);
+}
+

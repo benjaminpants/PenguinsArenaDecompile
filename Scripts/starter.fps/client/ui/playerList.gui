@@ -1,0 +1,144 @@
+new GuiControl(PlayerListGui)
+{
+	Profile = "GuiModelessDialogProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	noCursor = 1;
+
+	new GuiBitmapBorderCtrl()
+	{
+		Profile = "GuiBitmapBorderProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "241 119";
+		Extent = "158 242";
+		MinExtent = "8 8";
+		Visible = 1;
+		helpTag = 0;
+
+		new GuiBitmapCtrl()
+		{
+			Profile = "HudScrollProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "5 5";
+			Extent = "147 231";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			bitmap = "./hudfill.png";
+			wrap = 0;
+
+			new GuiTextCtrl()
+			{
+				Profile = "HudTextProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "37 2";
+				Extent = "76 20";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				text = "Score Board";
+				maxLength = 255;
+			};
+			new GuiScrollCtrl()
+			{
+				Profile = "HudScrollProfile";
+				HorizSizing = "width";
+				VertSizing = "height";
+				position = "0 24";
+				Extent = "147 207";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				willFirstRespond = 1;
+				hScrollBar = "alwaysOff";
+				vScrollBar = "dynamic";
+				constantThumbHeight = 0;
+				childMargin = "0 0";
+				defaultLineHeight = 15;
+
+				new GuiTextListCtrl(PlayerListGuiList)
+				{
+					Profile = "HudTextProfile";
+					HorizSizing = "width";
+					VertSizing = "height";
+					position = "1 1";
+					Extent = "145 16";
+					MinExtent = "8 8";
+					Visible = 1;
+					helpTag = 0;
+					enumerate = 0;
+					resizeCell = 1;
+					columns = "0 120";
+					FitParentWidth = 1;
+					clipColumnText = 0;
+				};
+			};
+		};
+	};
+};
+function PlayerListGui::update(%this, %clientId, %name, %isSuperAdmin, %isAdmin, %isAI, %score)
+{
+	%tag = %isSuperAdmin ? "[Super]" : (%isAdmin ? "[Admin]" : (%isAI ? "[Bot]" : ""));
+	%text = StripMLControlChars(%name) SPC %tag TAB %score;
+	if (PlayerListGuiList.getRowNumById(%clientId) == -1)
+	{
+		PlayerListGuiList.addRow(%clientId, %text);
+	}
+	else
+	{
+		PlayerListGuiList.setRowById(%clientId, %text);
+	}
+	PlayerListGuiList.sortNumerical(1, 0);
+	PlayerListGuiList.clearSelection();
+}
+
+function PlayerListGui::updateScore(%this, %clientId, %score)
+{
+	%text = PlayerListGuiList.getRowTextById(%clientId);
+	%text = setField(%text, 1, %score);
+	PlayerListGuiList.setRowById(%clientId, %text);
+	PlayerListGuiList.sortNumerical(1, 0);
+	PlayerListGuiList.clearSelection();
+}
+
+function PlayerListGui::remove(%this, %clientId)
+{
+	PlayerListGuiList.removeRowById(%clientId);
+}
+
+function PlayerListGui::toggle(%this)
+{
+	if (%this.isAwake())
+	{
+		Canvas.popDialog(%this);
+	}
+	else
+	{
+		Canvas.pushDialog(%this);
+	}
+}
+
+function PlayerListGui::clear(%this)
+{
+	PlayerListGuiList.clear();
+}
+
+function PlayerListGui::zeroScores(%this)
+{
+	for (%i = 0; %i < PlayerListGuiList.rowCount(); %i++)
+	{
+		%text = PlayerListGuiList.getRowText(%i);
+		%text = setField(%text, 1, 0);
+		PlayerListGuiList.setRowById(PlayerListGuiList.getRowId(%i), %text);
+	}
+	PlayerListGuiList.clearSelection();
+}
+

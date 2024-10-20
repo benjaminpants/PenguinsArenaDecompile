@@ -1,0 +1,98 @@
+new GuiControl(HelpDlg)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+
+	new GuiWindowCtrl()
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "75 36";
+		Extent = "483 393";
+		MinExtent = "300 200";
+		Visible = 1;
+		helpTag = 0;
+		text = "Help";
+		maxLength = 255;
+		resizeWidth = 1;
+		resizeHeight = 1;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 1;
+		canMaximize = 1;
+		minSize = "50 50";
+		closeCommand = "Canvas.popDialog(HelpDlg);";
+
+		new GuiScrollCtrl()
+		{
+			Profile = "GuiScrollProfile";
+			HorizSizing = "right";
+			VertSizing = "height";
+			position = "8 26";
+			Extent = "132 356";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			willFirstRespond = 1;
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = 0;
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(HelpFileList)
+			{
+				Profile = "GuiTextListProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "1 1";
+				Extent = "130 8";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				enumerate = 0;
+				resizeCell = 1;
+				columns = 0;
+				FitParentWidth = 1;
+				clipColumnText = 0;
+			};
+		};
+		new GuiScrollCtrl()
+		{
+			Profile = "GuiScrollProfile";
+			HorizSizing = "width";
+			VertSizing = "height";
+			position = "146 26";
+			Extent = "328 356";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			willFirstRespond = 1;
+			hScrollBar = "alwaysOff";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = 0;
+			childMargin = "0 0";
+
+			new GuiMLTextCtrl(HelpText)
+			{
+				Profile = "GuiMLTextProfile";
+				HorizSizing = "width";
+				VertSizing = "bottom";
+				position = "1 1";
+				Extent = "310 16";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+			};
+		};
+	};
+};

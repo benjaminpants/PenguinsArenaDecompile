@@ -1,0 +1,160 @@
+new GuiControl(MessageHud)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	Visible = 0;
+	noCursor = 1;
+
+	new GuiControl(MessageHud_Frame)
+	{
+		Profile = "ChatHudBorderProfile";
+		HorizSizing = "relative";
+		VertSizing = "top";
+		position = "0 728";
+		Extent = "410 40";
+		MinExtent = "8 8";
+		Visible = 1;
+
+		new GuiBitmapCtrl()
+		{
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "width";
+			VertSizing = "height";
+			position = "118 8";
+			Extent = "256 24";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			bitmap = "./hudfill.png";
+			wrap = 0;
+		};
+		new GuiTextCtrl(MessageHud_Text)
+		{
+			Profile = "ChatHudTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "124 12";
+			Extent = "10 22";
+			MinExtent = "8 8";
+			Visible = 1;
+		};
+		new GuiTextEditCtrl(MessageHud_Edit)
+		{
+			Profile = "ChatHudEditProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "120 13";
+			Extent = "10 22";
+			MinExtent = "8 8";
+			Visible = 1;
+			AltCommand = "$ThisControl.eval();";
+			escapeCommand = "MessageHud_Edit.onEscape();";
+			historySize = 5;
+			maxLength = 120;
+		};
+	};
+};
+new GuiControl(MainChatHud)
+{
+	Profile = "GuiModelessDialogProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	noCursor = 1;
+
+	new GuiControl()
+	{
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "relative";
+		VertSizing = "top";
+		position = "0 645";
+		Extent = "410 300";
+		MinExtent = "8 8";
+		Visible = 1;
+		helpTag = 0;
+
+		new GuiControl(OuterChatHud)
+		{
+			Profile = "ChatHudBorderProfile";
+			HorizSizing = "width";
+			VertSizing = "bottom";
+			position = "110 0";
+			Extent = "272 108";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			useVariable = 0;
+			tile = 0;
+
+			new GuiBitmapCtrl()
+			{
+				Profile = "GuiDefaultProfile";
+				HorizSizing = "width";
+				VertSizing = "height";
+				position = "8 8";
+				Extent = "256 200";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				bitmap = "./hudfill.png";
+				wrap = 0;
+			};
+			new GuiButtonCtrl(chatPageDown)
+			{
+				Profile = "GuiButtonProfile";
+				HorizSizing = "left";
+				VertSizing = "top";
+				position = "220 78";
+				Extent = "36 14";
+				MinExtent = "8 8";
+				Visible = 0;
+				helpTag = 0;
+				text = "Dwn";
+				groupNum = -1;
+				buttonType = "PushButton";
+			};
+			new GuiScrollCtrl(ChatScrollHud)
+			{
+				Profile = "ChatHudScrollProfile";
+				HorizSizing = "width";
+				VertSizing = "height";
+				position = "8 8";
+				Extent = "256 92";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				willFirstRespond = 1;
+				hScrollBar = "alwaysOff";
+				vScrollBar = "alwaysOff";
+				constantThumbHeight = 0;
+				childMargin = "0 0";
+
+				new GuiMessageVectorCtrl(ChatHud)
+				{
+					Profile = "ChatHudMessageProfile";
+					HorizSizing = "width";
+					VertSizing = "height";
+					position = "1 1";
+					Extent = "252 16";
+					MinExtent = "8 8";
+					Visible = 1;
+					helpTag = 0;
+					lineSpacing = 0;
+					lineContinuedIndex = 10;
+					allowedMatches[0] = "http";
+					allowedMatches[1] = "tgeserver";
+					matchColor = "0 0 255 255";
+					maxColorIndex = 5;
+				};
+			};
+		};
+	};
+};

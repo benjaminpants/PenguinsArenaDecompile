@@ -1,0 +1,332 @@
+new GuiChunkedBitmapCtrl(CustomPenguin)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiContentProfile";
+	HorizSizing = "width";
+	VertSizing = "height";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	useVariable = 0;
+	tile = 0;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./fond1.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "212 159";
+		Extent = "600 450";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "94 86";
+			Extent = "406 244";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./fond_fenetre2.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "222 117";
+			Extent = "150 186";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./objects/penguin.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(TopObject)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "222 117";
+			Extent = "150 186";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./objects/objectT8.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl(BottomObject)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "222 117";
+			Extent = "150 186";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./objects/objectB6.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "209 65";
+			Extent = "80 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "ChooseTopObject(-1);";
+			hovertime = 1000;
+			text = "<<<<";
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_2";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "315 65";
+			Extent = "80 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "ChooseTopObject(1);";
+			hovertime = 1000;
+			text = ">>>>";
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_2";
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "229 93";
+			Extent = "152 20";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<font:Trebuchet MS Gras:20>" @ $Txt_custom01;
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "229 386";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "ValidCustomPenguinScreen();";
+			hovertime = 1000;
+			text = $Txt_common01;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_4";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "209 318";
+			Extent = "80 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "ChooseBottomObject(-1);";
+			hovertime = 1000;
+			text = "<<<<";
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_3";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "315 318";
+			Extent = "80 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "ChooseBottomObject(1);";
+			hovertime = 1000;
+			text = ">>>>";
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_4";
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "215 304";
+			Extent = "175 20";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<font:Trebuchet MS Gras:20>" @ $Txt_custom02;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "206 345";
+			Extent = "205 15";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<font:Trebuchet MS Gras:15>" @ $Txt_custom03;
+		};
+		new GuiMLTextCtrl(FGO_CP_GUI)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "160 220";
+			Extent = "300 40";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<font:Trebuchet MS Gras:40>" @ $Txt_InGame08;
+		};
+	};
+};
+$MaxTopObjects = 13;
+$MaxBottomObjects = 6;
+function CustomPenguin::onWake()
+{
+	MountTopObject($pref::Player::TopObject);
+	MountBottomObject($pref::Player::BottomObject);
+	if ($BuildType == 40)
+	{
+		FGO_CP_GUI.setVisible(1);
+	}
+}
+
+function MountTopObject(%obj)
+{
+	$pref::Player::TopObject = %obj;
+	TopObject.setBitmap("starter.fps/client/ui/objects/objectT" @ %obj @ ".png");
+}
+
+function MountBottomObject(%obj)
+{
+	$pref::Player::BottomObject = %obj;
+	BottomObject.setBitmap("starter.fps/client/ui/objects/objectB" @ %obj @ ".png");
+}
+
+function ChooseTopObject(%sens)
+{
+	%obj = $pref::Player::TopObject;
+	%obj = %obj + %sens;
+	if (%obj < 0)
+	{
+		%obj = $MaxTopObjects;
+	}
+	else if (%obj > $MaxTopObjects)
+	{
+		%obj = 0;
+	}
+	MountTopObject(%obj);
+}
+
+function ChooseBottomObject(%sens)
+{
+	%obj = $pref::Player::BottomObject;
+	%obj = %obj + %sens;
+	if (%obj < 0)
+	{
+		%obj = $MaxBottomObjects;
+	}
+	else if (%obj > $MaxBottomObjects)
+	{
+		%obj = 0;
+	}
+	MountBottomObject(%obj);
+}
+
+function ValidCustomPenguinScreen()
+{
+	if ($BuildType == 40)
+	{
+		$pref::Player::TopObject = 0;
+		$pref::Player::BottomObject = 0;
+	}
+	Canvas.setContent(chooseGameGui);
+}
+

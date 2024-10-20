@@ -1,0 +1,238 @@
+new GuiControl(SaveFileDlgEx)
+{
+	Profile = "GuiDialogProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	FitParentWidth = 0;
+	fitParentHeight = 0;
+	position = "0 0";
+	Extent = "800 600";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+
+	new GuiWindowCtrl()
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		FitParentWidth = 0;
+		fitParentHeight = 0;
+		position = "73 61";
+		Extent = "653 478";
+		MinExtent = "8 8";
+		Visible = 1;
+		text = "Save File...";
+		maxLength = 255;
+		resizeWidth = 1;
+		resizeHeight = 1;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 1;
+		canMaximize = 1;
+		minSize = "50 50";
+		closeCommand = "Canvas.popDialog(SaveFileDlgEx);";
+		helpTag = 0;
+
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "left";
+			VertSizing = "top";
+			FitParentWidth = 0;
+			fitParentHeight = 0;
+			position = "513 449";
+			Extent = "60 20";
+			MinExtent = "8 8";
+			Visible = 1;
+			Command = "DoSaveFileExCallback();";
+			text = "Save";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "left";
+			VertSizing = "top";
+			FitParentWidth = 0;
+			fitParentHeight = 0;
+			position = "583 449";
+			Extent = "60 20";
+			MinExtent = "8 8";
+			Visible = 1;
+			Command = "Canvas.popDialog(SaveFileDlgEx);";
+			text = "Cancel";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiTextCtrl()
+		{
+			Profile = "GuiTextProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "10 449";
+			Extent = "89 18";
+			MinExtent = "8 2";
+			Visible = 1;
+			text = "File name:";
+			maxLength = 255;
+		};
+		new GuiTextEditCtrl(SaveFileExEdit)
+		{
+			Profile = "GuiTextEditProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "60 449";
+			Extent = "286 16";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			maxLength = 255;
+			historySize = 0;
+			password = 0;
+			tabComplete = 0;
+		};
+		new GuiFrameSetCtrl()
+		{
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "width";
+			VertSizing = "height";
+			FitParentWidth = 0;
+			fitParentHeight = 0;
+			position = "4 24";
+			Extent = "643 416";
+			MinExtent = "8 2";
+			Visible = 1;
+			columns = "0 245";
+			rows = 0;
+			borderWidth = 7;
+			borderColor = "206 206 206 206";
+			borderEnable = "dynamic";
+			borderMovable = "dynamic";
+			autoBalance = 0;
+			fudgeFactor = 0;
+
+			new GuiScrollCtrl()
+			{
+				Profile = "GuiScrollProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				FitParentWidth = 0;
+				fitParentHeight = 1;
+				position = "0 0";
+				Extent = "238 416";
+				MinExtent = "8 2";
+				Visible = 1;
+				willFirstRespond = 1;
+				hScrollBar = "dynamic";
+				vScrollBar = "dynamic";
+				constantThumbHeight = 0;
+				childMargin = "0 0";
+
+				new GuiDirectoryTreeCtrl(SaveDirTreeEx)
+				{
+					Profile = "GuiDirectoryTreeProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					FitParentWidth = 0;
+					fitParentHeight = 0;
+					position = "2 -670";
+					Extent = "206 1470";
+					MinExtent = "8 2";
+					Visible = 1;
+					tabSize = 16;
+					textOffset = 2;
+					fullRowSelect = 0;
+					itemHeight = 21;
+					destroyTreeOnSleep = 0;
+					MouseDragging = 0;
+					MultipleSelections = 0;
+				};
+			};
+			new GuiScrollCtrl()
+			{
+				Profile = "GuiScrollProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				FitParentWidth = 1;
+				fitParentHeight = 1;
+				position = "245 0";
+				Extent = "643 416";
+				MinExtent = "8 2";
+				Visible = 1;
+				willFirstRespond = 1;
+				hScrollBar = "alwaysOn";
+				vScrollBar = "alwaysOn";
+				constantThumbHeight = 0;
+				childMargin = "0 0";
+
+				new GuiDirectoryFileListCtrl(SaveFileListEx)
+				{
+					Profile = "GuiDirectoryFileListProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					FitParentWidth = 0;
+					fitParentHeight = 0;
+					position = "2 2";
+					Extent = "621 224";
+					MinExtent = "8 2";
+					Visible = 1;
+					enumerate = 0;
+					resizeCell = 1;
+					columns = 0;
+					FitParentWidth = 1;
+					clipColumnText = 0;
+				};
+			};
+		};
+	};
+};
+function getSaveFilename(%filespec, %callback, %currentFile)
+{
+	$GuiSaveDialogCallback = %callback;
+	if (%filespec $= "")
+	{
+		$SaveFileExFileSpec = "*.*";
+	}
+	else
+	{
+		$SaveFileExFileSpec = %filespec;
+	}
+	Canvas.pushDialog(SaveFileDlgEx, 99);
+	$SaveFileExFile = %currentFile;
+	if (filePath(%currentFile) !$= "")
+	{
+		SaveDirTreeEx.setSelectedPath(filePath(%currentFile));
+	}
+	else if ($pref::Constructor::lastPath !$= "")
+	{
+		SaveDirTreeEx.setSelectedPath($pref::Constructor::lastPath);
+	}
+	SaveFileListEx.setPath(SaveDirTreeEx.getSelectedPath(), $SaveFileExFileSpec);
+	SaveFileExEdit.setText(fileName($SaveFileExFile));
+}
+
+function DoSaveFileExCallback()
+{
+	%path = SaveDirTreeEx.getSelectedPath();
+	%file = SaveFileExEdit.getValue();
+	%cat = %path @ "/" @ %file;
+	echo(%cat);
+	eval($GuiSaveDialogCallback @ "(\"" @ %cat @ "\");");
+	Canvas.popDialog(SaveFileDlgEx);
+}
+
+function SaveDirTreeEx::onSelectPath(%__unused, %path)
+{
+	SaveFileListEx.setPath(%path, $SaveFileExFileSpec);
+	$pref::Constructor::lastPath = %path;
+}
+
+function SaveFileListEx::onSelect(%__unused, %__unused, %file)
+{
+	SaveFileExEdit.setText(%file);
+}
+

@@ -1,0 +1,274 @@
+new GuiControl(frogames_inviteafriend)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+
+	new GuiWindowCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "323 232";
+		Extent = "377 313";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		text = $Txt_invite01;
+		maxLength = 255;
+		resizeWidth = 0;
+		resizeHeight = 0;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 0;
+		canMaximize = 0;
+		minSize = "50 50";
+		closeCommand = "Canvas.popDialog(frogames_inviteafriend);";
+
+		new GuiControl(frogames_inviteafriendPane)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiWindowProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 35";
+			Extent = "357 230";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 0";
+				Extent = "337 60";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "<just:center>" @ $Txt_invite02;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "0 80";
+				Extent = "172 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "<just:right>" @ $Txt_invite03;
+			};
+			new GuiTextEditCtrl(pseudo)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiTextEditProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "180 80";
+				Extent = "134 22";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				text = "";
+				hovertime = 1000;
+				maxLength = 100;
+				historySize = 0;
+				password = 0;
+				tabComplete = 0;
+				sinkAllKeyEvents = 0;
+				password = 0;
+				passwordMask = "*";
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "0 110";
+				Extent = "172 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "<just:right>" @ $Txt_invite04;
+			};
+			new GuiTextEditCtrl(your_email)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiTextEditProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "180 110";
+				Extent = "134 22";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "pref::Player::Email";
+				hovertime = 1000;
+				maxLength = 100;
+				historySize = 0;
+				password = 0;
+				tabComplete = 0;
+				sinkAllKeyEvents = 0;
+				password = 0;
+				passwordMask = "*";
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "0 140";
+				Extent = "172 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "<just:right>" @ $Txt_invite05;
+			};
+			new GuiTextEditCtrl(friend_email)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiTextEditProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "180 140";
+				Extent = "134 22";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				maxLength = 100;
+				historySize = 0;
+				password = 0;
+				tabComplete = 0;
+				sinkAllKeyEvents = 0;
+				password = 0;
+				passwordMask = "*";
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile3";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 180";
+				Extent = "337 30";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "<just:center>" @ $Txt_invite06;
+			};
+		};
+		new GuiBitmapButtonTextCtrl(invitethisfriend_cancel)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "23 274";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "Canvas.popDialog(frogames_inviteafriend);";
+			hovertime = 1000;
+			text = $Txt_common02;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+		};
+		new GuiBitmapButtonTextCtrl(invitethisfriend_button)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "202 274";
+			Extent = "146 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "frogames_inviteafriend::invite_this_friend();";
+			hovertime = 1000;
+			text = $Txt_invite07;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+		};
+		new GuiMLTextCtrl(invitethisfriend_sending)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "10 100";
+			Extent = "337 40";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<just:center>" @ $Txt_invite08;
+		};
+	};
+};
+function frogames_inviteafriend::onWake()
+{
+	invitethisfriend_button.setVisible(1);
+	invitethisfriend_cancel.setVisible(1);
+	invitethisfriend_sending.setVisible(0);
+	frogames_inviteafriendPane.setVisible(1);
+	friend_email.setText("");
+	pseudo.setText($pref::Player::Name);
+}
+
+function frogames_inviteafriend::invite_this_friend()
+{
+	%pseudo = pseudo.getValue();
+	%your_email = your_email.getValue();
+	%friend_email = friend_email.getValue();
+	invitethisfriend_button.setVisible(0);
+	invitethisfriend_cancel.setVisible(0);
+	invitethisfriend_sending.setVisible(1);
+	frogames_inviteafriendPane.setVisible(0);
+	invite_a_friend(%pseudo, %your_email, %friend_email);
+}
+

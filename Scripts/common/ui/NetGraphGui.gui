@@ -1,0 +1,187 @@
+new GuiControlProfile(NetGraphGhostsActiveProfile)
+{
+	fontColor = "255 255 255";
+};
+new GuiControlProfile(NetGraphGhostUpdatesProfile)
+{
+	fontColor = "255 0 0";
+};
+new GuiControlProfile(NetGraphBitsSentProfile)
+{
+	fontColor = "0 255 0";
+};
+new GuiControlProfile(NetGraphBitsReceivedProfile)
+{
+	fontColor = "0 0 255";
+};
+new GuiControlProfile(NetGraphLatencyProfile)
+{
+	fontColor = "0 255 255";
+};
+new GuiControlProfile(NetGraphPacketLossProfile)
+{
+	fontColor = "0 0 0";
+};
+new GuiControl(NetGraphGui)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "left";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 2";
+	Visible = 1;
+	noCursor = 1;
+
+	new GuiGraphCtrl(NetGraph)
+	{
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "402 200";
+		Extent = "220 200";
+		MinExtent = "8 2";
+		Visible = 1;
+	};
+	new GuiTextCtrl(Latency)
+	{
+		Profile = "NetGraphLatencyProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "406 184";
+		Extent = "100 18";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Latency";
+		maxLength = 255;
+	};
+	new GuiTextCtrl(PacketLoss)
+	{
+		Profile = "GuiTextProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "506 184";
+		Extent = "59 18";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Packet Loss";
+		maxLength = 255;
+	};
+	new GuiTextCtrl(BitsReceived)
+	{
+		Profile = "NetGraphBitsReceivedProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "506 170";
+		Extent = "110 18";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Bits Received";
+		maxLength = 255;
+	};
+	new GuiTextCtrl(GhostsActive)
+	{
+		Profile = "NetGraphGhostsActiveProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "406 156";
+		Extent = "110 18";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Ghosts Active";
+		maxLength = 255;
+	};
+	new GuiTextCtrl(GhostUpdates)
+	{
+		Profile = "NetGraphGhostUpdatesProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "506 156";
+		Extent = "110 18";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Ghost Updates";
+		maxLength = 255;
+	};
+	new GuiTextCtrl(BitsSent)
+	{
+		Profile = "NetGraphBitsSentProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "406 170";
+		Extent = "110 18";
+		MinExtent = "8 2";
+		Visible = 1;
+		text = "Bits Sent";
+		maxLength = 255;
+	};
+};
+function NetGraph::toggleNetGraph()
+{
+	if (!$NetGraph::isInitialized)
+	{
+		$Stats::netGhostUpdates = 0;
+		NetGraph::updateStats();
+		$NetGraph::isInitialized = 1;
+	}
+	if (!Canvas.isMember(NetGraphGui))
+	{
+		Canvas.add(NetGraphGui);
+	}
+	else
+	{
+		Canvas.remove(NetGraphGui);
+	}
+}
+
+function NetGraph::updateStats()
+{
+	$NetGraphThread = NetGraph.schedule(32, "updateStats");
+	if (!$Stats::netGhostUpdates)
+	{
+		return;
+	}
+	if (isObject(NetGraph))
+	{
+		if (isObject(ServerConnection))
+		{
+			NetGraph.addDatum(0, ServerConnection.getGhostsActive());
+		}
+		GhostsActive.setText("Ghosts Active: " @ ServerConnection.getGhostsActive());
+		NetGraph.addDatum(1, $Stats::netGhostUpdates);
+		GhostUpdates.setText("Ghost Updates: " @ $Stats::netGhostUpdates);
+		$Stats::netGhostUpdates = 0;
+		NetGraph.addDatum(2, $Stats::netBitsSent);
+		BitsSent.setText("Bits Sent: " @ $Stats::netBitsSent);
+		NetGraph.addDatum(3, $Stats::netBitsReceived);
+		BitsReceived.setText("Bits Received: " @ $Stats::netBitsReceived);
+		NetGraph.matchScale(2, 3);
+		NetGraph.addDatum(4, ServerConnection.getPing());
+		Latency.setText("Latency: " @ ServerConnection.getPing());
+		NetGraph.addDatum(5, ServerConnection.getPacketLoss());
+		PacketLoss.setText("Packet Loss: " @ ServerConnection.getPacketLoss());
+	}
+}
+
+function NetGraph::toggleKey()
+{
+	if (!GhostsActive.Visible)
+	{
+		GhostsActive.Visible = 1;
+		GhostUpdates.Visible = 1;
+		BitsSent.Visible = 1;
+		BitsReceived.Visible = 1;
+		Latency.Visible = 1;
+		PacketLoss.Visible = 1;
+	}
+	else
+	{
+		GhostsActive.Visible = 0;
+		GhostUpdates.Visible = 0;
+		BitsSent.Visible = 0;
+		BitsReceived.Visible = 0;
+		Latency.Visible = 0;
+		PacketLoss.Visible = 0;
+	}
+}
+

@@ -1,0 +1,57 @@
+new GuiFadeinBitmapCtrl(StartupGui1)
+{
+	Profile = "GuiInputCtrlProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "800 600";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	bitmap = "./logoentre";
+	wrap = 0;
+	fadeinTime = 125;
+	waitTime = 4000;
+	fadeoutTime = 125;
+	noCursor = 1;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "6 10";
+		Extent = "800 600";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		bitmap = "./TGE_800.jpg";
+		useVariable = 0;
+		tile = 0;
+	};
+};
+function loadStartupGui1()
+{
+	StartupGui1.done = 0;
+	Canvas.setContent(StartupGui1);
+	schedule(100, 0, checkStartupGui1Done);
+}
+
+function StartupGui1::click()
+{
+	StartupGui1.done = 1;
+}
+
+function checkStartupGui1Done()
+{
+	if (StartupGui1.done)
+	{
+		loadIntro();
+	}
+	else
+	{
+		schedule(100, 0, checkStartupGui1Done);
+	}
+}
+

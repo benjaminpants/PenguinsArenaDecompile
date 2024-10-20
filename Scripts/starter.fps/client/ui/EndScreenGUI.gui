@@ -1,0 +1,39 @@
+new GuiChunkedBitmapCtrl(EndScreenGUI)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiContentProfile";
+	HorizSizing = "relative";
+	VertSizing = "relative";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	bitmap = "./endscreen.jpg";
+	useVariable = 0;
+	tile = 0;
+
+	new GuiBitmapButtonCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "665 538";
+		Extent = "359 230";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "gotoWebPage($frogames_buynow);";
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./endscreenButton";
+	};
+};
+function EndScreenGUI::onWake()
+{
+	$endScreenSchedule = schedule(6000, 0, "quit");
+}
+

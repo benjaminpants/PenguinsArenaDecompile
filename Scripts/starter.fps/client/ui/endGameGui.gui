@@ -1,0 +1,74 @@
+new GuiChunkedBitmapCtrl(EndGameGui)
+{
+	Profile = "GuiContentProfile";
+	HorizSizing = "width";
+	VertSizing = "height";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	bitmap = "./starter.fps/client/ui/lastgame.png";
+	useVariable = 0;
+	tile = 0;
+
+	new GuiControl()
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "92 86";
+		Extent = "455 308";
+		MinExtent = "8 8";
+		Visible = 1;
+		helpTag = 0;
+
+		new GuiTextCtrl()
+		{
+			Profile = "GuiMediumTextProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "101 15";
+			Extent = "251 28";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			text = "Game Over - Final Scores:";
+			maxLength = 255;
+		};
+		new GuiScrollCtrl()
+		{
+			Profile = "GuiScrollProfile";
+			HorizSizing = "width";
+			VertSizing = "height";
+			position = "5 51";
+			Extent = "444 251";
+			MinExtent = "8 8";
+			Visible = 1;
+			helpTag = 0;
+			willFirstRespond = 1;
+			hScrollBar = "alwaysOff";
+			vScrollBar = "dynamic";
+			constantThumbHeight = 0;
+			childMargin = "0 0";
+			defaultLineHeight = 15;
+
+			new GuiTextListCtrl(EndGameGuiList)
+			{
+				Profile = "GuiTextProfile";
+				HorizSizing = "width";
+				VertSizing = "height";
+				position = "2 2";
+				Extent = "440 16";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				enumerate = 0;
+				resizeCell = 1;
+				columns = "0 256";
+				FitParentWidth = 1;
+				clipColumnText = 0;
+			};
+		};
+	};
+};

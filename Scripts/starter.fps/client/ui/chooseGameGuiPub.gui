@@ -1,0 +1,201 @@
+new GuiChunkedBitmapCtrl(chooseGameGuiPub)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiContentProfile";
+	HorizSizing = "relative";
+	VertSizing = "relative";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	bitmap = "./fond1.png";
+	useVariable = 0;
+	tile = 0;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "292 15";
+		Extent = "441 216";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./title.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "top";
+		position = "302 548";
+		Extent = "420 220";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./penguins.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "top";
+		position = "323 355";
+		Extent = "380 400";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		useVariable = 0;
+		tile = 0;
+
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "top";
+			position = "65 155";
+			Extent = "250 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_ChooseGame30;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+			Command = "gotoWebPage($frogames_buynow);";
+		};
+		new GuiBitmapButtonTextCtrl(ContinueButton)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "top";
+			position = "125 20";
+			Extent = "151 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = $Txt_ChooseGame31 SPC "->";
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+			Command = "Canvas.setContent(chooseGameGui);";
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfileGrand";
+			HorizSizing = "center";
+			VertSizing = "top";
+			position = "0 130";
+			Extent = "380 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<font:" @ $font1 @ ":20><color:FFFFFF>" @ $Txt_ChooseGame32;
+		};
+		new GuiMLTextCtrl(TextDemoBonusAvailable)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfileGrand";
+			HorizSizing = "center";
+			VertSizing = "top";
+			position = "200 70";
+			Extent = "380 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<font:" @ $font1 @ ":14><color:FFFFFF>" @ $Txt_ChooseGame33;
+		};
+		new GuiChunkedBitmapCtrl(DemoBonusAvailable)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "top";
+			position = "120 60";
+			Extent = "60 60";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./bonusdemo1.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl(TextPubTimer)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfileGrand";
+			HorizSizing = "center";
+			VertSizing = "top";
+			position = "165 0";
+			Extent = "50 150";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "";
+		};
+	};
+};
+function chooseGameGuiPub::onWake()
+{
+	ContinueButton.setVisible(0);
+	TextPubTimer.setVisible(1);
+	if ($chooseGameGuiPub_reduc)
+	{
+		TextPubTimer.setText("<font:" @ $font1 @ ":60><color:FFFFFF>" @ "4");
+		schedule(1000, 0, "PubTimer", 3);
+	}
+	else
+	{
+		TextPubTimer.setText("<font:" @ $font1 @ ":60><color:FFFFFF>" @ "7");
+		schedule(1000, 0, "PubTimer", 6);
+	}
+	$DemoBonusAvailable = getRandom(1, 5);
+	DemoBonusAvailable.setBitmap("starter.fps/client/ui/bonusdemo" @ $DemoBonusAvailable @ ".png");
+}
+
+function PubTimer(%time)
+{
+	if (%time > 0)
+	{
+		TextPubTimer.setText("<font:" @ $font1 @ ":60><color:FFFFFF>" @ %time);
+		%time = %time - 1;
+		schedule(1000, 0, "PubTimer", %time);
+	}
+	else
+	{
+		TextPubTimer.setVisible(0);
+		ContinueButton.setVisible(1);
+		$chooseGameGuiPub_reduc = 1;
+	}
+}
+

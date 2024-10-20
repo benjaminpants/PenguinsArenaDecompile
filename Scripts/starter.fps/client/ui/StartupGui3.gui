@@ -1,0 +1,121 @@
+new GuiFadeinBitmapCtrl(StartupGui3)
+{
+	Profile = "GuiInputCtrlProfile";
+	HorizSizing = "relative";
+	VertSizing = "relative";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	bitmap = "./noir";
+	wrap = 0;
+	fadeinTime = 2000;
+	waitTime = 19000;
+	fadeoutTime = 1000;
+	noCursor = 1;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "6 10";
+		Extent = "1024 768";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./intro2.jpg";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl(StartupGui3TextContainer)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		useVariable = 0;
+		tile = 0;
+
+		new GuiMLTextCtrl(IntroTexte4)
+		{
+			Profile = "GuiIntroTextProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "0 595";
+			Extent = "1024 130";
+			MinExtent = "8 2";
+			Visible = 0;
+			text = "<just:center>" @ $Txt_introduction04;
+			maxLength = 255;
+		};
+		new GuiMLTextCtrl(IntroTexte41)
+		{
+			Profile = "GuiIntroTextProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "0 595";
+			Extent = "1024 130";
+			MinExtent = "8 2";
+			Visible = 0;
+			text = "<just:center>" @ $Txt_introduction05;
+			helpTag = 0;
+		};
+		new GuiMLTextCtrl(IntroTexte5)
+		{
+			Profile = "GuiIntroTextProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "0 576";
+			Extent = "1024 130";
+			MinExtent = "8 2";
+			Visible = 0;
+			text = "<color:FFE9BE><just:center>" @ $Txt_introduction06;
+			maxLength = 255;
+		};
+		new GuiMLTextCtrl(IntroTexte51)
+		{
+			Profile = "GuiIntroTextProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "0 625";
+			Extent = "1024 130";
+			MinExtent = "8 2";
+			Visible = 0;
+			text = "<color:FFE9BE><just:center>" @ $Txt_introduction07;
+			helpTag = 0;
+		};
+	};
+};
+function StartupGui3::onWake()
+{
+	$IntroGuiSchedule = StartupGui3.schedule(22000, nextScene);
+	IntroTexte4.schedule(2000, setVisible, 1);
+	IntroTexte4.schedule(7000, setVisible, 0);
+	IntroTexte41.schedule(7500, setVisible, 1);
+	IntroTexte41.schedule(11800, setVisible, 0);
+	IntroTexte5.schedule(12300, setVisible, 1);
+	IntroTexte5.schedule(20000, setVisible, 0);
+	IntroTexte51.schedule(12300, setVisible, 1);
+	IntroTexte51.schedule(20000, setVisible, 0);
+}
+
+function StartupGui3::nextScene()
+{
+	echo("*** Load StartupGui4");
+	Canvas.setContent(StartupGui4);
+}
+
+function StartupGui3::click()
+{
+	exitIntro();
+}
+

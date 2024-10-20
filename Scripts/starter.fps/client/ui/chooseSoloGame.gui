@@ -1,0 +1,198 @@
+new GuiChunkedBitmapCtrl(chooseSoloGameGui)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiContentProfile";
+	HorizSizing = "width";
+	VertSizing = "height";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	useVariable = 0;
+	tile = 0;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiContentProfile";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "0 0";
+		Extent = "640 480";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./fond1.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl(ADVENTUREPane)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "20 15";
+		Extent = "600 450";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "66 31";
+			Extent = "171 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Accelerator = "p";
+			hovertime = 1000;
+			text = $Txt_ChooseGame34;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+		};
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "55 50";
+			Extent = "489 282";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./fond_fenetre4.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiScrollCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiScrollProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "96 113";
+			Extent = "427 172";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			willFirstRespond = 1;
+			hScrollBar = "dynamic";
+			vScrollBar = "alwaysOn";
+			constantThumbHeight = 0;
+			childMargin = "0 0";
+
+			new GuiTextListCtrl(AdventuresList)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiTextArrayProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "2 2";
+				Extent = "405 8";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				enumerate = 0;
+				resizeCell = 1;
+				columns = "0 300";
+				FitParentWidth = 1;
+				clipColumnText = 0;
+			};
+		};
+		new GuiBitmapButtonTextCtrl(ButtonPlay)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "434 329";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "Solo_StartMission();";
+			Accelerator = "ENTER";
+			hovertime = 1000;
+			text = $Txt_ChooseGame08;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_5";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "41 332";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "Canvas.getContent().exit();";
+			Accelerator = "escape";
+			hovertime = 1000;
+			text = $Txt_ChooseGame09;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_4";
+		};
+	};
+};
+function Solo_StartMission()
+{
+	%id = AdventuresList.getSelectedId();
+	%mission = "starter.fps/data/missions_adventures/" @ $map_list_directory[%id] @ "/map01.mis";
+	%serverType = "SinglePlayer";
+	createServer(%serverType, %mission);
+	%conn = new GameConnection(ServerConnection);
+	RootGroup.add(ServerConnection);
+	%conn.setConnectArgs(badWordStrip($pref::Player::Name), 0);
+	%conn.setJoinPassword($Client::Password);
+	%conn.connectLocal();
+}
+
+function chooseSoloGameGui::onWake()
+{
+	%i = 0;
+	%filespec = "starter.fps/data/missions_adventures/" @ "*/init.cs";
+	for (%file = findFirstFile(%filespec); %file !$= ""; %file = findNextFile(%filespec))
+	{
+		if (strstr(%file, "/CVS/") == -1)
+		{
+			exec(%file);
+			$map_list[%i] = PackDescription.name;
+			$map_list_directory[%i] = PackDescription.directory;
+			%i++;
+		}
+	}
+	$map_list_count = %i;
+	AdventuresList.clear();
+	for (%i = 0; %i < $map_list_count; %i++)
+	{
+		AdventuresList.addRow(%i, $map_list[%i] TAB %i);
+	}
+	AdventuresList.sort(1);
+	AdventuresList.setSelectedRow(0);
+	AdventuresList.scrollVisible(0);
+}
+
+function chooseSoloGameGui::exit(%__unused)
+{
+	Canvas.setContent(MainMenuGui);
+}
+

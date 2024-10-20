@@ -1,0 +1,1573 @@
+new GuiChunkedBitmapCtrl(MainMenuGui)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiContentProfile";
+	HorizSizing = "relative";
+	VertSizing = "relative";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+	bitmap = "./fond1.png";
+	useVariable = 0;
+	tile = 0;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "bottom";
+		position = "292 15";
+		Extent = "441 216";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./title.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "top";
+		position = "302 548";
+		Extent = "420 220";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./penguins.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiChunkedBitmapCtrl(Xmas1)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "0 0";
+		Extent = "530 332";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./XmasSkin1";
+	};
+	new GuiChunkedBitmapCtrl(Xmas2)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "bottom";
+		position = "728 0";
+		Extent = "296 488";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./XmasSkin2";
+	};
+	new GuiControl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "262 134";
+		Extent = "500 500";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		useVariable = 0;
+		tile = 0;
+
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "116 177";
+			Extent = "268 156";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./fond_fenetre.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "116 177";
+			Extent = "268 156";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			bitmap = "./fond_fenetre.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiTextCtrl(CheckingVersionText)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiTextProfile";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "196 165";
+			Extent = "208 22";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			text = $Txt_mainMenu01;
+			maxLength = 255;
+		};
+		new GuiBitmapButtonTextCtrl(ButtonDownloadLastVersion)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "132 144";
+			Extent = "240 48";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			Command = "downloadLastVersion();";
+			hovertime = 1000;
+			text = $Txt_mainMenu02;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_2";
+		};
+		new GuiBitmapButtonTextCtrl(ButtonChooseGameGui)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 160";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu03;
+			Command = "lancer_le_jeu();";
+			Accelerator = "ENTER";
+			bitmap = "./fond_button_2";
+		};
+		new GuiBitmapButtonTextCtrl(ButtonChooseSoloGameGui)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 110";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu19;
+			Command = "Canvas.setContent(chooseSoloGameGui);";
+			bitmap = "./fond_button_2";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 194";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu05;
+			Command = "afficheHowToPlay();";
+			bitmap = "./fond_button_3";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 223";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu06;
+			Command = "Canvas.pushDialog(optionsDlg);";
+			bitmap = "./fond_button_4";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 253";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_achievements01;
+			Command = "afficheAchievements();";
+			bitmap = "./fond_button_2";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 285";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu07;
+			Command = "loadIntro();";
+			bitmap = "./fond_button_5";
+		};
+		new GuiBitmapButtonTextCtrl(button_quit)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 315";
+			Extent = "135 33";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu04;
+			Command = "quitter_le_jeu();";
+			Accelerator = "escape";
+			bitmap = "./fond_button_2";
+		};
+	};
+	new GuiBitmapButtonCtrl(button_bug)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "top";
+		position = "753 503";
+		Extent = "271 265";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "beta_test_report();";
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./button_bug";
+	};
+	new GuiBitmapButtonCtrl(button_buy)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "top";
+		position = "753 503";
+		Extent = "271 243";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "gotoWebPage($frogames_buynow);";
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./button_buy";
+	};
+	new GuiBitmapButtonCtrl(button_register)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "top";
+		position = "753 746";
+		Extent = "271 22";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "Canvas.pushDialog(frogames_register);";
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./button_register";
+	};
+	new GuiChunkedBitmapCtrl(RSStop)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "6 10";
+		Extent = "178 24";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./topRSS.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiMLTextCtrl(RSSFeedMLText)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfile";
+		HorizSizing = "right";
+		VertSizing = "bottom";
+		position = "10 37";
+		Extent = "170 182";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		lineSpacing = 2;
+		allowColorChars = 1;
+		maxChars = -1;
+	};
+	new GuiBitmapButtonCtrl(inviteafriendGUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfile2";
+		HorizSizing = "relative";
+		VertSizing = "relative";
+		position = "30 634";
+		Extent = "190 22";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "Canvas.pushDialog(frogames_inviteafriend);";
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		text = $Txt_mainMenu08;
+	};
+	new GuiMLTextCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiMLTextProfile2";
+		HorizSizing = "left";
+		VertSizing = "top";
+		position = "600 550";
+		Extent = "400 68";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		lineSpacing = 2;
+		allowColorChars = 1;
+		maxChars = -1;
+		text = $Txt_mainMenu21;
+	};
+	new GuiBitmapButtonTextCtrl(button_farabel)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "left";
+		VertSizing = "top";
+		position = "600 580";
+		Extent = "400 160";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		Command = "gotoWebPage($frogames_farabel);";
+		bitmap = "./farabel";
+	};
+	new GuiBitmapButtonCtrl(logoFrog)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "5 686";
+		Extent = "78 78";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "ClosedMenuGUI.setVisible(false);OpenMenuGUI.setVisible(true);";
+		hovertime = 1000;
+		bitmap = "./frogames.png";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiBitmapButtonCtrl(ClosedMenuGUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "88 740";
+		Extent = "18 23";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		Command = "ClosedMenuGUI.setVisible(false);OpenMenuGUI.setVisible(true);";
+		hovertime = 1000;
+		groupNum = -1;
+		buttonType = "PushButton";
+		bitmap = "./menu_b1";
+	};
+	new GuiControl(OpenMenuGUI)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "right";
+		VertSizing = "top";
+		position = "88 686";
+		Extent = "170 78";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 0;
+		useVariable = 0;
+		tile = 0;
+
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "0 0";
+			Extent = "134 78";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./menu_fond.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLMenuProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "10 2";
+			Extent = "140 68";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+			text = $Txt_mainMenu09;
+		};
+		new GuiBitmapButtonCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "116 55";
+			Extent = "18 23";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "ClosedMenuGUI.setVisible(true);OpenMenuGUI.setVisible(false);";
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./menu_b2";
+		};
+	};
+};
+new GuiControl(AchievementsGUI)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 0;
+	helpTag = 0;
+
+	new GuiWindowCtrl()
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "131 88";
+		Extent = "640 480";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		text = $Txt_achievements01;
+		maxLength = 255;
+		resizeWidth = 0;
+		resizeHeight = 0;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 0;
+		canMaximize = 0;
+		minSize = "50 50";
+		closeCommand = "Canvas.popDialog(AchievementsGUI);";
+
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "53 70";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements02 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements03;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Strong_familyIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "53 95";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "170 70";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements04 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements05;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Tribes_soldierTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "170 185";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Tribes_soldierIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "170 95";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "287 70";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements06 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements07;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Tribes_berserkerTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "287 185";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Tribes_berserkerIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "287 95";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "404 70";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements08 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements09;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Bonus_collectorTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "404 185";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Bonus_collectorIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "404 95";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "521 70";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements10 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements11;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Bonus_maniacTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "521 185";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Bonus_maniacIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "521 95";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "53 250";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements12 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements13;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(One_on_OneTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "53 365";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(One_on_OneIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "53 275";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "170 250";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements14 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements15;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Duel_MasterTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "170 365";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Duel_MasterIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "170 275";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "287 250";
+			Extent = "110 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements16 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements17;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Mass_extinctionIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "287 275";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "404 250";
+			Extent = "100 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements18 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements19;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Tribes_peonTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "404 380";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Tribes_peonIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "404 275";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "521 250";
+			Extent = "100 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:64CAB9>" @ $Txt_achievements20 @ "<color:FFFFFF><font:" @ $font2 @ ":16>\n\n\n\n\n\n" @ $Txt_achievements21;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(Tribes_gruntTEXT)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "521 380";
+			Extent = "90 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:B92501>238/250";
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiChunkedBitmapCtrl(Tribes_gruntIMAGE)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "521 275";
+			Extent = "64 64";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/ACH_40_GAMES_PLAYED_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "415 430";
+			Extent = "15 15";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/color_on.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "523 430";
+			Extent = "15 15";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./achievements/color_off.jpg";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "435 430";
+			Extent = "300 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:FFFFFF>" @ $Txt_achievements22;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "545 430";
+			Extent = "300 50";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = "<font:" @ $font1 @ ":18><color:FFFFFF>" @ $Txt_achievements23;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "relative";
+			VertSizing = "bottom";
+			position = "254 435";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu18;
+			Command = "Canvas.popDialog(AchievementsGUI);";
+			Accelerator = "escape";
+			bitmap = "./fond_button_7";
+		};
+	};
+};
+new GuiControl(intro)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+
+	new GuiWindowCtrl()
+	{
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "131 88";
+		Extent = "640 480";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		text = $Txt_mainMenu05;
+		maxLength = 255;
+		resizeWidth = 0;
+		resizeHeight = 0;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 0;
+		canMaximize = 0;
+		minSize = "50 50";
+		closeCommand = "Canvas.popDialog(intro);";
+
+		new GuiChunkedBitmapCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiDefaultProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "12 25";
+			Extent = "615 405";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			bitmap = "./HowToPlay.png";
+			useVariable = 0;
+			tile = 0;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "20 30";
+			Extent = "290 200";
+			MinExtent = "8 200";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu10;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl(les_controles)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "330 30";
+			Extent = "290 200";
+			MinExtent = "8 200";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu11;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "110 340";
+			Extent = "150 40";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu12;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "110 280";
+			Extent = "150 80";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu13;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "300 340";
+			Extent = "150 20";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu14;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "300 280";
+			Extent = "150 20";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu15;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "505 340";
+			Extent = "150 20";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu16;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "505 280";
+			Extent = "150 20";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			text = $Txt_mainMenu17;
+			maxLength = 255;
+			lineSpacing = 2;
+			allowColorChars = 1;
+			maxChars = -1;
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "relative";
+			VertSizing = "bottom";
+			position = "254 435";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			groupNum = -1;
+			buttonType = "PushButton";
+			text = $Txt_mainMenu18;
+			Command = "Canvas.popDialog(intro);";
+			Accelerator = "escape";
+			bitmap = "./fond_button_7";
+		};
+	};
+};
+function MainMenuGui::onWake(%__unused)
+{
+	boutonsPoisson();
+	if ($BuildType == 22)
+	{
+		RSStop.setVisible(0);
+		RSSFeedMLText.setVisible(0);
+		inviteafriendGUI.setVisible(0);
+		ClosedMenuGUI.setVisible(0);
+	}
+	if ($BuildType == 25)
+	{
+		RSStop.setVisible(0);
+		RSSFeedMLText.setVisible(0);
+		inviteafriendGUI.setVisible(0);
+		logoFrog.setVisible(0);
+		ClosedMenuGUI.setVisible(0);
+	}
+	if (!alxIsPlaying($MusiqueMenu))
+	{
+		alxStopAll();
+		$currentMusique = "MusiqueMenu";
+		if ($pref::Audio::Music)
+		{
+			$MusiqueMenu = alxPlay("MusiqueMenu");
+		}
+	}
+	if (!$pref::RSS::disableFeedCheck)
+	{
+	}
+	button_quit.setActive(0);
+	button_quit.schedule(700, setActive, 1);
+}
+
+function boutonsPoisson()
+{
+	button_bug.setVisible(0);
+	button_buy.setVisible(0);
+	button_register.setVisible(0);
+	if ($BuildType == 40)
+	{
+		button_buy.setVisible(1);
+		button_register.setVisible(1);
+	}
+	else if ($BuildType == 20)
+	{
+		button_bug.setVisible(1);
+	}
+}
+
+package GameTypeCheckVersion
+{
+	function checkGameVersion()
+	{
+		if (!$version_already_checked)
+		{
+			ButtonChooseGameGui.setActive(0);
+			ButtonChooseGameGui.setVisible(0);
+			CheckingVersionText.setVisible(1);
+			echo("Check Version - Checking...");
+			schedule(50, 0, "checkVersion");
+			schedule(5000, 0, "stopCheckingVersion");
+		}
+	}
+
+};
+function kickOffRSS()
+{
+	new TCPObject(RSSFeedObject);
+	RSSFeedObject.connect($RSSFeed::serverName @ ":" @ $RSSFeed::serverPort);
+}
+
+function getTouche(%cmd)
+{
+	%temp = moveMap.getBinding(%cmd);
+	%mapString = "";
+	%count = getFieldCount(%temp);
+	for (%i = 0; %i < %count; %i += 2)
+	{
+		if (%mapString !$= "")
+		{
+			%mapString = %mapString @ ", ";
+		}
+		%device = getField(%temp, %i + 0);
+		%object = getField(%temp, %i + 1);
+		%mapString = %mapString @ getMapDisplayName(%device, %object);
+	}
+	return %mapString;
+}
+
+function afficheAchievements()
+{
+	if ($pref::ACH_NO_TEAM_LOSS)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_NO_TEAM_LOSS_on.jpg";
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_NO_TEAM_LOSS_off.jpg";
+	}
+	Strong_familyIMAGE.setBitmap(%img);
+	if ($pref::ACH_WIN_20_GAMES)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_20_GAMES_on.jpg";
+		Tribes_soldierTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_20_GAMES_off.jpg";
+		Tribes_soldierTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalNumWins @ "/20");
+	}
+	Tribes_soldierIMAGE.setBitmap(%img);
+	if ($pref::ACH_WIN_100_GAMES)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_100_GAMES_on.jpg";
+		Tribes_berserkerTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_100_GAMES_off.jpg";
+		Tribes_berserkerTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalNumWins @ "/100");
+	}
+	Tribes_berserkerIMAGE.setBitmap(%img);
+	if ($pref::ACH_50_BONUS_TAKEN)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_50_BONUS_TAKEN_on.jpg";
+		Bonus_collectorTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_50_BONUS_TAKEN_off.jpg";
+		Bonus_collectorTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalBonusTaken @ "/50");
+	}
+	Bonus_collectorIMAGE.setBitmap(%img);
+	if ($pref::ACH_200_BONUS_TAKEN)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_200_BONUS_TAKEN_on.jpg";
+		Bonus_maniacTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_200_BONUS_TAKEN_off.jpg";
+		Bonus_maniacTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalBonusTaken @ "/200");
+	}
+	Bonus_maniacIMAGE.setBitmap(%img);
+	if ($pref::ACH_WIN_10_DUELS)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_10_DUELS_on.jpg";
+		One_on_OneTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_10_DUELS_off.jpg";
+		One_on_OneTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalDuelsNumWins @ "/10");
+	}
+	One_on_OneIMAGE.setBitmap(%img);
+	if ($pref::ACH_WIN_50_DUELS)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_50_DUELS_on.jpg";
+		Duel_MasterTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_50_DUELS_off.jpg";
+		Duel_MasterTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalDuelsNumWins @ "/50");
+	}
+	Duel_MasterIMAGE.setBitmap(%img);
+	if ($pref::ACH_WIN_5_GAMES_ROW)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_5_GAMES_ROW_on.jpg";
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_WIN_5_GAMES_ROW_off.jpg";
+	}
+	Mass_extinctionIMAGE.setBitmap(%img);
+	if ($pref::ACH_40_GAMES_PLAYED)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_40_GAMES_PLAYED_on.jpg";
+		Tribes_peonTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_40_GAMES_PLAYED_off.jpg";
+		Tribes_peonTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalGamesPlayed @ "/40");
+	}
+	Tribes_peonIMAGE.setBitmap(%img);
+	if ($pref::ACH_150_GAMES_PLAYED)
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_150_GAMES_PLAYED_on.jpg";
+		Tribes_gruntTEXT.setText("");
+	}
+	else
+	{
+		%img = "starter.fps/client/ui/achievements/ACH_150_GAMES_PLAYED_off.jpg";
+		Tribes_gruntTEXT.setText("<font:" @ $font1 @ ":18><color:B92501>" @ $pref::stats_TotalGamesPlayed @ "/150");
+	}
+	Tribes_gruntIMAGE.setBitmap(%img);
+	Canvas.pushDialog(AchievementsGUI);
+}
+
+function afficheHowToPlay()
+{
+	les_controles.setText("Default Controls:\n\n<color:64CAB9><font:" @ $font2 @ ":19>   " @ getTouche("moveforward") @ " : move forward\n    " @ getTouche("movebackward") @ " : backward\n    " @ getTouche("moveleft") @ " : strafe left\n    " @ getTouche("moveright") @ " : strafe right\n    " @ getTouche("toggleMessageHud") @ " : chat\n    " @ getTouche("jump") @ " : jump\n    " @ getTouche("mouseFire") @ " : fire\n    " @ getTouche("altTrigger") @ " : punch");
+	Canvas.pushDialog(intro);
+}
+
+function lancer_le_jeu()
+{
+	if ($BuildType == 40)
+	{
+		Canvas.setContent(chooseGameGuiPub);
+	}
+	else
+	{
+		Canvas.setContent(chooseGameGui);
+	}
+}
+
+function quitter_le_jeu()
+{
+	if ($BuildType == 40)
+	{
+		Canvas.setContent(EndScreenGUI);
+	}
+	else
+	{
+		quit();
+	}
+}
+

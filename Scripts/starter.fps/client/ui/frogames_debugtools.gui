@@ -1,0 +1,130 @@
+new GuiControl(DebugGUI)
+{
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "640 480";
+	MinExtent = "8 2";
+	Visible = 1;
+	helpTag = 0;
+	noCursor = 0;
+
+	new GuiControl(panel_gestionAI)
+	{
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "10 300";
+		Extent = "300 200";
+		MinExtent = "8 8";
+		Visible = 1;
+		helpTag = 0;
+
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "200 0";
+			Extent = "75 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "$timescale = 1;";
+			text = "Vitesse : 1";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "200 35";
+			Extent = "75 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "$timescale = 0.5;";
+			text = "Vitesse : 0.5";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "200 70";
+			Extent = "75 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "$timescale = 0.2;";
+			text = "Vitesse : 0.2";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "10 0";
+			Extent = "65 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "commandToServer('DebugPause');";
+			text = "AI -> pause";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "100 0";
+			Extent = "95 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "commandToServer('DebugPauseTires');";
+			text = "AI -> pause Tires";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "10 30";
+			Extent = "65 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "commandToServer('DebugTeams');";
+			text = "debugTeams (logs)";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+		new GuiButtonCtrl()
+		{
+			Profile = "GuiButtonProfile";
+			HorizSizing = "right";
+			VertSizing = "top";
+			position = "10 60";
+			Extent = "65 25";
+			MinExtent = "20 20";
+			Visible = 1;
+			Command = "commandToServer('VisualDebug');";
+			text = "Visual Debug";
+			groupNum = -1;
+			buttonType = "PushButton";
+			helpTag = 0;
+		};
+	};
+};

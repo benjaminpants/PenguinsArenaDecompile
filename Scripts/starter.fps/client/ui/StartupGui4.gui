@@ -1,0 +1,78 @@
+new GuiFadeinBitmapCtrl(StartupGui4)
+{
+	Profile = "GuiInputCtrlProfile";
+	HorizSizing = "relative";
+	VertSizing = "relative";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	Visible = 1;
+	helpTag = 0;
+	bitmap = "./noir";
+	wrap = 0;
+	fadeinTime = 1000;
+	waitTime = 6000;
+	fadeoutTime = 3000;
+	noCursor = 1;
+
+	new GuiChunkedBitmapCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "6 10";
+		Extent = "1024 768";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		bitmap = "./intro3.jpg";
+		useVariable = 0;
+		tile = 0;
+	};
+	new GuiControl(StartupGui4TextContainer)
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiDefaultProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "0 0";
+		Extent = "1024 768";
+		MinExtent = "8 2";
+		canSave = 1;
+		Visible = 1;
+		useVariable = 0;
+		tile = 0;
+
+		new GuiMLTextCtrl(IntroTexte6)
+		{
+			Profile = "GuiIntroTextProfile";
+			HorizSizing = "relative";
+			VertSizing = "relative";
+			position = "0 545";
+			Extent = "1024 130";
+			MinExtent = "8 2";
+			Visible = 0;
+			text = "<just:center>" @ $Txt_introduction08;
+			maxLength = 255;
+		};
+	};
+};
+function StartupGui4::onWake()
+{
+	$IntroGuiSchedule = StartupGui4.schedule(10000, nextScene);
+	IntroTexte6.schedule(1000, setVisible, 1);
+	IntroTexte6.schedule(6500, setVisible, 0);
+}
+
+function StartupGui4::nextScene()
+{
+	exitIntro();
+}
+
+function StartupGui4::click()
+{
+	exitIntro();
+}
+

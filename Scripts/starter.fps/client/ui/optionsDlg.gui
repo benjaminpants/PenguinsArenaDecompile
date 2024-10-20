@@ -1,0 +1,752 @@
+new GuiControl(optionsDlg)
+{
+	canSaveDynamicFields = 0;
+	Profile = "GuiDefaultProfile";
+	HorizSizing = "right";
+	VertSizing = "bottom";
+	position = "0 0";
+	Extent = "1024 768";
+	MinExtent = "8 8";
+	canSave = 1;
+	Visible = 1;
+	hovertime = 1000;
+
+	new GuiWindowCtrl()
+	{
+		canSaveDynamicFields = 0;
+		Profile = "GuiWindowProfile";
+		HorizSizing = "center";
+		VertSizing = "center";
+		position = "262 175";
+		Extent = "500 417";
+		MinExtent = "8 8";
+		canSave = 1;
+		Visible = 1;
+		hovertime = 1000;
+		text = $Txt_options04;
+		maxLength = 255;
+		resizeWidth = 0;
+		resizeHeight = 0;
+		canMove = 1;
+		canClose = 1;
+		canMinimize = 0;
+		canMaximize = 0;
+		minSize = "50 50";
+		closeCommand = "Canvas.popDialog(optionsDlg);";
+
+		new GuiMLTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiMLTextProfile2";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 366";
+			Extent = "480 40";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+			lineSpacing = 2;
+			allowColorChars = 0;
+			maxChars = -1;
+			text = "<just:center>" @ $Txt_options05;
+		};
+		new GuiBitmapButtonTextCtrl(OptGraphicsButton)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 34";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "optionsDlg.setPane(Graphics);";
+			hovertime = 1000;
+			text = $Txt_options06;
+			groupNum = -1;
+			buttonType = "RadioButton";
+			bitmap = "./fond_button_7";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "184 34";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "optionsDlg.setPane(Audio);";
+			hovertime = 1000;
+			text = $Txt_options07;
+			groupNum = -1;
+			buttonType = "RadioButton";
+			bitmap = "./fond_button_7";
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "358 34";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "optionsDlg.setPane(Controls);";
+			hovertime = 1000;
+			text = $Txt_options08;
+			groupNum = -1;
+			buttonType = "RadioButton";
+			bitmap = "./fond_button_7";
+		};
+		new GuiControl(OptControlsPane)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiWindowProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 55";
+			Extent = "480 275";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+
+			new GuiScrollCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiScrollProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "59 30";
+				Extent = "372 172";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				willFirstRespond = 1;
+				hScrollBar = "alwaysOff";
+				vScrollBar = "alwaysOff";
+				constantThumbHeight = 0;
+				childMargin = "5 5";
+
+				new GuiTextListCtrl(OptRemapList)
+				{
+					canSaveDynamicFields = 0;
+					Profile = "GuiTextListProfile";
+					HorizSizing = "right";
+					VertSizing = "bottom";
+					position = "7 7";
+					Extent = "358 176";
+					MinExtent = "8 8";
+					canSave = 1;
+					Visible = 1;
+					AltCommand = "OptRemapList.doRemap();";
+					hovertime = 1000;
+					enumerate = 0;
+					resizeCell = 1;
+					columns = "0 160";
+					FitParentWidth = 1;
+					clipColumnText = 0;
+				};
+			};
+			new GuiCheckBoxCtrl(OptControlsChatToggle)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiCheckBoxProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "60 210";
+				Extent = "400 25";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.chatToggle($pref::Chat);";
+				Variable = "$pref::Chat";
+				hovertime = 1000;
+				text = $Txt_options01;
+				groupNum = -1;
+				buttonType = "ToggleButton";
+				useInactiveState = 0;
+			};
+			new GuiTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiTextProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "65 10";
+				Extent = "77 22";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = $Txt_options09;
+				maxLength = 255;
+			};
+			new GuiTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiTextProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "226 10";
+				Extent = "88 22";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = $Txt_options10;
+				maxLength = 255;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "60 240";
+				Extent = "144 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options11;
+			};
+			new GuiSliderCtrl(OptMouseSensitivity)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiSliderProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "219 240";
+				Extent = "130 34";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "value";
+				AltCommand = "OptMouseSetSensitivity(OptMouseSensitivity.value);";
+				hovertime = 1000;
+				range = "0.1 2";
+				ticks = 10;
+				value = 0.468125;
+				snap = 0;
+			};
+			new GuiCheckBoxCtrl(OptMouseInverted)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiCheckBoxProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "360 240";
+				Extent = "80 25";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "$pref::Input::MouseInverted";
+				hovertime = 1000;
+				text = $Txt_options12;
+				groupNum = -1;
+				buttonType = "ToggleButton";
+				useInactiveState = 0;
+			};
+		};
+		new GuiControl(OptAudioPane)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiWindowProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 55";
+			Extent = "480 275";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+
+			new GuiSliderCtrl(OptAudioVolumeSim)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiSliderProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "147 225";
+				Extent = "240 34";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "value";
+				AltCommand = "OptAudioUpdateChannelVolume($SimAudioType, OptAudioVolumeSim.value);";
+				hovertime = 1000;
+				range = "0 1";
+				ticks = 8;
+				value = 1;
+				snap = 0;
+			};
+			new GuiCheckBoxCtrl(OptAudioMusicToggle)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiCheckBoxProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "23 110";
+				Extent = "137 25";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.musicToggle($pref::Audio::Music);";
+				Variable = "$pref::Audio::Music";
+				hovertime = 1000;
+				text = $Txt_options30;
+				groupNum = -1;
+				buttonType = "ToggleButton";
+				useInactiveState = 0;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "23 147";
+				Extent = "113 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "   " @ $Txt_options13;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "22 185";
+				Extent = "115 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options14;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "22 222";
+				Extent = "113 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options15;
+			};
+			new GuiSliderCtrl(OptAudioVolumeMaster)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiSliderProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "146 151";
+				Extent = "240 34";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "value";
+				AltCommand = "OptAudioUpdateMasterVolume(OptAudioVolumeMaster.value);";
+				hovertime = 1000;
+				range = "0 1";
+				ticks = 8;
+				value = 1;
+				snap = 0;
+			};
+			new GuiSliderCtrl(OptAudioVolumeShell)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiSliderProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "146 188";
+				Extent = "240 34";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "value";
+				AltCommand = "OptAudioUpdateChannelVolume($GuiAudioType, OptAudioVolumeShell.value);";
+				hovertime = 1000;
+				range = "0 1";
+				ticks = 8;
+				value = 0.808696;
+				snap = 0;
+			};
+			new GuiMLTextCtrl(OptAudioInfo)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "149 10";
+				Extent = "322 126";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+			};
+			new GuiPopUpMenuCtrl(OptAudioDriverList)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiPopUpMenuProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "10 32";
+				Extent = "120 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = $Txt_options16;
+				maxLength = 255;
+				maxPopupHeight = 200;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "11 9";
+				Extent = "125 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options17;
+			};
+		};
+		new GuiControl(OptGraphicsPane)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiWindowProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 55";
+			Extent = "480 275";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 1;
+			hovertime = 1000;
+
+			new GuiBitmapButtonTextCtrl(OptSet1Button)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiBTTextProfilePetit";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "46 84";
+				Extent = "131 25";
+				MinExtent = "8 2";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.selectGraphicOptionsSet(1);";
+				hovertime = 1000;
+				text = $Txt_options18;
+				groupNum = -1;
+				buttonType = "PushButton";
+				bitmap = "./fond_button_6";
+			};
+			new GuiBitmapButtonTextCtrl(OptSet2Button)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiBTTextProfilePetit";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "46 127";
+				Extent = "131 25";
+				MinExtent = "8 2";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.selectGraphicOptionsSet(2);";
+				hovertime = 1000;
+				text = $Txt_options19;
+				groupNum = -1;
+				buttonType = "PushButton";
+				bitmap = "./fond_button_6";
+			};
+			new GuiBitmapButtonTextCtrl(OptSet3Button)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiBTTextProfilePetit";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "47 171";
+				Extent = "131 25";
+				MinExtent = "8 2";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.selectGraphicOptionsSet(3);";
+				hovertime = 1000;
+				text = $Txt_options20;
+				groupNum = -1;
+				buttonType = "PushButton";
+				bitmap = "./fond_button_6";
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "310 58";
+				Extent = "106 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options21;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "321 12";
+				Extent = "83 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options22;
+			};
+			new GuiCheckBoxCtrl(OptGraphicsFullscreenToggle)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiCheckBoxProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "299 163";
+				Extent = "137 25";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Variable = "$pref::Video::fullScreen";
+				hovertime = 1000;
+				text = $Txt_options23;
+				groupNum = -1;
+				buttonType = "ToggleButton";
+				useInactiveState = 0;
+			};
+			new GuiCheckBoxCtrl(OptGraphicsVSyncToggle)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiCheckBoxProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "299 192";
+				Extent = "137 25";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.vSyncToggle($pref::Video::vSync);";
+				Variable = "$pref::Video::vSync";
+				hovertime = 1000;
+				text = $Txt_options24;
+				groupNum = -1;
+				buttonType = "ToggleButton";
+				useInactiveState = 0;
+			};
+			new GuiBitmapButtonTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiBTTextProfilePetit";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "296 235";
+				Extent = "131 25";
+				MinExtent = "8 2";
+				canSave = 1;
+				Visible = 1;
+				Command = "optionsDlg.applyGraphics();";
+				hovertime = 1000;
+				text = ">> " @ $Txt_options25;
+				groupNum = -1;
+				buttonType = "PushButton";
+				bitmap = "./fond_button_6";
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "30 250";
+				Extent = "256 115";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = "<font:Arial:14><color:47E5DB>This game powered by the <a:www.garagegames.com>Torque Game Engine</a>.";
+			};
+			new GuiPopUpMenuCtrl(OptGraphicsDriverMenu)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiPopUpMenuProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "298 78";
+				Extent = "130 23";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = $Txt_options26;
+				maxLength = 255;
+				maxPopupHeight = 200;
+			};
+			new GuiPopUpMenuCtrl(OptGraphicsResolutionMenu)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiPopUpMenuProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "299 32";
+				Extent = "130 23";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				text = "1024 768";
+				maxLength = 255;
+				maxPopupHeight = 200;
+			};
+			new GuiTextCtrl()
+			{
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "321 105";
+				Extent = "83 20";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				text = $Txt_options29;
+				maxLength = 255;
+			};
+			new GuiPopUpMenuCtrl(OptGraphicsBPPMenu)
+			{
+				Profile = "GuiPopUpMenuProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "299 125";
+				Extent = "130 23";
+				MinExtent = "8 8";
+				Visible = 1;
+				helpTag = 0;
+				maxLength = 255;
+				maxPopupHeight = 200;
+			};
+			new GuiCheckBoxCtrl(IntelGamingToggle)
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiCheckBoxProfile";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "20 235";
+				Extent = "207 25";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 0;
+				Variable = "$pref::Frogames::intelGaming";
+				hovertime = 1000;
+				text = $Txt_options27;
+				groupNum = -1;
+				buttonType = "ToggleButton";
+				useInactiveState = 0;
+			};
+			new GuiMLTextCtrl()
+			{
+				canSaveDynamicFields = 0;
+				Profile = "GuiMLTextProfile2";
+				HorizSizing = "right";
+				VertSizing = "bottom";
+				position = "68 46";
+				Extent = "108 20";
+				MinExtent = "8 8";
+				canSave = 1;
+				Visible = 1;
+				hovertime = 1000;
+				lineSpacing = 2;
+				allowColorChars = 0;
+				maxChars = -1;
+				text = $Txt_options28;
+			};
+		};
+		new GuiControl(OptNetworkPane)
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiWindowProfile";
+			HorizSizing = "right";
+			VertSizing = "bottom";
+			position = "9 55";
+			Extent = "357 208";
+			MinExtent = "8 8";
+			canSave = 1;
+			Visible = 0;
+			hovertime = 1000;
+		};
+		new GuiBitmapButtonTextCtrl()
+		{
+			canSaveDynamicFields = 0;
+			Profile = "GuiBTTextProfilePetit";
+			HorizSizing = "center";
+			VertSizing = "bottom";
+			position = "182 337";
+			Extent = "131 25";
+			MinExtent = "8 2";
+			canSave = 1;
+			Visible = 1;
+			Command = "Canvas.popDialog(optionsDlg);";
+			hovertime = 1000;
+			text = $Txt_common01;
+			groupNum = -1;
+			buttonType = "PushButton";
+			bitmap = "./fond_button_7";
+		};
+	};
+};
