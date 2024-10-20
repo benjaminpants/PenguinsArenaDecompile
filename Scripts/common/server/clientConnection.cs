@@ -26,7 +26,7 @@ function GameConnection::onConnect(%client, %name, %DemoBonusAvailable)
 	}
 	%client.team_id = 0;
 	%equipe_trouvee = 0;
-	for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
+	for (%current_team_ID = 1; %current_team_ID <= $team_count; %current_team_ID++)
 	{
 		if ($Team[%current_team_ID].realPlayer == 0 && %equipe_trouvee == 0)
 		{

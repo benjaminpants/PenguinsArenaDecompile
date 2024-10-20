@@ -1,6 +1,6 @@
 function debugTeams()
 {
-	for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
+	for (%current_team_ID = 1; %current_team_ID <= $team_count; %current_team_ID++)
 	{
 		if (%current_team_ID == 1)
 		{
@@ -18,7 +18,7 @@ function debugTeams()
 		{
 			%current_team_name = "Green";
 		}
-		for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
+		for (%current_player_ID = 1; %current_player_ID <= $players_per_team; %current_player_ID++)
 		{
 			echo(" " @ %current_team_name SPC "->" SPC $Team[%current_team_ID].Player[%current_player_ID]);
 		}

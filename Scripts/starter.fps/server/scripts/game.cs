@@ -190,43 +190,43 @@ function startGame()
 		%cl.score = 0;
 		%cl.ready = 0;
 	}
-	$nb_teams = 2;
+	$team_count = 2;
 	if ($pref::Server::nbTeams2)
 	{
-		$nb_teams = 2;
+		$team_count = 2;
 	}
 	if ($pref::Server::nbTeams3)
 	{
-		$nb_teams = 3;
+		$team_count = 3;
 	}
 	if ($pref::Server::nbTeams4)
 	{
-		$nb_teams = 4;
+		$team_count = 4;
 	}
 	if ($Server::MissionType $= "Classic")
 	{
-		$nb_pingouins = 12;
+		$penguin_count = 12;
 	}
 	else if ($Server::MissionType $= "Duels")
 	{
-		$nb_pingouins = $nb_teams;
+		$penguin_count = $team_count;
 	}
 	else if ($Server::MissionType $= "Unlimited")
 	{
-		$nb_pingouins = $nb_teams;
+		$penguin_count = $team_count;
 	}
 	else if ($Server::MissionType $= "Modding")
 	{
-		$nb_pingouins = 12;
+		$penguin_count = 12;
 	}
-	$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
+	$players_per_team = $penguin_count / $team_count;
 	for (%i = 1; %i <= 12; %i++)
 	{
 		$spawnPointsUsed[%i] = 0;
 	}
-	%ID_team_bonus_AI = getRandom(1, $nb_teams);
+	%ID_team_bonus_AI = getRandom(1, $team_count);
 	echo("== ID_team_bonus_AI : " @ %ID_team_bonus_AI);
-	for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
+	for (%current_team_ID = 1; %current_team_ID <= $team_count; %current_team_ID++)
 	{
 		if (%current_team_ID == 1)
 		{
@@ -252,13 +252,13 @@ function startGame()
 		{
 			%bonus_AI_level = 0;
 		}
-		for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
+		for (%current_player_ID = 1; %current_player_ID <= $players_per_team; %current_player_ID++)
 		{
 			$Team[%current_team_ID].Player[%current_player_ID] = AIPlayer::spawn(%current_team_name @ %current_player_ID, pickSpawnPoint(%current_team_name, %current_player_ID), %current_team_ID, %current_player_ID, %bonus_AI_level);
 		}
 		if ($Server::MissionType $= "Classic")
 		{
-			$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
+			$Team[%current_team_ID].numPlayers = $players_per_team;
 		}
 		else if ($Server::MissionType $= "Duels")
 		{
@@ -270,7 +270,7 @@ function startGame()
 		}
 		else if ($Server::MissionType $= "Modding")
 		{
-			$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
+			$Team[%current_team_ID].numPlayers = $players_per_team;
 		}
 		messageAll('MsgMembersTeamChanged', "", 1, $Team[%current_team_ID].numPlayers, 0);
 	}
@@ -354,9 +354,9 @@ function countDown(%i)
 		{
 			$Game::Schedule = schedule($Game::Duration * 1000, 0, "onGameDurationEnd");
 		}
-		for (%current_team_ID = 1; %current_team_ID <= $nb_teams; %current_team_ID++)
+		for (%current_team_ID = 1; %current_team_ID <= $team_count; %current_team_ID++)
 		{
-			for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
+			for (%current_player_ID = 1; %current_player_ID <= $players_per_team; %current_player_ID++)
 			{
 				$Team[%current_team_ID].Player[%current_player_ID].schedule(getRandom(400, 1000), "doscan", $Team[%current_team_ID].Player[%current_player_ID]);
 			}
@@ -384,7 +384,7 @@ function serverCmdDecompteTermine(%client)
 
 function resetScores()
 {
-	for (%team = 1; %team <= $nb_teams; %team++)
+	for (%team = 1; %team <= $team_count; %team++)
 	{
 		$Team[%team].score = 0;
 		for (%i = 1; %i <= 10; %i++)
@@ -496,15 +496,15 @@ function GameConnection::onClientEnterGame(%this)
 		echo("Pas d'equipe ??");
 		quit();
 	}
-	for (%team_num = 1; %team_num <= $nb_teams; %team_num++)
+	for (%team_num = 1; %team_num <= $team_count; %team_num++)
 	{
 		if ($Team[%team_num].scoreLTG[10] >= 1)
 		{
 			%last_winning_team = %team_num;
 		}
 	}
-	messageClient(%this, 'MsgInitTeamGUI', "", %this.team_id, $nb_teams, %last_winning_team);
-	for (%team_num = 1; %team_num <= $nb_teams; %team_num++)
+	messageClient(%this, 'MsgInitTeamGUI', "", %this.team_id, $team_count, %last_winning_team);
+	for (%team_num = 1; %team_num <= $team_count; %team_num++)
 	{
 		%controled_by_player = 0;
 		%dead = 0;
@@ -516,7 +516,7 @@ function GameConnection::onClientEnterGame(%this)
 		{
 			%dead = 1;
 		}
-		messageClient(%this, 'MsgUpdateTeamGUI', "", %this.team_id, $nb_teams, %team_num, %controled_by_player, %dead, $Team[%team_num].playerName);
+		messageClient(%this, 'MsgUpdateTeamGUI', "", %this.team_id, $team_count, %team_num, %controled_by_player, %dead, $Team[%team_num].playerName);
 		messageClient(%this, 'MsgMembersTeamChanged', "", %team_num, $Team[%team_num].numPlayers, 0);
 		messageClient(%this, 'MsgTeamScoreChanged', "", %team_num, $Team[%team_num].score, $Team[%team_num].playerName);
 		messageClient(%this, 'MsgTeamScoreLTGChanged', "", %team_num, $Team[%team_num].scoreLTGtotal);
@@ -529,7 +529,7 @@ function GameConnection::onClientEnterGame(%this)
 	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
-		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %this.team_id, 1, %thisTeam_dead, %this.getPlayerName());
+		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $team_count, %this.team_id, 1, %thisTeam_dead, %this.getPlayerName());
 		if (%cl != %this && $Game::Running && $Game::DecompteFini)
 		{
 			messageClient(%cl, 'MsgJoinMessage', "", %this.team_id, %this.getPlayerName());
@@ -548,7 +548,7 @@ function GameConnection::onClientLeaveGame(%this)
 	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
-		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %this.team_id, 0, %thisTeam_dead, "");
+		messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $team_count, %this.team_id, 0, %thisTeam_dead, "");
 		if (%cl != %this)
 		{
 			messageClient(%cl, 'MsgLeaveMessage', "", %this.getPlayerName());
@@ -636,7 +636,7 @@ function GameConnection::chooseAI(%this)
 {
 	echo("== [" @ %this SPC "ai:" @ %this.isAIControlled() SPC "team:" @ %this.team.teamId SPC %this.getPlayerName() @ "] chooseAI");
 	commandToClient(%this, 'ResetGUIBonus');
-	for (%i = 1; %i <= $nb_joueurs_par_team; %i++)
+	for (%i = 1; %i <= $players_per_team; %i++)
 	{
 		%current_ai = $Team[%this.team.teamId].Player[%i];
 		if (%current_ai && %current_ai.getState() $= "Move")

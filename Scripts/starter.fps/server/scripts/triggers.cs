@@ -48,7 +48,7 @@ function DeathTrigger::onEnterTrigger(%this, %trigger, %obj)
 			for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 			{
 				%cl = ClientGroup.getObject(%clientIndex);
-				messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %obj.team_id, %controled_by_player, 1, %nomJoueur);
+				messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $team_count, %obj.team_id, %controled_by_player, 1, %nomJoueur);
 			}
 		}
 		%obj.kill();

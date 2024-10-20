@@ -2,16 +2,16 @@ function endgame_check()
 {
 	if (!$Game::Sessionfinished)
 	{
-		for (%i = 1; %i <= $nb_teams; %i++)
+		for (%i = 1; %i <= $team_count; %i++)
 		{
 			if ($Team[%i].numPlayers >= 1)
 			{
-				%compte_equipes_vivantes = %compte_equipes_vivantes + 1;
+				%living_teams_count = %living_teams_count + 1;
 			}
 		}
-		if (%compte_equipes_vivantes < 2)
+		if (%living_teams_count < 2)
 		{
-			for (%i = 1; %i <= $nb_teams; %i++)
+			for (%i = 1; %i <= $team_count; %i++)
 			{
 				if ($Team[%i].numPlayers)
 				{
@@ -33,50 +33,50 @@ function endgame_check()
 	}
 }
 
-function endgame_ok(%equipe_gagnante, %nb_gagnants)
+function endgame_ok(%winning_team, %number_winners)
 {
 	if (!$Game::Sessionfinished)
 	{
 		$Game::Sessionfinished = 1;
-		endgame_danser(%equipe_gagnante);
-		endgame_cameras(%equipe_gagnante, 0);
-		endgame_scores(%equipe_gagnante, %nb_gagnants);
-		schedule(3000, 0, endgame_screenscores1, %equipe_gagnante, %nb_gagnants);
-		schedule(6000, 0, endgame_screenscores2, %equipe_gagnante);
+		endgame_danser(%winning_team);
+		endgame_cameras(%winning_team, 0);
+		endgame_scores(%winning_team, %number_winners);
+		schedule(3000, 0, endgame_screenscores1, %winning_team, %number_winners);
+		schedule(6000, 0, endgame_screenscores2, %winning_team);
 		cycleGame();
 	}
 }
 
-function endgame_danser(%equipe_gagnante)
+function endgame_danser(%winning_team)
 {
-	for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
+	for (%current_player_ID = 1; %current_player_ID <= $players_per_team; %current_player_ID++)
 	{
-		if ($Team[%equipe_gagnante].Player[%current_player_ID])
+		if ($Team[%winning_team].Player[%current_player_ID])
 		{
 			if (!%first_winning_player)
 			{
-				%first_winning_player = $Team[%equipe_gagnante].Player[%current_player_ID];
-				$Team[%equipe_gagnante].Player[%current_player_ID].schedule(2000, setSkinName, "base");
+				%first_winning_player = $Team[%winning_team].Player[%current_player_ID];
+				$Team[%winning_team].Player[%current_player_ID].schedule(2000, setSkinName, "base");
 			}
-			$Team[%equipe_gagnante].Player[%current_player_ID].setImageTrigger(0, 0);
-			$Team[%equipe_gagnante].Player[%current_player_ID].setImageTrigger(1, 0);
-			cancel($Team[%equipe_gagnante].Player[%current_player_ID].ailoop);
-			$Team[%equipe_gagnante].Player[%current_player_ID].stop();
-			$Team[%equipe_gagnante].Player[%current_player_ID].setSkinName("happy");
-			$Team[%equipe_gagnante].Player[%current_player_ID].setActionThread("danse");
+			$Team[%winning_team].Player[%current_player_ID].setImageTrigger(0, 0);
+			$Team[%winning_team].Player[%current_player_ID].setImageTrigger(1, 0);
+			cancel($Team[%winning_team].Player[%current_player_ID].ailoop);
+			$Team[%winning_team].Player[%current_player_ID].stop();
+			$Team[%winning_team].Player[%current_player_ID].setSkinName("happy");
+			$Team[%winning_team].Player[%current_player_ID].setActionThread("danse");
 		}
 	}
 }
 
-function endgame_cameras(%equipe_gagnante, %alreadyPlaying)
+function endgame_cameras(%winning_team, %alreadyPlaying)
 {
-	for (%current_player_ID = 1; %current_player_ID <= $nb_joueurs_par_team; %current_player_ID++)
+	for (%current_player_ID = 1; %current_player_ID <= $players_per_team; %current_player_ID++)
 	{
-		if ($Team[%equipe_gagnante].Player[%current_player_ID])
+		if ($Team[%winning_team].Player[%current_player_ID])
 		{
 			if (!%first_winning_player)
 			{
-				%first_winning_player = $Team[%equipe_gagnante].Player[%current_player_ID];
+				%first_winning_player = $Team[%winning_team].Player[%current_player_ID];
 			}
 			break;
 		}
@@ -106,18 +106,18 @@ function endgame_cameras(%equipe_gagnante, %alreadyPlaying)
 	}
 }
 
-function endgame_scores(%equipe_gagnante, %nb_vivants)
+function endgame_scores(%winning_team, %nb_vivants)
 {
 	%score_current_partie = 2 + %nb_vivants;
-	$Team[%equipe_gagnante].score += %score_current_partie;
-	messageAll('MsgTeamScoreChanged', "", %equipe_gagnante, $Team[%equipe_gagnante].score);
-	for (%team = 1; %team <= $nb_teams; %team++)
+	$Team[%winning_team].score += %score_current_partie;
+	messageAll('MsgTeamScoreChanged', "", %winning_team, $Team[%winning_team].score);
+	for (%team = 1; %team <= $team_count; %team++)
 	{
 		for (%i = 1; %i <= 9; %i++)
 		{
 			$Team[%team].scoreLTG[%i] = $Team[%team].scoreLTG[%i + 1];
 		}
-		if (%team == %equipe_gagnante)
+		if (%team == %winning_team)
 		{
 			$Team[%team].scoreLTG[10] = %score_current_partie;
 		}
@@ -134,27 +134,27 @@ function endgame_scores(%equipe_gagnante, %nb_vivants)
 	}
 }
 
-function endgame_screenscores1(%equipe_gagnante, %nb_gagnants)
+function endgame_screenscores1(%winning_team, %number_winners)
 {
-	if (%equipe_gagnante == 1)
+	if (%winning_team == 1)
 	{
-		%nom_equipe_gagnante = $Txt_Scores01;
+		%nom_winning_team = $Txt_Scores01;
 	}
-	else if (%equipe_gagnante == 2)
+	else if (%winning_team == 2)
 	{
-		%nom_equipe_gagnante = $Txt_Scores02;
+		%nom_winning_team = $Txt_Scores02;
 	}
-	else if (%equipe_gagnante == 3)
+	else if (%winning_team == 3)
 	{
-		%nom_equipe_gagnante = $Txt_Scores03;
+		%nom_winning_team = $Txt_Scores03;
 	}
-	else if (%equipe_gagnante == 4)
+	else if (%winning_team == 4)
 	{
-		%nom_equipe_gagnante = $Txt_Scores04;
+		%nom_winning_team = $Txt_Scores04;
 	}
 	echo("STEAM & ACH - endgame_screenscores1");
 	%full_team = 0;
-	if ($Team[%equipe_gagnante].numPlayers == $nb_joueurs_par_team)
+	if ($Team[%winning_team].numPlayers == $players_per_team)
 	{
 		%full_team = 1;
 	}
@@ -166,7 +166,7 @@ function endgame_screenscores1(%equipe_gagnante, %nb_gagnants)
 	}
 	echo("STEAM & ACH - %duel = " @ %duel);
 	%not_touched = 0;
-	if ($Team[%equipe_gagnante].achivement_temp_not_touched == 1)
+	if ($Team[%winning_team].achivement_temp_not_touched == 1)
 	{
 		%not_touched = 1;
 	}
@@ -174,10 +174,10 @@ function endgame_screenscores1(%equipe_gagnante, %nb_gagnants)
 	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
-		commandToClient(%cl, 'GameEndScores1', %equipe_gagnante, %nom_equipe_gagnante, %nb_gagnants);
+		commandToClient(%cl, 'GameEndScores1', %winning_team, %nom_winning_team, %number_winners);
 		if ($pref::Server::AI_level >= 5)
 		{
-			if (%cl.team_id == %equipe_gagnante)
+			if (%cl.team_id == %winning_team)
 			{
 				commandToClient(%cl, 'AchievementNewGamePlayed', 1, %duel, %full_team, %not_touched);
 				continue;
@@ -187,12 +187,12 @@ function endgame_screenscores1(%equipe_gagnante, %nb_gagnants)
 	}
 }
 
-function endgame_screenscores2(%equipe_gagnante)
+function endgame_screenscores2(%winning_team)
 {
 	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
-		commandToClient(%cl, 'GameEndScores2', $nb_teams, %equipe_gagnante, $Team[1].playerName, $Team[2].playerName, $Team[3].playerName, $Team[4].playerName);
+		commandToClient(%cl, 'GameEndScores2', $team_count, %winning_team, $Team[1].playerName, $Team[2].playerName, $Team[3].playerName, $Team[4].playerName);
 	}
 }
 
