@@ -4,7 +4,7 @@ function endgame_check()
 	{
 		for (%i = 1; %i <= $nb_teams; %i++)
 		{
-			if ($Team[%i].numPlayers >= 10)
+			if ($Team[%i].numPlayers >= 5)
 			{
 				$Game::WiningTeam = %i;
 				endgame_ok(%i, $Team[%i].numPlayers);

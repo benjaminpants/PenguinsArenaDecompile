@@ -34,7 +34,7 @@ function initDedicated()
 	}
 	else
 	{
-		$Pref::Server::Name = "PA Server";
+		$Pref::Server::Name = "Deathmatch";
 	}
 	if ($dedicatedServerSlots >= 1 && $dedicatedServerSlots <= 4)
 	{
