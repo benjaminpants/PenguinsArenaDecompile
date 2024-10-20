@@ -269,6 +269,7 @@ function grenadeImage::onFire(%this, %obj, %slot)
 		initialPosition = %obj.getMuzzlePoint(%slot);
 		sourceObject = %obj;
 		sourceSlot = %slot;
+		teamId = %obj.team_id;
 		client = %obj.client;
 	};
 	MissionCleanup.add(%p);

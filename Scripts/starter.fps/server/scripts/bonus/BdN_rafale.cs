@@ -583,6 +583,7 @@ function rafaleProjectile::onCollision(%this, %obj, %col, %__unused, %pos, %__un
 			}
 			else
 			{
+				%col.teamResponsibleForDeath = %obj.teamId;
 				%col.playAudio(2, rafaleExplosionSound);
 				%kickBack = 3400;
 				if (%col.getMountedImage(2) != 0 && %col.getMountedImage(3) != 0)
@@ -741,6 +742,7 @@ function rafaleImage::onFire(%this, %obj, %slot)
 		sourceObject = %obj;
 		sourceSlot = %slot;
 		client = %obj.client;
+		teamId = %obj.team_id;
 	};
 	MissionCleanup.add(%p);
 	if (%obj.getInventory("rafaleAmmo") <= 0)

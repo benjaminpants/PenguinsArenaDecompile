@@ -33,10 +33,20 @@ function DeathTrigger::onEnterTrigger(%this, %trigger, %obj)
 		MissionCleanup.add(%orque);
 		OrienteOrque(%orque, %obj);
 		%orque.schedule(3000, "delete");
-		%current_team = $Team[%obj.team_id];
-		%current_team.numPlayers--;
-		messageAll('MsgMembersTeamChanged', "", %obj.team_id, %current_team.numPlayers, 1);
-		if (%current_team.numPlayers == 0)
+		if (%obj.teamResponsibleForDeath != 0)
+		{
+			if (%obj.teamResponsibleForDeath == %obj.team_id)
+			{
+				echo("sneaky player on team: " + %obj.team_id + " attempted suicide points!");
+			}
+			else
+			{
+				%current_team = $Team[%obj.teamResponsibleForDeath];
+				%current_team.numPlayers++;
+				messageAll('MsgMembersTeamChanged', "", %obj.teamResponsibleForDeath, %current_team.numPlayers, 1);
+			}
+		}
+		/*if (%current_team.numPlayers == 0)
 		{
 			%controled_by_player = 0;
 			%nomJoueur = "";
@@ -50,8 +60,16 @@ function DeathTrigger::onEnterTrigger(%this, %trigger, %obj)
 				%cl = ClientGroup.getObject(%clientIndex);
 				messageClient(%cl, 'MsgUpdateTeamGUI', "", %cl.team_id, $nb_teams, %obj.team_id, %controled_by_player, 1, %nomJoueur);
 			}
-		}
+		}*/
 		%obj.kill();
+		echo("team " @ %obj.team_id);
+		echo("real player " @ $Team[%obj.team_id].realPlayer);
+		if ($Team[%obj.team_id].realPlayer < 1)
+		{
+			echo("spawning ai!");
+			%aiPlayer = AIPlayer::spawn($Team[%obj.team_id].name @ "1", pickSpawnPoint($Team[%obj.team_id].name, 1), %obj.team_id, 1, 0);
+			%aiPlayer.schedule(getRandom(50, 200), "doscan", %aiPlayer);
+		}
 		endgame_check();
 	}
 }

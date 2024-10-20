@@ -168,6 +168,7 @@ function BdNgeanteProjectile::onCollision(%this, %obj, %col, %__unused, %pos, %_
 			}
 			else
 			{
+				%col.teamResponsibleForDeath = %obj.teamId;
 				%col.playAudio(2, ImpactGeante);
 				%kickBack = 8000;
 				if (%col.getMountedImage(2) != 0 && %col.getMountedImage(3) != 0)
@@ -275,6 +276,7 @@ function geanteImage::onFire(%this, %obj, %slot)
 		sourceObject = %obj;
 		sourceSlot = %slot;
 		client = %obj.client;
+		teamId = %obj.team_id;
 	};
 	MissionCleanup.add(%p);
 	if (%obj.getInventory(BdNgeante) <= 0)

@@ -154,6 +154,7 @@ function coup_de_poingImage::onFire(%__unused, %obj, %__unused)
 		}
 		else
 		{
+			%foundObject.teamResponsibleForDeath = %obj.teamId;
 			%direction = VectorSub(%foundObject.getWorldBoxCenter(), %obj.getPosition());
 			%direction = VectorNormalize(%direction);
 			%velocity = VectorNormalize(%obj.getVelocity());

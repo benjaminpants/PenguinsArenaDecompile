@@ -249,6 +249,7 @@ function observImage::onFire(%this, %obj, %slot)
 		sourceObject = %obj;
 		sourceSlot = %slot;
 		client = %obj.client;
+		teamId = %obj.team_id;
 	};
 	MissionCleanup.add(%p);
 	return %p;

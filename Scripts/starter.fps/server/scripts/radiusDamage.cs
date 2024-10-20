@@ -49,6 +49,7 @@ function radiusDamageImpulse(%sourceObject, %position, %radius, %damage, %damage
 			{
 				continue;
 			}
+			%targetObject.teamResponsibleForDeath = %sourceObject.teamId;
 			%dist = containerSearchCurrRadiusDist();
 			%distScale = %dist < %halfRadius ? 1 : 1 - (%dist - %halfRadius) / %halfRadius;
 			%impulseVec = VectorSub(%targetObject.getWorldBoxCenter(), %position);

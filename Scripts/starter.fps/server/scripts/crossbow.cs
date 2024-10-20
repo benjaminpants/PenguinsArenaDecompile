@@ -644,6 +644,8 @@ datablock AudioProfile(HardHit3)
 	description = AudioClose3d;
 	preload = 1;
 };
+
+
 function CrossbowProjectile::onCollision(%this, %obj, %col, %__unused, %pos, %__unused)
 {
 	if (%col.getType() & $TypeMasks::PlayerObjectType)
@@ -656,6 +658,7 @@ function CrossbowProjectile::onCollision(%this, %obj, %col, %__unused, %pos, %__
 			}
 			else
 			{
+				%col.teamResponsibleForDeath = %obj.teamId;
 				%col.playAudio(2, CrossbowExplosionSound);
 				%kickBack = 4100;
 				if (%col.getMountedImage(2) != 0 && %col.getMountedImage(3) != 0)
@@ -776,6 +779,7 @@ function CrossbowImage::onFire(%this, %obj, %slot)
 		initialVelocity = %muzzleVelocity;
 		initialPosition = %obj.getMuzzlePoint(%slot);
 		sourceObject = %obj;
+		teamId = %obj.team_id;
 		sourceSlot = %slot;
 		client = %obj.client;
 	};

@@ -203,23 +203,8 @@ function startGame()
 	{
 		$nb_teams = 4;
 	}
-	if ($Server::MissionType $= "Classic")
-	{
-		$nb_pingouins = 12;
-	}
-	else if ($Server::MissionType $= "Duels")
-	{
-		$nb_pingouins = $nb_teams;
-	}
-	else if ($Server::MissionType $= "Unlimited")
-	{
-		$nb_pingouins = $nb_teams;
-	}
-	else if ($Server::MissionType $= "Modding")
-	{
-		$nb_pingouins = 12;
-	}
-	$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
+	$nb_pingouins = 1;
+	$nb_joueurs_par_team = 1;
 	for (%i = 1; %i <= 12; %i++)
 	{
 		$spawnPointsUsed[%i] = 0;
@@ -256,22 +241,7 @@ function startGame()
 		{
 			$Team[%current_team_ID].Player[%current_player_ID] = AIPlayer::spawn(%current_team_name @ %current_player_ID, pickSpawnPoint(%current_team_name, %current_player_ID), %current_team_ID, %current_player_ID, %bonus_AI_level);
 		}
-		if ($Server::MissionType $= "Classic")
-		{
-			$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
-		}
-		else if ($Server::MissionType $= "Duels")
-		{
-			$Team[%current_team_ID].numPlayers = 3;
-		}
-		else if ($Server::MissionType $= "Unlimited")
-		{
-			$Team[%current_team_ID].numPlayers = 3;
-		}
-		else if ($Server::MissionType $= "Modding")
-		{
-			$Team[%current_team_ID].numPlayers = $nb_joueurs_par_team;
-		}
+		$Team[%current_team_ID].numPlayers = 0;
 		messageAll('MsgMembersTeamChanged', "", 1, $Team[%current_team_ID].numPlayers, 0);
 	}
 	debugTeams();
@@ -512,20 +482,12 @@ function GameConnection::onClientEnterGame(%this)
 		{
 			%controled_by_player = 1;
 		}
-		if ($Team[%team_num].numPlayers == 0)
-		{
-			%dead = 1;
-		}
 		messageClient(%this, 'MsgUpdateTeamGUI', "", %this.team_id, $nb_teams, %team_num, %controled_by_player, %dead, $Team[%team_num].playerName);
 		messageClient(%this, 'MsgMembersTeamChanged', "", %team_num, $Team[%team_num].numPlayers, 0);
 		messageClient(%this, 'MsgTeamScoreChanged', "", %team_num, $Team[%team_num].score, $Team[%team_num].playerName);
 		messageClient(%this, 'MsgTeamScoreLTGChanged', "", %team_num, $Team[%team_num].scoreLTGtotal);
 	}
 	%thisTeam_dead = 0;
-	if ($Team[%this.team_id].numPlayers == 0)
-	{
-		%thisTeam_dead = 1;
-	}
 	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
@@ -541,10 +503,6 @@ function GameConnection::onClientEnterGame(%this)
 function GameConnection::onClientLeaveGame(%this)
 {
 	%thisTeam_dead = 0;
-	if ($Team[%this.team_id].numPlayers == 0)
-	{
-		%thisTeam_dead = 1;
-	}
 	for (%clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++)
 	{
 		%cl = ClientGroup.getObject(%clientIndex);
@@ -582,18 +540,7 @@ function GameConnection::onEnterMissionArea(%this)
 function GameConnection::onDeath(%this, %__unused, %__unused, %__unused, %__unused)
 {
 	%this.Player = '';
-	if ($Server::MissionType $= "Classic" || $Server::MissionType $= "Modding")
-	{
-		$Team[%this.team.teamId].Player[%this.id_in_team] = 0;
-	}
-	else if ($Team[%this.team.teamId].numPlayers != 0)
-	{
-		$Team[%this.team.teamId].Player[1] = AIPlayer::spawn($Team[%this.team.teamId].name @ "1", pickSpawnPoint($Team[%this.team.teamId].name, 1), %this.team.teamId, 1, 0);
-	}
-	else
-	{
-		$Team[%this.team.teamId].Player[1] = 0;
-	}
+	$Team[%this.team.teamId].Player[1] = AIPlayer::spawn($Team[%this.team.teamId].name @ "1", pickSpawnPoint($Team[%this.team.teamId].name, 1), %this.team.teamId, 1, 0);
 	if (!$Game::Sessionfinished)
 	{
 		commandToClient(%this, 'death');
@@ -609,14 +556,7 @@ function GameConnection::ReincarnationMessage(%this)
 {
 	if ($Team[%this.team_id].numPlayers != 0)
 	{
-		if ($Server::MissionType $= "Classic" || $Server::MissionType $= "Modding")
-		{
-			commandToClient(%this, 'ReincarnationMessage');
-		}
-		else
-		{
-			commandToClient(%this, 'RespawnMessage');
-		}
+		commandToClient(%this, 'RespawnMessage');
 	}
 }
 
@@ -732,16 +672,7 @@ function pickSpawnPoint(%team, %__unused)
 		%count = %group.getCount();
 		if (%count > 0)
 		{
-			for (%spawn_counter = 0; %spawnOK != 1 && %spawn_counter < 200; %spawn_counter++)
-			{
-				%current_spawn = getRandom(%count - 1);
-				if ($spawnPointsUsed[%current_spawn] == 0)
-				{
-					%spawnOK = 1;
-					$spawnPointsUsed[%current_spawn] = 1;
-					%index = %current_spawn;
-				}
-			}
+			%index = getRandom(0,%count - 1);
 			%spawn = %group.getObject(%index);
 			return %spawn.getTransform();
 		}

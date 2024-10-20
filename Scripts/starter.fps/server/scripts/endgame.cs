@@ -4,27 +4,12 @@ function endgame_check()
 	{
 		for (%i = 1; %i <= $nb_teams; %i++)
 		{
-			if ($Team[%i].numPlayers >= 1)
+			if ($Team[%i].numPlayers >= 10)
 			{
-				%compte_equipes_vivantes = %compte_equipes_vivantes + 1;
+				$Game::WiningTeam = %i;
+				endgame_ok(%i, $Team[%i].numPlayers);
+				break;
 			}
-		}
-		if (%compte_equipes_vivantes < 2)
-		{
-			for (%i = 1; %i <= $nb_teams; %i++)
-			{
-				if ($Team[%i].numPlayers)
-				{
-					endgame_ok(%i, $Team[%i].numPlayers);
-					$Game::WiningTeam = %i;
-					break;
-				}
-			}
-		}
-		else if ($Team[1].numPlayers + $Team[2].numPlayers + $Team[3].numPlayers + $Team[4].numPlayers == 2)
-		{
-			messageAll('MsgDuel');
-			$achivement_temp_duel = 1;
 		}
 	}
 	else
@@ -108,29 +93,12 @@ function endgame_cameras(%equipe_gagnante, %alreadyPlaying)
 
 function endgame_scores(%equipe_gagnante, %nb_vivants)
 {
-	%score_current_partie = 2 + %nb_vivants;
-	$Team[%equipe_gagnante].score += %score_current_partie;
-	messageAll('MsgTeamScoreChanged', "", %equipe_gagnante, $Team[%equipe_gagnante].score);
+	$Team[%equipe_gagnante].score += 2;
 	for (%team = 1; %team <= $nb_teams; %team++)
 	{
-		for (%i = 1; %i <= 9; %i++)
-		{
-			$Team[%team].scoreLTG[%i] = $Team[%team].scoreLTG[%i + 1];
-		}
-		if (%team == %equipe_gagnante)
-		{
-			$Team[%team].scoreLTG[10] = %score_current_partie;
-		}
-		else
-		{
-			$Team[%team].scoreLTG[10] = 0;
-		}
-		$Team[%team].scoreLTGtotal = 0;
-		for (%i = 1; %i <= 10; %i++)
-		{
-			$Team[%team].scoreLTGtotal = $Team[%team].scoreLTGtotal + $Team[%team].scoreLTG[%i];
-		}
-		messageAll('MsgTeamScoreLTGChanged', "", %team, $Team[%team].scoreLTGtotal);
+		$Team[%team].score += $Team[%team].numPlayers;
+		messageAll('MsgTeamScoreChanged', "", %team, $Team[%team].score);
+		messageAll('MsgTeamScoreLTGChanged', "", %team, $Team[%team].score);
 	}
 }
 
