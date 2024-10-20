@@ -206,23 +206,20 @@ function startGame()
 	if ($Server::MissionType $= "Classic")
 	{
 		$nb_pingouins = 12;
-		$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
 	}
 	else if ($Server::MissionType $= "Duels")
 	{
 		$nb_pingouins = $nb_teams;
-		$nb_joueurs_par_team = 1;
 	}
 	else if ($Server::MissionType $= "Unlimited")
 	{
 		$nb_pingouins = $nb_teams;
-		$nb_joueurs_par_team = 1;
 	}
 	else if ($Server::MissionType $= "Modding")
 	{
 		$nb_pingouins = 12;
-		$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
 	}
+	$nb_joueurs_par_team = $nb_pingouins / $nb_teams;
 	for (%i = 1; %i <= 12; %i++)
 	{
 		$spawnPointsUsed[%i] = 0;
