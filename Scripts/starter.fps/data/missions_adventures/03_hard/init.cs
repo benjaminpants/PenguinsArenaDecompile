@@ -1,0 +1,1 @@
+// pack descriptionnew ScriptObject(PackDescription) {	name = "Hard";	directory = "03_hard";};
