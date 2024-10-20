@@ -44,6 +44,11 @@ function DeathTrigger::onEnterTrigger(%this, %trigger, %obj)
 				%current_team = $Team[%obj.teamResponsibleForDeath];
 				%current_team.numPlayers++;
 				messageAll('MsgMembersTeamChanged', "", %obj.teamResponsibleForDeath, %current_team.numPlayers, 1);
+				// todo: tweak this if i incorporate more penguins
+				if ($Team[%obj.teamResponsibleForDeath].client)
+				{
+					commandToClient($Team[%obj.teamResponsibleForDeath].client, 'FullGameOnly', "You killed " @ ($Team[%obj.team_id].playerName == "" ? "Bot" : $Team[%obj.team_id].playerName));
+				}
 			}
 		}
 		/*if (%current_team.numPlayers == 0)
